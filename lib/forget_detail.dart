@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/main.dart';
-
 import 'utility/CustomColour.dart';
 import 'dashboard_page.dart';
-import 'login_page.dart';
 
 class ForgetDetailPage extends StatelessWidget {
   const ForgetDetailPage({super.key});
