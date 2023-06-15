@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'banner.dart';
 import 'utility/CustomColour.dart';
-import 'login_page.dart';
 
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +19,7 @@ class DashBoard extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+
   const MyHomePage({
     super.key,
   });
@@ -29,14 +29,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   static const cardTopColour = Color(0xFFEF5932);
   static const cardBottomColour = Color(0xFFF68802);
   static const card1TopColour = Color(0xFFE13EA0);
   static const card1BottomColour = Color(0xFFD8133A);
   static const notificationColour = Color(0xFFECE9E9);
-  final TextEditingController _searchController = TextEditingController();
   int _selectedIndex = 0;
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -65,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
             child: Container(
-              child: conditionalWidget(_selectedIndex),
+              child: conditionalWidget(_selectedIndex,context),
             ),
         ),
       ),
@@ -154,8 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedIconTheme:
-            const IconThemeData(color: CustomColour.appTheme, size: 40),
+        selectedIconTheme: const IconThemeData(color: CustomColour.appTheme, size: 40),
         selectedItemColor: CustomColour.appTheme,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         unselectedItemColor: Colors.black54,
@@ -185,58 +183,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget conditionalWidget(int numberToCheck) {
-  switch (numberToCheck) {
+Widget conditionalWidget(int numberToCheck, BuildContext context)
+{
+  double height = MediaQuery. of(context). size. height;
+  double width = MediaQuery. of(context). size. width ;
+
+  switch (numberToCheck)
+  {
     case 0:
-      return Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: Banner(
-              message: '20% off',
-              location: BannerLocation.topEnd,
-              color: Colors.green,
-              child: Card(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                color: CustomColour.appTheme,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  height: 200,
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: Image.network(
-                          "https://www.rachnasagar.in/rsarapp.services/assets/banners/1.png",
-                          fit: BoxFit.fill,
-                          width: 150,
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text("Test book",
-                              style:
-                                  TextStyle(fontSize: 25, color: Colors.white)),
-                          SizedBox(height: 10),
-                          Text("Description ....",
-                              style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.white))
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
+      return  SizedBox(width: width,height: height,
+          child: const BannerPageView());
     case 1:
       return Column(
         children:  [
@@ -250,7 +206,8 @@ Widget conditionalWidget(int numberToCheck) {
                end: Alignment.bottomRight,
              ),
              borderRadius: BorderRadius.all(Radius.circular(20)),
-           ),margin: const EdgeInsets.all(10),
+           ),
+             margin: const EdgeInsets.all(10),
              child: Column(mainAxisAlignment: MainAxisAlignment.center,
                children: const [
                  Text('E-Book',style: TextStyle(color: Colors.white,fontSize: 20,height: 1)),
@@ -492,114 +449,114 @@ Widget conditionalWidget(int numberToCheck) {
         ],
       );
     case 3:
-      return Container(
-        padding: const EdgeInsets.all(8),
-        child: SingleChildScrollView(
-          child: Column(mainAxisSize: MainAxisSize.max,
+      return Column(
+        children: [
+          Stack(
             children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: ClipRRect(
+              SizedBox(
+                width: 100,
+                height: 100,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset('assets/logo.png'),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image.asset('assets/logo.png'),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: CustomColour.appTheme),
-                      child: const Icon(
+                      color: CustomColour.appTheme),
+                    child: IconButton(
+                      icon: const Icon(
                         Icons.edit,
                         color: Colors.white,
                         size: 20,
                       ),
-                    ),
-                  ),
-                ],
+                      onPressed: () {
+                        // do something
+                      },
+                    )
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 15),
-                    child: const Text(' Hello , ',
-                        style: TextStyle(fontSize: 20,color: Colors.black45,fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 15),
-                    child: const Text(
-                      ' Awnish kumar ',
-                      style: TextStyle(
-                          color: CustomColour.appTheme, fontSize: 20,fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              ListTile(
-                minLeadingWidth: 0,
-                leading: const Icon(Icons.shopping_cart),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' My cart ',style: TextStyle(fontWeight: FontWeight.bold)),
-                textColor: Colors.black45,
-                onTap: () {},
-              ),
-              const Divider(thickness: 1.2,height: 0),
-              ListTile(
-                minLeadingWidth: 0,
-                leading: const Icon(Icons.check_box_rounded),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' My Order ',style: TextStyle(fontWeight: FontWeight.bold)),
-                textColor: Colors.black45,
-                onTap: () {},
-              ),
-              const Divider(thickness: 1.2,height: 0),
-              ListTile(
-                minLeadingWidth: 0,
-                leading: const Icon(Icons.house_sharp),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' My Address ',style: TextStyle(fontWeight: FontWeight.bold)),
-                textColor: Colors.black45,
-                onTap: () {},
-              ),
-              const Divider(thickness: 1.2,height: 0),
-              ListTile(
-                minLeadingWidth: 0,
-                leading: const Icon(Icons.account_circle),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' My Profile ',style: TextStyle(fontWeight: FontWeight.bold)),
-                textColor: Colors.black45,
-                onTap: () {},
-              ),
-              const Divider(thickness: 1.2,height: 0),
-              ListTile(
-                minLeadingWidth: 0,
-                leading: const Icon(Icons.favorite),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' Wishlist ',style: TextStyle(fontWeight: FontWeight.bold)),
-                textColor: Colors.black45,
-                onTap: () {},
-              ),
-              const Divider(thickness: 1.2,height: 0),
-              ListTile(
-                minLeadingWidth: 0,
-                leading: const Icon(Icons.logout),
-                iconColor: CustomColour.appTheme,
-                title: const Text('LogOut',style: TextStyle(fontWeight: FontWeight.bold)),
-                textColor: Colors.black45,
-                onTap: () {},
-              ),
-              const Divider(thickness: 1.2,height: 0),
             ],
           ),
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 15),
+                child: const Text(' Hello , ',
+                    style: TextStyle(fontSize: 20,color: Colors.black45,fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 15),
+                child: const Text(
+                  ' Awnish kumar ',
+                  style: TextStyle(
+                      color: CustomColour.appTheme, fontSize: 20,fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          ListTile(
+            minLeadingWidth: 0,
+            leading: const Icon(Icons.shopping_cart),
+            iconColor: CustomColour.appTheme,
+            title: const Text(' My cart ',style: TextStyle(fontWeight: FontWeight.bold)),
+            textColor: Colors.black45,
+            onTap: () {},
+          ),
+          const Divider(thickness: 1.2,height: 0),
+          ListTile(
+            minLeadingWidth: 0,
+            leading: const Icon(Icons.check_box_rounded),
+            iconColor: CustomColour.appTheme,
+            title: const Text(' My Order ',style: TextStyle(fontWeight: FontWeight.bold)),
+            textColor: Colors.black45,
+            onTap: () {},
+          ),
+          const Divider(thickness: 1.2,height: 0),
+          ListTile(
+            minLeadingWidth: 0,
+            leading: const Icon(Icons.house_sharp),
+            iconColor: CustomColour.appTheme,
+            title: const Text(' My Address ',style: TextStyle(fontWeight: FontWeight.bold)),
+            textColor: Colors.black45,
+            onTap: () {},
+          ),
+          const Divider(thickness: 1.2,height: 0),
+          ListTile(
+            minLeadingWidth: 0,
+            leading: const Icon(Icons.account_circle),
+            iconColor: CustomColour.appTheme,
+            title: const Text(' My Profile ',style: TextStyle(fontWeight: FontWeight.bold)),
+            textColor: Colors.black45,
+            onTap: () {},
+          ),
+          const Divider(thickness: 1.2,height: 0),
+          ListTile(
+            minLeadingWidth: 0,
+            leading: const Icon(Icons.favorite),
+            iconColor: CustomColour.appTheme,
+            title: const Text(' Wishlist ',style: TextStyle(fontWeight: FontWeight.bold)),
+            textColor: Colors.black45,
+            onTap: () {},
+          ),
+          const Divider(thickness: 1.2,height: 0),
+          ListTile(
+            minLeadingWidth: 0,
+            leading: const Icon(Icons.logout),
+            iconColor: CustomColour.appTheme,
+            title: const Text('LogOut',style: TextStyle(fontWeight: FontWeight.bold)),
+            textColor: Colors.black45,
+            onTap: () {},
+          ),
+          const Divider(thickness: 1.2,height: 0),
+        ],
       );
     default:
       return const Text("default widget");
