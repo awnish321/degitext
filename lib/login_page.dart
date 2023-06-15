@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/forget_detail.dart';
 import 'package:new_flutter_project/sign_up_page.dart';
+import 'package:new_flutter_project/banner.dart';
 import 'utility/CustomColour.dart';
 import 'dashboard_page.dart';
 
@@ -162,7 +163,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           child: const Text('Privacy Policy'),
                           onPressed: () {
-
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  const BannerPageView()));
                           },
                         )
                     ),
