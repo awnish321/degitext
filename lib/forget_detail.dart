@@ -92,15 +92,11 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void setSignUpState(
-      String email,
-      BuildContext context
-      ) {
+  void setSignUpState(String email, BuildContext context) {
     if (
-        email.isNotEmpty ) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const DashBoard()),
+        email.isNotEmpty )
+    {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const DashBoard()),
       );
     } else {
       showErrorDialog(context);

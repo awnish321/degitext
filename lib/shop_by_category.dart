@@ -9,29 +9,42 @@ class ShopByCategory extends StatefulWidget {
 }
 
 class _ShopByCategoryState extends State<ShopByCategory> {
+
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   int _selectedIndex = 0;
   String radioButtonItem = 'Student';
   int id = 1;
-<<<<<<< HEAD
-  // String selectClass = 'Select Class';
-  // var classList = [
-  //   'Class 1',
-  //   'Class 2',
-  //   'Class 3',
-  //   'Class 4',
-  //   'Class 5',
-  // ];
-=======
->>>>>>> origin/master
-  String dropDownValue = 'Class 1';
-  var items = [
+
+  String classDropDownValue = '';
+  var classList = [
+    'Select class',
     'Class 1',
     'Class 2',
     'Class 3',
     'Class 4',
     'Class 5',
+  ];
+
+  String booksTypeDropDownValue = '';
+  var bookList = [
+    'Types of Books',
+    'Textbook',
+    'Workbook',
+    'Workbook cum practice material',
+    'worksheets',
+    'Trm',
+  ];
+
+  String subjectTypeDropDownValue = '';
+  var subjectList = [
+    'Select subject',
+    'Hindi',
+    'English',
+    'Math',
+    'S.S.T',
+    'Science',
   ];
 
   void _onItemTapped(int index) {
@@ -41,12 +54,18 @@ class _ShopByCategoryState extends State<ShopByCategory> {
   }
 
   @override
+  void initState() {
+    classDropDownValue = classList[0];
+    booksTypeDropDownValue = bookList[0];
+    subjectTypeDropDownValue = subjectList[0];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: CustomColour.appTheme),
-<<<<<<< HEAD
-      darkTheme: ThemeData(
-          brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
+      darkTheme: ThemeData(brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
@@ -59,12 +78,6 @@ class _ShopByCategoryState extends State<ShopByCategory> {
               Navigator.of(context).pop(true);
             },
           ),
-=======
-      darkTheme: ThemeData(brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
->>>>>>> origin/master
           title: const Text('RACHNA SAGAR PVT. LTD'),
           centerTitle: true,
           actions: <Widget>[
@@ -76,7 +89,6 @@ class _ShopByCategoryState extends State<ShopByCategory> {
               onPressed: () {
                 // do something
               },
-<<<<<<< HEAD
             ),
           ],
         ),
@@ -90,17 +102,6 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                 width: double.infinity,
                 height: 50,
                 margin: const EdgeInsets.only(top: 3, left: 10, right: 10),
-=======
-            )
-          ],
-        ),
-        body: SingleChildScrollView(padding: const EdgeInsets.all(10),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container( width: double.infinity,
-                height: 50,margin: const EdgeInsets.only(top: 3,left: 10,right: 10),
->>>>>>> origin/master
                 child: TextField(
                   decoration: InputDecoration(
                     filled: true,
@@ -115,33 +116,21 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ),
                 ),
               ),
-<<<<<<< HEAD
               Container(
                   width: double.infinity,
                   margin: const EdgeInsets.all(10),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: CustomColour.appTheme,
+                    color: CustomColour.appTheme.shade800,
                     border: Border.all(
-                        color: CustomColour.appTheme, // Set border color
+                        color: CustomColour.appTheme.shade800, // Set border color
                         width: 3.0), // Set border width
                     borderRadius: const BorderRadius.all(
                         Radius.circular(10.0)), // Set rounded corner radius
-=======
-              Container(width: double.infinity,margin: const EdgeInsets.all(10),
-                  alignment: Alignment.center, decoration: BoxDecoration(
-                      color: CustomColour.appTheme,
-                      border: Border.all(
-                          color:CustomColour.appTheme, // Set border color
-                          width: 3.0),   // Set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(10.0)), // Set rounded corner radius
->>>>>>> origin/master
                   ),
                   padding: const EdgeInsets.all(10),
                   child: const Text(
                     'CBSE',
-<<<<<<< HEAD
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -161,61 +150,9 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                       children: [
                         DropdownButton(
                           isExpanded: true,
-                          value: dropDownValue,
+                          value: classDropDownValue,
                           icon: const Icon(Icons.keyboard_arrow_down),
-                          items: items.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? value) {
-                            setState(() {
-                              dropDownValue = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-=======
-                    style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold,),
-                  )
-              ),
-              Container(margin: const EdgeInsets.symmetric(horizontal: 8),
->>>>>>> origin/master
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[200],
-<<<<<<< HEAD
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-=======
-                  child: Container(margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.stretch,
->>>>>>> origin/master
-                      children: [
-                        DropdownButton(
-                          isExpanded: true,
-                          value: dropDownValue,
-<<<<<<< HEAD
-                          icon: const Icon(Icons.keyboard_arrow_down),
-=======
-                          icon:
-                          const Icon(Icons.keyboard_arrow_down),
->>>>>>> origin/master
-                          items: items.map((String items) {
+                          items: classList.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(
@@ -225,7 +162,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              dropDownValue = newValue!;
+                              classDropDownValue = newValue!;
                             });
                           },
                         ),
@@ -234,38 +171,22 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ),
                 ),
               ),
-<<<<<<< HEAD
               Container(
                 margin: const EdgeInsets.symmetric(horizontal:  8),
-=======
-              Container(margin: const EdgeInsets.symmetric(horizontal: 8),
->>>>>>> origin/master
                 child: Card(
                   elevation: 1,
                   shadowColor: Colors.black,
                   color: Colors.grey[200],
-<<<<<<< HEAD
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-=======
-                  child: Container(margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.stretch,
->>>>>>> origin/master
                       children: [
                         DropdownButton(
                           isExpanded: true,
-                          value: dropDownValue,
-<<<<<<< HEAD
+                          value: booksTypeDropDownValue,
                           icon: const Icon(Icons.keyboard_arrow_down),
-=======
-                          icon:
-                          const Icon(Icons.keyboard_arrow_down),
->>>>>>> origin/master
-                          items: items.map((String items) {
+                          items: bookList.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(
@@ -275,7 +196,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              dropDownValue = newValue!;
+                              booksTypeDropDownValue = newValue!;
                             });
                           },
                         ),
@@ -284,499 +205,22 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ),
                 ),
               ),
-<<<<<<< HEAD
-              Container(margin: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 425   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (15%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 360   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 400',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(margin: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                  children:const [
-                                    Text(
-                                      '\u{20B9} 540   ',
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(letterSpacing: 0.5,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      '\u{20B9} 600',
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                      ),textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      ' (10%)',
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(letterSpacing: 0.5,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.bold,
-                                      ),textAlign: TextAlign.center,
-                                    ),
-                                  ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 450   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(margin: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 425   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (15%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 360   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 400',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(margin: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                  children:const [
-                                    Text(
-                                      '\u{20B9} 540   ',
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(letterSpacing: 0.5,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      '\u{20B9} 600',
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                      ),textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      ' (10%)',
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(letterSpacing: 0.5,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.bold,
-                                      ),textAlign: TextAlign.center,
-                                    ),
-                                  ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 450   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-=======
-              Container(margin: const EdgeInsets.symmetric(horizontal: 8),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal:  8),
                 child: Card(
                   elevation: 1,
                   shadowColor: Colors.black,
                   color: Colors.grey[200],
-                  child: Container(margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         DropdownButton(
                           isExpanded: true,
-                          value: dropDownValue,
-                          icon:
-                          const Icon(Icons.keyboard_arrow_down),
-                          items: items.map((String items) {
+                          value: subjectTypeDropDownValue,
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          items: subjectList.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(
@@ -786,7 +230,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              dropDownValue = newValue!;
+                              subjectTypeDropDownValue = newValue!;
                             });
                           },
                         ),
@@ -795,110 +239,481 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ),
                 ),
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Container(margin: const EdgeInsets.all(10),height: 300,color: CustomColour.appTheme,alignment: Alignment.bottomCenter,
-                        child: const Text(
-                          'CBSE',
-                          style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold,),
-
+              Container(margin: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 425   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 500',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (15%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
                         ),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(margin: const EdgeInsets.all(10),height: 300,color: CustomColour.appTheme,alignment: Alignment.bottomCenter,
-                        child: const Text(
-                          'CBSE',
-                          style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold,),
-                        )
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 360   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 400',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (10%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: const EdgeInsets.all(0),
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: CustomColour.appTheme,
-                ), //BoxDecoration
-                child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(color: CustomColour.appTheme),
-                  accountName: Text(
-                    "Awnish Kumar",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  accountEmail: Text("Awnish@gmail.com"),
-                  currentAccountPictureSize: Size.square(50),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Text(
-                      "A",
-                      style:
-                      TextStyle(fontSize: 30.0, color: CustomColour.appTheme),
-                    ), //Text
-                  ), //circleAvatar
-                ), //UserAccountDrawerHeader
-              ), //DrawerHeader
-              ListTile(
-                leading: const Icon(Icons.person),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' My Profile '),
-                textColor: CustomColour.appTheme,
-                onTap: () {
-                  Navigator.pop(context);
-                },
+              Container(margin: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 540   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 600',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (10%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 450   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 500',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (10%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.book),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' My Class '),
-                textColor: CustomColour.appTheme,
-                onTap: () {
-                  Navigator.pop(context);
-                },
+              Container(margin: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 425   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 500',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (15%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 360   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 400',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (10%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.workspace_premium),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' Ebook '),
-                textColor: CustomColour.appTheme,
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.video_label),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' Saved Videos '),
-                textColor: CustomColour.appTheme,
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.edit),
-                iconColor: CustomColour.appTheme,
-                title: const Text(' Edit Profile '),
-                textColor: CustomColour.appTheme,
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                iconColor: CustomColour.appTheme,
-                title: const Text('LogOut'),
-                textColor: CustomColour.appTheme,
-                onTap: () {
-                  Navigator.pop(context);
-                },
->>>>>>> origin/master
+              Container(margin: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 540   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 600',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (10%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/books.png"),
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(letterSpacing: 0.5,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(padding: const EdgeInsets.all(8),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:const [
+                                      Text(
+                                        '\u{20B9} 450   ',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        '\u{20B9} 500',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' (10%)',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(letterSpacing: 0.5,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -906,11 +721,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedIconTheme:
-<<<<<<< HEAD
-              const IconThemeData(color: CustomColour.appTheme, size: 40),
-=======
           const IconThemeData(color: CustomColour.appTheme, size: 40),
->>>>>>> origin/master
           selectedItemColor: CustomColour.appTheme,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
           unselectedItemColor: Colors.black54,
@@ -939,8 +750,4 @@ class _ShopByCategoryState extends State<ShopByCategory> {
       ),
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
