@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:new_flutter_project/contact_us.dart';
+import 'package:new_flutter_project/profile_page.dart';
+import 'package:new_flutter_project/saved_address_page.dart';
+import 'package:new_flutter_project/wishlist_page.dart';
 import 'package:new_flutter_project/shop_by_category.dart';
-import 'web_page.dart';
+import 'add_new_address_page.dart';
+import 'cart_page.dart';
+import 'main.dart';
 import 'utility/CustomColour.dart';
 
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final pageController2 = PageController();
 
   double currentPage = 0;
-
   int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   void initState() {
@@ -58,145 +57,180 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('RACHNA SAGAR PVT. LTD'),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.shopping_cart,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Container(
+    return WillPopScope(
+      onWillPop: () async {
+        if(_selectedIndex==0){
+          return true;
+        }
+        setState(() {
+          _selectedIndex=0;
+        });
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('RACHNA SAGAR PVT. LTD'),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Cart()),
+                );
+                },
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Container(padding: const EdgeInsets.all(8.0),
             child: conditionalWidget(_selectedIndex,context),
           ),
         ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: const EdgeInsets.all(0),
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: CustomColour.appTheme,
-              ), //BoxDecoration
-              child: UserAccountsDrawerHeader(
-                decoration: BoxDecoration(color: CustomColour.appTheme),
-                accountName: Text(
-                  "Awnish Kumar",
-                  style: TextStyle(fontSize: 18),
-                ),
-                accountEmail: Text("Awnish@gmail.com"),
-                currentAccountPictureSize: Size.square(50),
-                currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text(
-                    "A",
-                    style:
-                    TextStyle(fontSize: 30.0, color: CustomColour.appTheme),
-                  ), //Text
-                ), //circleAvatar
-              ), //UserAccountDrawerHeader
-            ), //DrawerHeader
-            ListTile(
-              leading: const Icon(Icons.person),
-              iconColor: CustomColour.appTheme,
-              title: const Text(' My Profile '),
-              textColor: CustomColour.appTheme,
-              onTap: () {
-                Navigator.pop(context);
-              },
+        drawer: Drawer(
+          child: ListView(
+            padding: const EdgeInsets.all(0),
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: CustomColour.appTheme,
+                ), //BoxDecoration
+                child: UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(color: CustomColour.appTheme),
+                  accountName: Text(
+                    "Awnish Kumar",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  accountEmail: Text("Awnish@gmail.com"),
+                  currentAccountPictureSize: Size.square(50),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Text(
+                      "A",
+                      style:
+                      TextStyle(fontSize: 30.0, color: CustomColour.appTheme),
+                    ), //Text
+                  ), //circleAvatar
+                ), //UserAccountDrawerHeader
+              ), //DrawerHeader
+              ListTile(
+                leading: const Icon(Icons.person),
+                iconColor: CustomColour.appTheme,
+                title: const Text(' My Profile '),
+                textColor: CustomColour.appTheme,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfile()));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.book),
+                iconColor: CustomColour.appTheme,
+                title: const Text(' My Order '),
+                textColor: CustomColour.appTheme,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.account_balance_sharp),
+                iconColor: CustomColour.appTheme,
+                title: const Text(' My Address '),
+                textColor: CustomColour.appTheme,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedAddress()));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.favorite),
+                iconColor: CustomColour.appTheme,
+                title: const Text(' WishList '),
+                textColor: CustomColour.appTheme,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WishList()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.shopping_cart),
+                iconColor: CustomColour.appTheme,
+                title: const Text(' My Cart '),
+                textColor: CustomColour.appTheme,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.quick_contacts_dialer_outlined),
+                iconColor: CustomColour.appTheme,
+                title: const Text(' Contact Us '),
+                textColor: CustomColour.appTheme,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactUs()));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                iconColor: CustomColour.appTheme,
+                title: const Text('LogOut'),
+                textColor: CustomColour.appTheme,
+                onTap: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyApp()));
+                },
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedIconTheme: const IconThemeData(color: CustomColour.appTheme, size: 40),
+          selectedItemColor: CustomColour.appTheme,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          unselectedItemColor: Colors.black54,
+          showUnselectedLabels: true,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book_online),
+              label: ("Our Product"),
             ),
-            ListTile(
-              leading: const Icon(Icons.book),
-              iconColor: CustomColour.appTheme,
-              title: const Text(' My Class '),
-              textColor: CustomColour.appTheme,
-              onTap: () {
-                Navigator.pop(context);
-              },
+            BottomNavigationBarItem(
+              icon: Icon(Icons.import_contacts_rounded),
+              label: ("Read E-Book"),
             ),
-            ListTile(
-              leading: const Icon(Icons.workspace_premium),
-              iconColor: CustomColour.appTheme,
-              title: const Text(' Ebook '),
-              textColor: CustomColour.appTheme,
-              onTap: () {
-                Navigator.pop(context);
-              },
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications_sharp),
+              label: ("Notification"),
             ),
-            ListTile(
-              leading: const Icon(Icons.video_label),
-              iconColor: CustomColour.appTheme,
-              title: const Text(' Saved Videos '),
-              textColor: CustomColour.appTheme,
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.edit),
-              iconColor: CustomColour.appTheme,
-              title: const Text(' Edit Profile '),
-              textColor: CustomColour.appTheme,
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              iconColor: CustomColour.appTheme,
-              title: const Text('LogOut'),
-              textColor: CustomColour.appTheme,
-              onTap: () {
-                Navigator.pop(context);
-              },
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              label: ("Account"),
             ),
           ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedIconTheme: const IconThemeData(color: CustomColour.appTheme, size: 40),
-        selectedItemColor: CustomColour.appTheme,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        unselectedItemColor: Colors.black54,
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book_online),
-            label: ("Our Product"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.import_contacts_rounded),
-            label: ("Read E-Book"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_sharp),
-            label: ("Notification"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: ("Account"),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
     );
   }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
 }
 
 Widget conditionalWidget(int numberToCheck, BuildContext context) {
@@ -718,62 +752,62 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
     case 3:
       return Column(
         children: [
-          Stack(
+          Column(
             children: [
-              SizedBox(
-                width: 100,
-                height: 100,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset('assets/logo.png'),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const <Widget>[
+                  CircleAvatar(
+                    backgroundColor: CustomColour.appTheme,
+                    minRadius: 65.0,
+                    child: CircleAvatar(
+                      radius: 60.0,
+                      backgroundImage: NetworkImage(
+                          'https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4'),
+                    ),
+                  ),
+                ],
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                    width: 35,
-                    height: 35,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: CustomColour.appTheme),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      onPressed: () {
-                        // do something
-                      },
-                    )
-                ),
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Container(
+              //       margin: const EdgeInsets.symmetric(vertical: 15),
+              //       child: const Text(' Hello , ',
+              //           style: TextStyle(fontSize: 20,color: Colors.black45,fontWeight: FontWeight.bold)),
+              //     ),
+              //     Container(
+              //       margin: const EdgeInsets.symmetric(vertical: 15),
+              //       child: const Text(
+              //         ' Awnish kumar ',
+              //         style: TextStyle(
+              //             color: CustomColour.appTheme, fontSize: 20,fontWeight: FontWeight.bold),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                child: const Text(' Hello , ',
-                    style: TextStyle(fontSize: 20,color: Colors.black45,fontWeight: FontWeight.bold)),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                child: const Text(
-                  ' Awnish kumar ',
-                  style: TextStyle(
-                      color: CustomColour.appTheme, fontSize: 20,fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
+          const SizedBox(
+            height: 15,
           ),
+          // const Divider(thickness: 2,height: 0,color: CustomColour.appTheme),
           ListTile(
             minLeadingWidth: 0,
-            leading: const Icon(Icons.shopping_cart),
+            leading: const Icon(Icons.account_circle),
             iconColor: CustomColour.appTheme,
-            title: const Text(' My cart ',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text(' My Profile ',style: TextStyle(fontWeight: FontWeight.bold)),
+            textColor: Colors.black45,
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfile()));
+            },
+          ),
+          const Divider(thickness: 1.2,height: 0),
+          ListTile(
+            minLeadingWidth: 0,
+            leading: const Icon(Icons.house_sharp),
+            iconColor: CustomColour.appTheme,
+            title: const Text(' My Address ',style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
             onTap: () {},
           ),
@@ -789,20 +823,14 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
           const Divider(thickness: 1.2,height: 0),
           ListTile(
             minLeadingWidth: 0,
-            leading: const Icon(Icons.house_sharp),
+            leading: const Icon(Icons.shopping_cart),
             iconColor: CustomColour.appTheme,
-            title: const Text(' My Address ',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text(' My cart ',style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
-            onTap: () {},
-          ),
-          const Divider(thickness: 1.2,height: 0),
-          ListTile(
-            minLeadingWidth: 0,
-            leading: const Icon(Icons.account_circle),
-            iconColor: CustomColour.appTheme,
-            title: const Text(' My Profile ',style: TextStyle(fontWeight: FontWeight.bold)),
-            textColor: Colors.black45,
-            onTap: () {},
+            onTap: () {
+              // Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()));
+            },
           ),
           const Divider(thickness: 1.2,height: 0),
           ListTile(
@@ -811,7 +839,10 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
             iconColor: CustomColour.appTheme,
             title: const Text(' Wishlist ',style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
-            onTap: () {},
+            onTap: () {
+              // Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const WishList()));
+            },
           ),
           const Divider(thickness: 1.2,height: 0),
           ListTile(
@@ -820,7 +851,18 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
             iconColor: CustomColour.appTheme,
             title: const Text('LogOut',style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
-            onTap: () {},
+            onTap: () {
+              // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+              //   return const MyApp();
+              // }), (r){
+              //   return false;
+              // });
+              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context){
+              //   return const MyApp();
+              // }));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyApp()));
+
+            },
           ),
           const Divider(thickness: 1.2,height: 0),
         ],

@@ -597,7 +597,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                 ),
               ),
               Container(margin: const EdgeInsets.all(8),
-                child: Row(
+              child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
@@ -718,36 +718,9 @@ class _ShopByCategoryState extends State<ShopByCategory> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          selectedIconTheme:
-          const IconThemeData(color: CustomColour.appTheme, size: 40),
-          selectedItemColor: CustomColour.appTheme,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-          unselectedItemColor: Colors.black54,
-          showUnselectedLabels: true,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.book_online),
-              label: ("Our Product"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.import_contacts_rounded),
-              label: ("Read E-Book"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_sharp),
-              label: ("Notification"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: ("Account"),
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-        ),
       ),
     );
   }
+
 }
+

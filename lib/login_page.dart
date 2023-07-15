@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const DashBoard()),
                       );
@@ -75,14 +75,14 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   controller: passwordController,
                   decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: themeColour),
-                      ),
-                      labelText: 'Password',
-                      // errorText: _validate ? 'User name\'is wrong' : null,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: themeColour),
+                    ),
+                    labelText: 'Password',
+                    // errorText: _validate ? 'User name\'is wrong' : null,
                   ),
                 ),
               ),
@@ -115,18 +115,32 @@ class _LoginPageState extends State<LoginPage> {
                       var userPassword = passwordController.text.trim().toString();
                       var user = "good";
                       var password = "123";
-
                       setState(() {
                         userName == user ? _validate = true : _validate = false;
                         userPassword == password ? _validate = true : _validate = false;
                       });
                       if(userName ==user && userPassword == password){
-                        Navigator.push(
-                          context,
+                        Navigator.push(context,
                           MaterialPageRoute(builder: (context) => const DashBoard()),
                         );
                       }else{
-                        print("user name or password wrong");
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Alert Dialog"),
+                              content: const Text("User name/Email or Password is wrong"),
+                              actions: [
+                                TextButton(
+                                  child: const Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        );
                       }
                     },
                   )
