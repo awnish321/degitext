@@ -190,8 +190,7 @@ class _MyFavorite extends State<WishList> {
                         ),
                       ),
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.blueGrey.shade900),
+                          style: ElevatedButton.styleFrom(primary: CustomColour.appTheme.shade700),
                           onPressed: () {
                           },
                           child: const Text('Add to Cart')

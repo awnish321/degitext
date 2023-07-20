@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/contact_us.dart';
+import 'package:new_flutter_project/my_order.dart';
 import 'package:new_flutter_project/profile_page.dart';
 import 'package:new_flutter_project/saved_address_page.dart';
 import 'package:new_flutter_project/wishlist_page.dart';
@@ -137,6 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const MyOrder()));
                 },
               ),
               ListTile(
@@ -357,14 +359,24 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                       Expanded(flex :1,
                         child: Container(margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 2),alignment: Alignment.center,
                           decoration: BoxDecoration(border: Border.all(color: Colors.white,),),width: double.infinity,
-                          child: TextButton(onPressed: () {  },
+                          child: TextButton(onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ShopByCategory()),
+                            );
+                          },
                             child: const Text("Teacher/Schools",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold,)),),
                         ),
                       ),
                       Expanded(flex :1,
                         child: Container(margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 2),alignment: Alignment.center,
                           decoration: BoxDecoration(border: Border.all(color: Colors.white,),),width: double.infinity,
-                          child: TextButton(onPressed: () {  },
+                          child: TextButton(onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ShopByCategory()),
+                            );
+                          },
                             child: const Text("Bookseller",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold,)),),
                         ),
                       ),
@@ -791,7 +803,6 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
           const SizedBox(
             height: 15,
           ),
-          // const Divider(thickness: 2,height: 0,color: CustomColour.appTheme),
           ListTile(
             minLeadingWidth: 0,
             leading: const Icon(Icons.account_circle),
@@ -809,7 +820,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
             iconColor: CustomColour.appTheme,
             title: const Text(' My Address ',style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedAddress()));
+            },
           ),
           const Divider(thickness: 1.2,height: 0),
           ListTile(
@@ -818,7 +831,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
             iconColor: CustomColour.appTheme,
             title: const Text(' My Order ',style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyOrder()));
+            },
           ),
           const Divider(thickness: 1.2,height: 0),
           ListTile(

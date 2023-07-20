@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/billing_page.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:new_flutter_project/order_detail.dart';
+import 'package:new_flutter_project/profile_page.dart';
 
-class Cart extends StatefulWidget {
-  const Cart({
+class MyOrder extends StatefulWidget {
+  const MyOrder({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Cart> createState() => _CartState();
+  State<MyOrder> createState() => _MyOrderState();
 }
 
-class _CartState extends State<Cart> {
-  get deleteQuantity => null;
-  get addQuantity => null;
+class _MyOrderState extends State<MyOrder> {
   static const notificationColour = Color(0xFFD7D7D7);
 
   @override
@@ -28,7 +26,7 @@ class _CartState extends State<Cart> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('My Shopping Cart'),
+        title: const Text('My Order'),
       ),
       body: Column(
         children: [
@@ -62,11 +60,11 @@ class _CartState extends State<Cart> {
                                         fontSize: 14.0),
                                     children: [
                                       TextSpan(
-                                          text: 'S.S.T , Science',
+                                          text: 'English hindi math',
                                           style: TextStyle(
                                             color: Colors.black54,
-                                              overflow: TextOverflow.ellipsis,
-                                              )),
+                                            overflow: TextOverflow.ellipsis,
+                                          )),
                                     ]),
                               ),
                               RichText(
@@ -81,7 +79,7 @@ class _CartState extends State<Cart> {
                                           text: 'Piece',
                                           style: TextStyle(
                                             color: Colors.black54,
-                                              )),
+                                          )),
                                     ]),
                               ),
                               RichText(
@@ -95,19 +93,18 @@ class _CartState extends State<Cart> {
                                       TextSpan(
                                           text: '350',
                                           style: TextStyle(color: Colors.black54,
-                                             )),
+                                          )),
                                     ]),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      IconButton(onPressed: deleteQuantity, icon: const Icon(Icons.remove)),
-                      const Text("1",
-                          style: TextStyle(color: Colors.black54,
-                          )),
-                      IconButton(onPressed: addQuantity, icon: const Icon(Icons.add)),
-                      IconButton(onPressed: addQuantity, icon: const Icon(Icons.delete,color: Colors.black,)),
+                      IconButton(
+                        icon: const Icon(Icons.arrow_forward_ios_rounded),
+                        color: Colors.black54,
+                        onPressed:(){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderDetail()));},
+                      ),
                     ],
                   ),
                 ),
@@ -170,7 +167,7 @@ class _CartState extends State<Cart> {
                                         fontSize: 14.0),
                                     children: [
                                       TextSpan(
-                                          text: '450',
+                                          text: '350',
                                           style: TextStyle(color: Colors.black54,
                                           )),
                                     ]),
@@ -179,12 +176,9 @@ class _CartState extends State<Cart> {
                           ),
                         ),
                       ),
-                      IconButton(onPressed: deleteQuantity, icon: const Icon(Icons.remove)),
-                      const Text("2",
-                          style: TextStyle(color: Colors.black54,
-                          )),
-                      IconButton(onPressed: addQuantity, icon: const Icon(Icons.add)),
-                      IconButton(onPressed: addQuantity, icon: const Icon(Icons.delete,color: Colors.black,)),
+                      IconButton(
+                        onPressed:(){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderDetail()));},
+                        icon: const Icon(Icons.arrow_forward_ios_rounded,color: Colors.black54,),),
                     ],
                   ),
                 ),
@@ -193,76 +187,7 @@ class _CartState extends State<Cart> {
           ),
         ],
       ),
-      bottomNavigationBar: InkWell(
-        onTap: () { Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const BillingPage()),
-        );
-        },
-        child: Container(
-          color: CustomColour.appTheme,
-          alignment: Alignment.center,
-          height: 50.0,
-          child: const Text(
-            'Proceed to Pay',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
 
-class PlusMinusButtons extends StatelessWidget {
-  final VoidCallback deleteQuantity;
-  final VoidCallback addQuantity;
-  final String text;
-
-  const PlusMinusButtons(
-      {Key? key,
-      required this.addQuantity,
-      required this.deleteQuantity,
-      required this.text})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(onPressed: deleteQuantity, icon: const Icon(Icons.remove)),
-        Text(text),
-        IconButton(onPressed: addQuantity, icon: const Icon(Icons.add)),
-      ],
-    );
-  }
-}
-
-class ReusableWidget extends StatelessWidget {
-  final String title, value;
-
-  const ReusableWidget({Key? key, required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          Text(
-            value.toString(),
-            style: Theme.of(context).textTheme.subtitle2,
-          ),
-        ],
-      ),
-    );
-  }
-}

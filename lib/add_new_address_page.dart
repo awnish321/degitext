@@ -50,64 +50,173 @@ class MyCustomFormState extends State<AddAddress> {
       key: _formKey,
       child: Container(
         padding: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                hintText: 'Enter your full name',
-                labelText: 'Name',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.phone),
-                hintText: 'Enter a phone number',
-                labelText: 'Phone',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter valid phone number';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.calendar_today),
-                hintText: 'Enter your date of birth',
-                labelText: 'Dob',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter valid date';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 20,),
-            Row(mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(style:  const ButtonStyle(backgroundColor: MaterialStatePropertyAll(CustomColour.appTheme)),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
-                    }
-                  },
-                  child: const Text('Submit'),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person,color: CustomColour.appTheme),
+                  hintText: 'Enter your full name',
+                  labelText: 'Name', labelStyle: TextStyle(
+                    color: CustomColour.appTheme,decorationColor: CustomColour.appTheme
+                ),enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: CustomColour.appTheme),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black54),
                 ),
-              ],
-            ),
-          ],
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your full name';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.phone,color: CustomColour.appTheme),
+                  hintText: 'Enter a phone number',
+                  labelText: 'Phone', labelStyle:TextStyle(
+                    color: CustomColour.appTheme,decorationColor: CustomColour.appTheme
+                ),enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: CustomColour.appTheme),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black54),
+                ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter valid phone number';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.account_balance,color: CustomColour.appTheme),
+                  hintText: 'Enter a Address',
+                  labelText: 'Address', labelStyle:TextStyle(
+                    color: CustomColour.appTheme,decorationColor: CustomColour.appTheme
+                ),enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: CustomColour.appTheme),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black54),
+                ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter Address';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.landscape,color: CustomColour.appTheme),
+                  hintText: 'Landmark',
+                  labelText: 'Landmark', labelStyle:TextStyle(
+                    color: CustomColour.appTheme,decorationColor: CustomColour.appTheme
+                ),enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: CustomColour.appTheme),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black54),
+                ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your Landmark';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.pin,color: CustomColour.appTheme),
+                  hintText: 'Enter your Pin Code',
+                  labelText: 'Pin Code', labelStyle: TextStyle(
+                    color: CustomColour.appTheme,decorationColor: CustomColour.appTheme
+                ),enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: CustomColour.appTheme),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black54),
+                ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter valid Pin Code';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.map,color: CustomColour.appTheme),
+                  hintText: 'Enter your State',
+                  labelText: 'State', labelStyle: TextStyle(
+                    color: CustomColour.appTheme,decorationColor: CustomColour.appTheme
+                ),enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: CustomColour.appTheme),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black54),
+                ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter valid State Name';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.language,color: CustomColour.appTheme),
+                  hintText: 'Enter your Country',
+                  labelText: 'Country', labelStyle: TextStyle(
+                  color: CustomColour.appTheme,decorationColor: CustomColour.appTheme
+                ),enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: CustomColour.appTheme),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black54),
+                ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter Your Country Name';
+                  }
+                  return null;
+                },
+              ),
+              // TextFormField(
+              //   decoration: const InputDecoration(
+              //     icon: Icon(Icons.calendar_today),
+              //     hintText: 'Enter your date of birth',
+              //     labelText: 'Dob',
+              //   ),
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Please enter valid date';
+              //     }
+              //     return null;
+              //   },
+              // ),
+              const SizedBox(height: 20,),
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(style:  const ButtonStyle(backgroundColor: MaterialStatePropertyAll(CustomColour.appTheme)),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
+                        );
+                      }
+                    },
+                    child: const Text('Submit'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

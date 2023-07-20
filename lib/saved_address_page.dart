@@ -120,7 +120,6 @@ class SavedAddress extends StatelessWidget {
                   ),
                 ],
               ),
-
             ],
           ),
         ),

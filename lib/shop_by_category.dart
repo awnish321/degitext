@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:new_flutter_project/product_detail.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
+
+import 'cart_page.dart';
 
 class ShopByCategory extends StatefulWidget {
   const ShopByCategory({Key? key}) : super(key: key);
@@ -86,8 +89,11 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                 Icons.shopping_cart,
                 color: Colors.white,
               ),
-              onPressed: () {
-                // do something
+              onPressed: ()  {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Cart()),
+                );
               },
             ),
           ],
@@ -244,113 +250,129 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
+                      child: InkWell(onTap: ()
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ProductDetail()),
+                        );
+                      },
+                        child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                          child: Card(elevation: 2,
+                            child: Column(
+                              children: [
+                                Image.asset("assets/books.png"),
+                                const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Text(
+                                    'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(letterSpacing: 0.5,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 425   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (15%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
+                                Container(padding: const EdgeInsets.all(8),
+                                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                      children:const [
+                                        Text(
+                                          '\u{20B9} 425   ',
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(letterSpacing: 0.5,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          '\u{20B9} 500',
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold,
+                                          ),textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          ' (15%)',
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(letterSpacing: 0.5,
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.bold,
+                                          ),textAlign: TextAlign.center,
+                                        ),
+                                      ]
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                     Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
+                        child: InkWell(onTap: ()
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProductDetail()),
+                        );
+                      },
+                        child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                          child: Card(elevation: 2,
+                            child: Column(
+                              children: [
+                                Image.asset("assets/books.png"),
+                                const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Text(
+                                    'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(letterSpacing: 0.5,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
-                                      Text(
-                                        '\u{20B9} 360   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 400',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
+                                Container(padding: const EdgeInsets.all(8),
+                                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                                      children:const [
+                                        Text(
+                                          '\u{20B9} 360   ',
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(letterSpacing: 0.5,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          '\u{20B9} 400',
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold,
+                                          ),textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          ' (10%)',
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(letterSpacing: 0.5,
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.bold,
+                                          ),textAlign: TextAlign.center,
+                                        ),
+                                      ]
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
