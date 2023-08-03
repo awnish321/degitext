@@ -3,23 +3,17 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 
 class ProductDetail extends StatefulWidget {
-  ProductDetail({super.key});
+  const ProductDetail({super.key});
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  get deleteQuantity => null;
-
-  get addQuantity => null;
 
   int _radioSelected = 1;
 
   late String radioVal = "Paper Book";
-
-  double? _rating;
-  IconData? _selectedIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -316,56 +310,45 @@ class _ProductDetailState extends State<ProductDetail> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                child: InkWell(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Add To Wishlist'),
-                        duration: Duration(seconds: 2),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    color: CustomColour.appTheme,
-                    alignment: Alignment.center,
-                    height: 50.0,
-                    child: const Text(
-                      'Add To Wishlist',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              child: InkWell(
+                child: Container(
+                  color: CustomColour.appTheme,
+                  alignment: Alignment.center,
+                  height: 50.0,
+                  margin: const EdgeInsets.all(5),
+                  child: const Text(
+                    'Add To Wishlist',
+                    style: TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold,),
                   ),
                 ),
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Add To Wishlist'),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
               ),
             ),
             Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                child: InkWell(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Add to Cart'),
-                        duration: Duration(seconds: 2),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    color: CustomColour.appTheme,
-                    alignment: Alignment.center,
-                    height: 50.0,
-                    child: const Text(
-                      'Add To Cart',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+              child: InkWell(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Add To Cart'),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
+                child: Container(
+                  color: CustomColour.appTheme,
+                  alignment: Alignment.center,
+                  height: 50.0,
+                  margin: const EdgeInsets.all(5),
+                  child: const Text('Add To Cart',
+                    style: TextStyle(
+                      color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -373,56 +356,6 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class PlusMinusButtons extends StatelessWidget {
-  final VoidCallback deleteQuantity;
-  final VoidCallback addQuantity;
-  final String text;
-
-  const PlusMinusButtons(
-      {Key? key,
-      required this.addQuantity,
-      required this.deleteQuantity,
-      required this.text})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(onPressed: deleteQuantity, icon: const Icon(Icons.remove)),
-        Text(text),
-        IconButton(onPressed: addQuantity, icon: const Icon(Icons.add)),
-      ],
-    );
-  }
-}
-
-class ReusableWidget extends StatelessWidget {
-  final String title, value;
-
-  const ReusableWidget({Key? key, required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          Text(
-            value.toString(),
-            style: Theme.of(context).textTheme.subtitle2,
-          ),
-        ],
       ),
     );
   }

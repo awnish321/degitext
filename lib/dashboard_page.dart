@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:new_flutter_project/coming_soon_page.dart';
 import 'package:new_flutter_project/contact_us.dart';
 import 'package:new_flutter_project/my_order.dart';
 import 'package:new_flutter_project/profile_page.dart';
 import 'package:new_flutter_project/saved_address_page.dart';
 import 'package:new_flutter_project/wishlist_page.dart';
 import 'package:new_flutter_project/shop_by_category.dart';
-import 'add_new_address_page.dart';
 import 'cart_page.dart';
 import 'main.dart';
 import 'utility/CustomColour.dart';
@@ -232,7 +232,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   }
-
 }
 
 Widget conditionalWidget(int numberToCheck, BuildContext context) {
@@ -242,7 +241,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
   final pageController = PageController();
   final pageController1 = PageController();
   final pageController2 = PageController();
-  const double currentPage = 0;
+  double currentPage = 0;
 
   switch (numberToCheck)
   {
@@ -323,17 +322,15 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Row(mainAxisSize: MainAxisSize.max,mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(3, (index) {
+                  children: List.generate(3, (index)
+                  {
                     return Container(
                       margin: const EdgeInsets.only(right: 5),
                       alignment: Alignment.centerLeft,
                       height: 9,
                       width: 9,
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: currentPage == index
-                            ? Colors.black
-                            : Colors.black12,
+                        shape: BoxShape.circle, color: currentPage == index ? Colors.black : Colors.black12,
                       ),
                     );
                   },
@@ -521,11 +518,17 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
             margin: const EdgeInsets.all(10),
-            child: Column(mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text('E-Book',style: TextStyle(color: Colors.white,fontSize: 20,height: 1)),
-                Text('Tap to download and read e-book',style: TextStyle(color: Colors.white,fontSize: 15)),
-              ],
+            child: InkWell
+              (
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('E-Book',style: TextStyle(color: Colors.white,fontSize: 20,height: 1)),
+                  Text('Tap to download and read e-book',style: TextStyle(color: Colors.white,fontSize: 15)),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ComingSoon()));
+              },
             ),
           ),
           Container(width: double.infinity,height: 150, decoration: const BoxDecoration(
@@ -538,12 +541,18 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),margin: const EdgeInsets.all(10),
-            child: Column(mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text('Interactive E-Book',style: TextStyle(color: Colors.white,fontSize: 20,height: 1)),
-                Text('Tap to download and read interactive e-book',style: TextStyle(color: Colors.white,fontSize: 15))
-              ],
+          ),
+            margin: const EdgeInsets.all(10),
+            child: InkWell(
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Interactive E-Book',style: TextStyle(color: Colors.white,fontSize: 20,height: 1)),
+                  Text('Tap to download and read interactive e-book',style: TextStyle(color: Colors.white,fontSize: 15))
+                ],
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ComingSoon()));
+              },
             ),
           ),
         ],
