@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/coming_soon_page.dart';
 import 'package:new_flutter_project/contact_us.dart';
+import 'package:new_flutter_project/download_zip_file.dart';
 import 'package:new_flutter_project/my_order.dart';
 import 'package:new_flutter_project/profile_page.dart';
 import 'package:new_flutter_project/saved_address_page.dart';
@@ -234,7 +235,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget conditionalWidget(int numberToCheck, BuildContext context) {
+Widget conditionalWidget(int numberToCheck, BuildContext context)
+{
   double height = MediaQuery. of(context). size. height;
   double width = MediaQuery. of(context). size. width ;
 
@@ -273,47 +275,62 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                     controller: pageController,
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        width: double.infinity,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              "https://images.unsplash.com/photo-1607355739828-0bf365440db5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1444&q=80",
+                      InkWell(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                "https://images.unsplash.com/photo-1607355739828-0bf365440db5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1444&q=80",
+                              ),
                             ),
                           ),
                         ),
+                        onTap:() {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopByCategory()),);
+                         },
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        width: double.infinity,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              "https://images.pexels.com/photos/2583852/pexels-photo-2583852.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                      InkWell(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                "https://images.pexels.com/photos/2583852/pexels-photo-2583852.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                              ),
                             ),
                           ),
                         ),
+                        onTap:() {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopByCategory()),);
+                        },
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        width: double.infinity,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              "https://images.unsplash.com/photo-1584810359583-96fc3448beaa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+                      InkWell(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                "https://images.unsplash.com/photo-1584810359583-96fc3448beaa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+                              ),
                             ),
                           ),
                         ),
+                        onTap:() {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopByCategory()),);
+                        },
                       ),
                     ],
                   ),
@@ -560,38 +577,43 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
     case 2:
       return Column(
         children: [
-          Container(
-            margin: const EdgeInsets.only(top: 10,bottom: 5),
-            child: ListTile(shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
-              // tileColor: CupertinoColors.systemGrey,
-              leading: Image.asset('assets/logo.png',width: 30,height: 30,),
-              // iconColor: Colors.grey,
-              title: const Text('Happy Holi 2023: Wishes, Messages and Quotes',
-                style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  // decoration: TextDecoration.underline
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const DownloadAssetsDemo()));
+            },
+            child: Container(
+              margin: const EdgeInsets.only(top: 10,bottom: 5),
+              child: ListTile(shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
+                // tileColor: CupertinoColors.systemGrey,
+                leading: Image.asset('assets/logo.png',width: 30,height: 30,),
+                // iconColor: Colors.grey,
+                title: const Text('Happy Holi 2023: Wishes, Messages and Quotes',
+                  style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    // decoration: TextDecoration.underline
+                  ),
                 ),
-              ),
-              subtitle: Column(
-                children: [
-                  Container(margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: const Text('Best wishes to you and your family for a Holi filled with sweet moments and memories to cherish for long. Happy Holi my dear',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
-                  Row(mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Image.asset('assets/icon.png',width: 20,height: 20,),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('1 june',textAlign: TextAlign.center,
-                          style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,),
+                subtitle: Column(
+                  children: [
+                    Container(margin: const EdgeInsets.symmetric(vertical: 5),
+                        child: const Text('Best wishes to you and your family for a Holi filled with sweet moments and memories to cherish for long. Happy Holi my dear',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
+                    Row(mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Image.asset('assets/icon.png',width: 20,height: 20,),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text('1 june',textAlign: TextAlign.center,
+                            style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,),
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

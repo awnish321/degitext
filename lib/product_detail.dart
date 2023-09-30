@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:new_flutter_project/wishlist_page.dart';
+
+import 'cart_page.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
@@ -322,24 +325,14 @@ class _ProductDetailState extends State<ProductDetail> {
                   ),
                 ),
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Add To Wishlist'),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WishList()));
                 },
               ),
             ),
             Expanded(
               child: InkWell(
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Add To Cart'),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()));
                 },
                 child: Container(
                   color: CustomColour.appTheme,
