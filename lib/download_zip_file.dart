@@ -53,21 +53,19 @@ class DownloadAssetsDemoState extends State<DownloadAssetsDemo> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          _downloading != null ? progress() : Container(),
+          _downloading == true ? progress() :  Container(),
           IconButton(
-            icon: Icon(Icons.file_download),
+            icon: const Icon(Icons.file_download),
             onPressed: () {
               _downloadZip();
             },
           ),
         ],
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            buildList(),
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          buildList(),
+        ],
       ),
     );
   }
@@ -103,10 +101,8 @@ class DownloadAssetsDemoState extends State<DownloadAssetsDemo> {
     var archive = ZipDecoder().decodeBytes(bytes);
     for (var file in archive) {
       var fileName = '$_dir/${file.name}';
-      print("fileName ${fileName}");
       if (file.isFile && !fileName.contains("__MACOSX")) {
         var outFile = File(fileName);
-        //print('File:: ' + outFile.path);
         _tempImages?.add(outFile.path);
         outFile = await outFile.create(recursive: true);
         await outFile.writeAsBytes(file.content);
@@ -115,9 +111,7 @@ class DownloadAssetsDemoState extends State<DownloadAssetsDemo> {
   }
 
   buildList() {
-    return _images == null
-        ? Container()
-        : Expanded(
+    return _images == null ? Container() : Expanded(
       child: ListView.builder(
         itemCount: _images?.length,
         itemBuilder: (BuildContext context, int index) {
@@ -134,8 +128,8 @@ class DownloadAssetsDemoState extends State<DownloadAssetsDemo> {
     return Container(
       width: 25,
       height: 25,
-      padding: EdgeInsets.fromLTRB(0.0, 20.0, 10.0, 20.0),
-      child: CircularProgressIndicator(
+      padding: const EdgeInsets.fromLTRB(0.0, 20.0, 10.0, 20.0),
+      child: const CircularProgressIndicator(
         strokeWidth: 3.0,
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       ),
