@@ -23,7 +23,7 @@ class MyProfile extends StatelessWidget {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('My Profile'),
+          title: const Text('My Profile',style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: ListView(
@@ -67,7 +67,7 @@ class MyProfile extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 60.0,
                             backgroundImage: NetworkImage(
-                                'https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4'),
+                                'https://www.rachnasagar.in/assets/img/noImage.png'),
                           ),
                         ),
                       ),

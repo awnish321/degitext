@@ -10,4 +10,8 @@ class ApiConstants {
 
   static String baseUrl3 = 'https://reqres.in/api/users?';
   static String testCodeEndpoint = '/news';
+
+  static String baseUrl4 = 'https://www.rachnasagar.in/rsws/api/user';
+  static String loginEndpoint = '/login';
+  static String registerEndpoint = '/register';
 }

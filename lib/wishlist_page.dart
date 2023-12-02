@@ -103,7 +103,7 @@ class _MyFavorite extends State<WishList> {
       darkTheme: ThemeData(brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(backgroundColor: CustomColour.appTheme                                                                                                                                                                                                                                                          ,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_sharp,
@@ -113,7 +113,7 @@ class _MyFavorite extends State<WishList> {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text(' WishList '),
+          title: const Text(' WishList ',style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: ListView.builder(
@@ -190,10 +190,10 @@ class _MyFavorite extends State<WishList> {
                         ),
                       ),
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(primary: CustomColour.appTheme.shade700),
+                          style: ElevatedButton.styleFrom(primary: CustomColour.appTheme.shade700,shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
                           onPressed: () {
                           },
-                          child: const Text('Add to Cart')
+                          child: const Text('Add to Cart',style: TextStyle(color: Colors.white),)
                       ),
                     ],
                   ),

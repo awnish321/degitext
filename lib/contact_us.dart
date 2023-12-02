@@ -20,7 +20,7 @@ class ContactUs extends StatelessWidget {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('Contact Us'),
+          title: const Text('Contact Us',style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: ListView(
@@ -38,8 +38,8 @@ class ContactUs extends StatelessWidget {
             const SizedBox(
               height: 10,
               ),
-            Column(
-              children: const <Widget>[
+            const Column(
+              children: <Widget>[
                 ListTile(
                   title: Text(
                     'Email',

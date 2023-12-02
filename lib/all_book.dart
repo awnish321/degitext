@@ -1,68 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/product_detail.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
-
 import 'cart_page.dart';
 
-class ShopByCategory extends StatefulWidget {
-  const ShopByCategory({Key? key}) : super(key: key);
+class AllBook extends StatefulWidget {
+  const AllBook({Key? key}) : super(key: key);
 
   @override
-  State<ShopByCategory> createState() => _ShopByCategoryState();
+  State<AllBook> createState() => _AllBookState();
 }
 
-class _ShopByCategoryState extends State<ShopByCategory> {
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  int _selectedIndex = 0;
-  String radioButtonItem = 'Student';
-  int id = 1;
-
-  String classDropDownValue = '';
-  var classList = [
-    'Select class',
-    'Class 1',
-    'Class 2',
-    'Class 3',
-    'Class 4',
-    'Class 5',
-  ];
-
-  String booksTypeDropDownValue = '';
-  var bookList = [
-    'Types of Books',
-    'Textbook',
-    'Workbook',
-    'Workbook cum practice material',
-    'worksheets',
-    'Trm',
-  ];
-
-  String subjectTypeDropDownValue = '';
-  var subjectList = [
-    'Select subject',
-    'Hindi',
-    'English',
-    'Math',
-    'S.S.T',
-    'Science',
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  void initState() {
-    classDropDownValue = classList[0];
-    booksTypeDropDownValue = bookList[0];
-    subjectTypeDropDownValue = subjectList[0];
-    super.initState();
-  }
+class _AllBookState extends State<AllBook> {
 
   @override
   Widget build(BuildContext context) {
@@ -120,129 +68,6 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                     hintText: "Search for Items",
                     prefixIcon: const Icon(Icons.search),
                     prefixIconColor: Colors.black,
-                  ),
-                ),
-              ),
-              Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(10),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: CustomColour.appTheme.shade800,
-                    border: Border.all(
-                        color: CustomColour.appTheme.shade800, // Set border color
-                        width: 3.0), // Set border width
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(10.0)), // Set rounded corner radius
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: const Text(
-                    'CBSE',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[200],
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        DropdownButton(
-                          isExpanded: true,
-                          value: classDropDownValue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: classList.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              classDropDownValue = newValue!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal:  8),
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[200],
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        DropdownButton(
-                          isExpanded: true,
-                          value: booksTypeDropDownValue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: bookList.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              booksTypeDropDownValue = newValue!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal:  8),
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[200],
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        DropdownButton(
-                          isExpanded: true,
-                          value: subjectTypeDropDownValue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: subjectList.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              subjectTypeDropDownValue = newValue!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ),
@@ -315,7 +140,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                       ),
                     ),
                     Expanded(
-                        child: InkWell(onTap: ()
+                      child: InkWell(onTap: ()
                       {
                         Navigator.push(
                           context,
@@ -340,8 +165,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                   ),
                                 ),
                                 Container(padding: const EdgeInsets.all(8),
-                                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                      children:const [
+                                  child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                      children:[
                                         Text(
                                           '\u{20B9} 360   ',
                                           maxLines: 3,
@@ -404,8 +229,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 540   ',
                                         maxLines: 3,
@@ -460,8 +285,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 450   ',
                                         maxLines: 3,
@@ -523,8 +348,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 425   ',
                                         maxLines: 3,
@@ -579,8 +404,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 360   ',
                                         maxLines: 3,
@@ -620,7 +445,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                 ),
               ),
               Container(margin: const EdgeInsets.all(8),
-              child: Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
@@ -642,8 +467,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 540   ',
                                         maxLines: 3,
@@ -698,8 +523,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 450   ',
                                         maxLines: 3,
@@ -744,6 +569,4 @@ class _ShopByCategoryState extends State<ShopByCategory> {
       ),
     );
   }
-
 }
-

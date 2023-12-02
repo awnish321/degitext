@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:new_flutter_project/login_page.dart';
 import 'package:new_flutter_project/main.dart';
 import 'utility/CustomColour.dart';
 import 'dashboard_page.dart';
@@ -29,24 +33,57 @@ class _HomeState extends State<Home> {
   TextEditingController mobileController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   int _radioSelected = 1;
-  late String radioVal="Student";
+  late String radioVal="student";
+
+  Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
+
+  void signUp(String name, email,password,mobile,country,state,city,pinCode,address,type,action) async {
+    final registerData = jsonEncode({"name" : name, "email" : email, "password" : password, "mobile": mobile, "country" : country, "state" : state, "city" : city, "zip" : pinCode, "address" : address, "usertype" : "student", "action" : action});
+
+    try{
+      Response response = await post(
+        Uri.parse('https://www.rachnasagar.in/rsws/api/user/register'),
+        headers: headers,
+        body: registerData,
+      );
+      if(response.statusCode == 200){
+        var data = jsonDecode(response.body.toString());
+        if(data['status']=="true")
+        {
+          print(data['status']);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()),);
+        }else{
+          {
+            ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(data['message'])));
+          }
+          print(data['status']);
+        }
+      }else {
+        print('failed');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: CustomColour.appTheme,
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset('assets/logo.png'),
           ),
         ),
-        title: const Text('RACHNA SAGAR PVT. LTD'),
+        title: const Text('RACHNA SAGAR PVT. LTD',style: TextStyle(color: Colors.white),),
         centerTitle: true,
       ),
       body: Container(
@@ -55,7 +92,7 @@ class _HomeState extends State<Home> {
             children:<Widget>[
               Container(
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: const Text(
                     'SignUp',
                     style: TextStyle(
@@ -84,7 +121,6 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(5),
                 child: TextField(
                   style: const TextStyle(color: CustomColour.appTheme),
-                  obscureText: true,
                   controller: mobileController,
                   decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -122,7 +158,6 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(5),
                 child: TextField(
                   style: const TextStyle(color: CustomColour.appTheme),
-                  obscureText: true,
                   controller: addressController,
                   decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -132,6 +167,25 @@ class _HomeState extends State<Home> {
                         borderSide: BorderSide(color: CustomColour.appTheme),
                       ),
                       labelText: 'Enter your Address',
+                      // errorText: _validate ? 'User name\'is wrong' : null,
+                      labelStyle: TextStyle(
+                        color: CustomColour.appTheme,
+                      )),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(5),
+                child: TextField(
+                  style: const TextStyle(color: CustomColour.appTheme),
+                  controller: countryController,
+                  decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: CustomColour.appTheme),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: CustomColour.appTheme),
+                      ),
+                      labelText: 'Enter your Country',
                       // errorText: _validate ? 'User name\'is wrong' : null,
                       labelStyle: TextStyle(
                         color: CustomColour.appTheme,
@@ -160,7 +214,6 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(5),
                 child: TextField(
                   style: const TextStyle(color: CustomColour.appTheme),
-                  obscureText: true,
                   controller: stateController,
                   decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -243,7 +296,7 @@ class _HomeState extends State<Home> {
                           onChanged: (value) {
                             setState(() {
                               _radioSelected = value!;
-                              radioVal = 'Student';
+                              radioVal = 'student';
                             });
                           },
                         ),
@@ -255,7 +308,7 @@ class _HomeState extends State<Home> {
                           onChanged: (value) {
                             setState(() {
                               _radioSelected = value!;
-                              radioVal = 'Teacher';
+                              radioVal = 'teacher';
                             });
                           },
                         ),
@@ -283,7 +336,7 @@ class _HomeState extends State<Home> {
                           onChanged: (value) {
                             setState(() {
                               _radioSelected = value!;
-                              radioVal = 'School';
+                              radioVal = 'school';
                             });
                           },
                         )
@@ -297,54 +350,57 @@ class _HomeState extends State<Home> {
                   margin: const EdgeInsets.symmetric(vertical: 20),
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: CustomColour.appTheme, // foreground
+                    style: ElevatedButton.styleFrom(shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                      foregroundColor: Colors.white, backgroundColor: CustomColour.appTheme, // foreground
                     ),
                     child: const Text('Sign Up'),
                     onPressed: () {
                       var userName = nameController.text.trim().toString();
-                      var userMobile = mobileController.text.trim().toString();
                       var userEmail = emailController.text.trim().toString();
-                      var userAddress = addressController.text.trim().toString();
-                      var userCity = cityController.text.trim().toString();
-                      var userState = stateController.text.trim().toString();
-                      var userPinCode = pinCodeController.text.trim().toString();
                       var userPassword = passwordController.text.trim().toString();
+                      var userMobile = mobileController.text.trim().toString();
+                      var userCountry = countryController.text.trim().toString();
+                      var userState = stateController.text.trim().toString();
+                      var userCity = cityController.text.trim().toString();
+                      var userPinCode = pinCodeController.text.trim().toString();
+                      var userAddress = addressController.text.trim().toString();
                       var userType = radioVal.toString();
+                      var action = "register";
 
                       setSignUpState(
                           userName,
-                          userMobile,
                           userEmail,
-                          userAddress,
-                          userCity,
-                          userState,
-                          userPinCode,
                           userPassword,
+                          userMobile,
+                          userCountry,
+                          userState,
+                          userCity,
+                          userPinCode,
+                          userAddress,
                           userType,
-                          context);
+                          action,
+                          );
                     },
                   )),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text('Already a user'),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      foregroundColor: CustomColour.appTheme,
-                    ),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()),
-                      );
-                    },
-                  )
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: <Widget>[
+              //     const Text('Already a user'),
+              //     TextButton(
+              //       style: TextButton.styleFrom(
+              //         foregroundColor: CustomColour.appTheme,
+              //       ),
+              //       child: const Text(
+              //         'Sign In',
+              //         style: TextStyle(fontSize: 20),
+              //       ),
+              //       onPressed: () {
+              //         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyApp()),
+              //         );
+              //       },
+              //     )
+              //   ],
+              // ),
             ]
         ),
       ),
@@ -353,28 +409,28 @@ class _HomeState extends State<Home> {
 
   void setSignUpState(
       String name,
-      String mobile,
       String email,
-      String address,
-      String city,
-      String state,
-      String pinCode,
       String password,
+      String mobile,
+      String country,
+      String state,
+      String city,
+      String pinCode,
+      String address,
       String type,
-      BuildContext context
+      String action,
+      // BuildContext context
       ) {
     if (name.isNotEmpty &&
         mobile.isNotEmpty &&
         email.isNotEmpty &&
+        country.isNotEmpty &&
         address.isNotEmpty &&
         city.isNotEmpty &&
         state.isNotEmpty &&
         pinCode.isNotEmpty &&
         password.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const DashBoard()),
-      );
+      signUp(name,email,password,mobile,country,state,city,pinCode,address,action,type);
     } else {
       showErrorDialog(context);
     }
@@ -389,15 +445,14 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: const Text('Cancel1'),
+            child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, 'OK'),
-            child: const Text('OK1'),
+            child: const Text('OK'),
           ),
         ],
       ),
     );
   }
-
 }

@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DownloadAssetsDemo extends StatefulWidget {
   const DownloadAssetsDemo({super.key});
 
-  final String title = "Download & Extract ZIP Demo";
+  final String title = "Download & Extract ZIP";
 
   @override
   DownloadAssetsDemoState createState() => DownloadAssetsDemoState();
 }
 
 class DownloadAssetsDemoState extends State<DownloadAssetsDemo> {
-  //
 
   final String _zipPath = 'https://coderzheaven.com/youtube_flutter/images.zip';
   final String _localZipFileName = 'images.zip';
@@ -50,8 +50,9 @@ class DownloadAssetsDemoState extends State<DownloadAssetsDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      appBar: AppBar(backgroundColor: CustomColour.appTheme,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: Text(widget.title,style: const TextStyle(color: Colors.white),),
         actions: <Widget>[
           _downloading == true ? progress() :  Container(),
           IconButton(
@@ -101,6 +102,7 @@ class DownloadAssetsDemoState extends State<DownloadAssetsDemo> {
     var archive = ZipDecoder().decodeBytes(bytes);
     for (var file in archive) {
       var fileName = '$_dir/${file.name}';
+      print(fileName);
       if (file.isFile && !fileName.contains("__MACOSX")) {
         var outFile = File(fileName);
         _tempImages?.add(outFile.path);

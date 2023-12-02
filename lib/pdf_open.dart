@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ComingSoon extends StatelessWidget {
-  const ComingSoon({super.key});
+final Uri _url = Uri.parse('https://www.rachnasagar.in/assets/pdf/ebook.pdf');
+
+class OpenPdf extends StatelessWidget {
+  const OpenPdf({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +23,22 @@ class ComingSoon extends StatelessWidget {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('Coming Soon',style: TextStyle(color: Colors.white),),
+          title: const Text('Pdf Page',style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Lottie.asset('animation/coming_soon.json',height: 200,reverse: true,repeat: true,fit: BoxFit.cover),
-              Lottie.asset('animation/coming_soon1.json',height:100,reverse: true,repeat: true,fit: BoxFit.cover)
-            ],
+        body: const Center(
+          child: ElevatedButton(
+            onPressed: _launchUrl,
+            child: Text('Show Flutter homepage'),
           ),
         ),
       ),
     );
+  }
+}
+
+Future<void> _launchUrl() async {
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
   }
 }

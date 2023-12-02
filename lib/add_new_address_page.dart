@@ -22,7 +22,7 @@ class AddNewAddress extends StatelessWidget {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text(appTitle),
+          title: const Text(appTitle,style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: const AddAddress(),
@@ -203,7 +203,9 @@ class MyCustomFormState extends State<AddAddress> {
               const SizedBox(height: 20,),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(style:  const ButtonStyle(backgroundColor: MaterialStatePropertyAll(CustomColour.appTheme)),
+                  ElevatedButton(style: ElevatedButton.styleFrom(shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                    foregroundColor: Colors.white, backgroundColor: CustomColour.appTheme, // foreground
+                  ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(

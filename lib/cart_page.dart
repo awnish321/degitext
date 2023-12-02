@@ -26,9 +26,10 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     // final cart = Provider.of<CartProvider>(context);
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: CustomColour.appTheme,
         centerTitle: true,
-        title: const Text('My Shopping Cart'),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text('My Shopping Cart',style: TextStyle(color: Colors.white),),
       ),
       body: Column(
         children: [

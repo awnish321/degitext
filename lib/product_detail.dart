@@ -34,7 +34,7 @@ class _ProductDetailState extends State<ProductDetail> {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('Product Detail'),
+          title: const Text('Product Detail',style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: ListView(
@@ -274,8 +274,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
-                      text:
-                          ' 0.8 KG',
+                      text: ' 0.8 KG',
                       style: TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,

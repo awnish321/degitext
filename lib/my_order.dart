@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/order_detail.dart';
 import 'package:new_flutter_project/profile_page.dart';
+import 'package:new_flutter_project/utility/CustomColour.dart';
 
 class MyOrder extends StatefulWidget {
   const MyOrder({
@@ -25,8 +26,9 @@ class _MyOrderState extends State<MyOrder> {
     // final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('My Order'),
+        centerTitle: true,backgroundColor: CustomColour.appTheme,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text('My Order',style: TextStyle(color: Colors.white),),
       ),
       body: Column(
         children: [

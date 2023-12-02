@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import '../model/ClassModel.dart';
@@ -11,19 +12,25 @@ class ApiService {
     'action': 'classDropdown',
   };
 
-  Future<List<UserModel>?> getUsers() async {
-    try {
-      var url = Uri.parse(ApiConstants.baseUrl1 + ApiConstants.usersEndpoint);
-      var response = await http.get(url);
-      if (response.statusCode == 200) {
-        List<UserModel> model = userModelFromJson(response.body);
-        return model;
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    return null;
-  }
+  var headers = {
+    'rsplkey': 'rspl',
+    'Content-Type': 'application/json',
+    'utoken': '654b271e64c621679091c5a880faf6fb5e6087eb1b2dc'
+  };
+
+  // Future<List<UserModel>?> getUsers() async {
+  //   try {
+  //     var url = Uri.parse(ApiConstants.baseUrl1 + ApiConstants.usersEndpoint);
+  //     var response = await http.get(url);
+  //     if (response.statusCode == 200) {
+  //       List<UserModel> model = userModelFromJson(response.body);
+  //       return model;
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  //   return null;
+  // }
 
   Future<List<ClassModel>?> getClassList() async {
     try {

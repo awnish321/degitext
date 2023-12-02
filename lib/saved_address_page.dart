@@ -24,7 +24,7 @@ class SavedAddress extends StatelessWidget {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('Saved Address'),
+          title: const Text('Saved Address',style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -112,11 +112,13 @@ class SavedAddress extends StatelessWidget {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(style:  const ButtonStyle(backgroundColor: MaterialStatePropertyAll(CustomColour.appTheme)),
+                  ElevatedButton(style: ElevatedButton.styleFrom(shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                    foregroundColor: Colors.white, backgroundColor: CustomColour.appTheme, // foreground
+                  ),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewAddress()));
                     },
-                    child: const Text('Add+'),
+                    child: const Text('Add+',style: TextStyle(color: Colors.white),),
                   ),
                 ],
               ),

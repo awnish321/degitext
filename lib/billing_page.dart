@@ -24,8 +24,10 @@ class _BillingPageState extends State<BillingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: CustomColour.appTheme,
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
-        title: const Text('Billing page'),
+        title: const Text('Billing page',style: TextStyle(color: Colors.white),),
       ),
       body: Column(
         children: [

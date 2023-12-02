@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:new_flutter_project/all_book.dart';
 import 'package:new_flutter_project/coming_soon_page.dart';
 import 'package:new_flutter_project/contact_us.dart';
 import 'package:new_flutter_project/download_zip_file.dart';
 import 'package:new_flutter_project/my_order.dart';
+import 'package:new_flutter_project/pdf_open.dart';
 import 'package:new_flutter_project/profile_page.dart';
 import 'package:new_flutter_project/saved_address_page.dart';
-import 'package:new_flutter_project/wishlist_page.dart';
 import 'package:new_flutter_project/shop_by_category.dart';
+import 'package:new_flutter_project/wishlist_page.dart';
+
 import 'cart_page.dart';
 import 'main.dart';
 import 'utility/CustomColour.dart';
@@ -14,10 +17,12 @@ import 'utility/CustomColour.dart';
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
 
+  static const themeColour = Color(0xFFEA6865);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: CustomColour.appTheme),
+      theme: ThemeData(backgroundColor: CustomColour.appTheme),
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
       debugShowCheckedModeBanner: false,
@@ -27,7 +32,6 @@ class DashBoard extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   const MyHomePage({
     super.key,
   });
@@ -37,7 +41,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   static const cardTopColour = Color(0xFFEF5932);
   static const cardBottomColour = Color(0xFFF68802);
   static const card1TopColour = Color(0xFFE13EA0);
@@ -64,17 +67,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(_selectedIndex==0){
+        if (_selectedIndex == 0) {
           return true;
         }
         setState(() {
-          _selectedIndex=0;
+          _selectedIndex = 0;
         });
         return false;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('RACHNA SAGAR PVT. LTD'),
+          backgroundColor: CustomColour.appTheme,
+          iconTheme: const IconThemeData(color: Colors.white),
+          title: const Text(
+            'RACHNA SAGAR PVT. LTD',
+            style: TextStyle(color: Colors.white),
+          ),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -87,13 +95,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(builder: (context) => const Cart()),
                 );
-                },
+              },
             )
           ],
         ),
         body: SingleChildScrollView(
-          child: Container(padding: const EdgeInsets.all(8.0),
-            child: conditionalWidget(_selectedIndex,context),
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.black12,
+            child: conditionalWidget(_selectedIndex, context),
           ),
         ),
         drawer: Drawer(
@@ -116,8 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     backgroundColor: Colors.white,
                     child: Text(
                       "A",
-                      style:
-                      TextStyle(fontSize: 30.0, color: CustomColour.appTheme),
+                      style: TextStyle(
+                          fontSize: 30.0, color: CustomColour.appTheme),
                     ), //Text
                   ), //circleAvatar
                 ), //UserAccountDrawerHeader
@@ -129,7 +139,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfile()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyProfile()));
                 },
               ),
               ListTile(
@@ -139,7 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const MyOrder()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const MyOrder()));
                 },
               ),
               ListTile(
@@ -149,7 +163,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedAddress()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SavedAddress()));
                 },
               ),
               ListTile(
@@ -159,7 +176,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WishList()),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WishList()),
                   );
                 },
               ),
@@ -170,7 +189,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Cart()),
                   );
                 },
               ),
@@ -181,7 +202,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactUs()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ContactUs()));
                 },
               ),
               ListTile(
@@ -190,7 +214,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: const Text('LogOut'),
                 textColor: CustomColour.appTheme,
                 onTap: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyApp()));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) =>  MyApp()));
                 },
               ),
             ],
@@ -198,7 +223,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedIconTheme: const IconThemeData(color: CustomColour.appTheme, size: 40),
+          selectedIconTheme:
+              const IconThemeData(color: CustomColour.appTheme, size: 40),
           selectedItemColor: CustomColour.appTheme,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
           unselectedItemColor: Colors.black54,
@@ -235,24 +261,29 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget conditionalWidget(int numberToCheck, BuildContext context)
-{
-  double height = MediaQuery. of(context). size. height;
-  double width = MediaQuery. of(context). size. width ;
+Widget conditionalWidget(int numberToCheck, BuildContext context) {
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
 
   final pageController = PageController();
   final pageController1 = PageController();
   final pageController2 = PageController();
   double currentPage = 0;
 
-  switch (numberToCheck)
-  {
+  switch (numberToCheck) {
     case 0:
-      return SizedBox(width: width,height: height,
-          child: Column(mainAxisSize: MainAxisSize.max,
+      return SizedBox(
+          width: width,
+          height: height,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Expanded(flex: 0,
-                child: Container( width: double.infinity,height: 55,margin: const EdgeInsets.only(bottom: 10,top: 3),
+              Expanded(
+                flex: 0,
+                child: Container(
+                  width: double.infinity,
+                  height: 55,
+                  margin: const EdgeInsets.only(bottom: 10, top: 3),
                   child: TextField(
                     decoration: InputDecoration(
                       filled: true,
@@ -268,7 +299,8 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                   ),
                 ),
               ),
-              Expanded(flex: 1,
+              Expanded(
+                flex: 1,
                 child: SizedBox(
                   height: 150,
                   child: PageView(
@@ -283,34 +315,19 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: const DecorationImage(
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                               image: NetworkImage(
-                                "https://images.unsplash.com/photo-1607355739828-0bf365440db5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1444&q=80",
+                                "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
                               ),
                             ),
                           ),
                         ),
-                        onTap:() {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopByCategory()),);
-                         },
-                      ),
-                      InkWell(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 2),
-                          width: double.infinity,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "https://images.pexels.com/photos/2583852/pexels-photo-2583852.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-                              ),
-                            ),
-                          ),
-                        ),
-                        onTap:() {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopByCategory()),);
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ShopByCategory()),
+                          );
                         },
                       ),
                       InkWell(
@@ -321,15 +338,42 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: const DecorationImage(
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                               image: NetworkImage(
-                                "https://images.unsplash.com/photo-1584810359583-96fc3448beaa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+                                "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
                               ),
                             ),
                           ),
                         ),
-                        onTap:() {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopByCategory()),);
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ShopByCategory()),
+                          );
+                        },
+                      ),
+                      InkWell(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
+                              ),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ShopByCategory()),
+                          );
                         },
                       ),
                     ],
@@ -338,74 +382,172 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: Row(mainAxisSize: MainAxisSize.max,mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(3, (index)
-                  {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      alignment: Alignment.centerLeft,
-                      height: 9,
-                      width: 9,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: currentPage == index ? Colors.black : Colors.black12,
-                      ),
-                    );
-                  },
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    3,
+                    (index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        alignment: Alignment.centerLeft,
+                        height: 9,
+                        width: 9,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: currentPage == index
+                              ? DashBoard.themeColour
+                              : Colors.black26,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
-              Expanded(flex: 1,
-                child: Container(height: 150,width: double.infinity,color: Colors.black,alignment: Alignment.center,padding: const EdgeInsets.all(15),margin: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.stretch,
+              Expanded(
+                flex: 1,
+                child: Container(
+                  height: 150,
+                  width: double.infinity,
+                  color: Colors.black,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Expanded(flex :1,
-                        child: Container(margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 2),alignment: Alignment.center,
-                          decoration: BoxDecoration(border: Border.all(color: Colors.white,),),width: double.infinity,
-                          child: TextButton(onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const ShopByCategory()),
-                            );
-                          },
-                            child: const Text("Student/Parent",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold,)),),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 2),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ),
+                          ),
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ShopByCategory()),
+                              );
+                            },
+                            child: const Text("Student/Parent",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          ),
                         ),
                       ),
-                      Expanded(flex :1,
-                        child: Container(margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 2),alignment: Alignment.center,
-                          decoration: BoxDecoration(border: Border.all(color: Colors.white,),),width: double.infinity,
-                          child: TextButton(onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const ShopByCategory()),
-                            );
-                          },
-                            child: const Text("Teacher/Schools",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold,)),),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 2),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ),
+                          ),
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ShopByCategory()),
+                              );
+                            },
+                            child: const Text("Teacher/Schools",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          ),
                         ),
                       ),
-                      Expanded(flex :1,
-                        child: Container(margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 2),alignment: Alignment.center,
-                          decoration: BoxDecoration(border: Border.all(color: Colors.white,),),width: double.infinity,
-                          child: TextButton(onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const ShopByCategory()),
-                            );
-                          },
-                            child: const Text("Bookseller",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold,)),),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 2),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ),
+                          ),
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ShopByCategory()),
+                              );
+                            },
+                            child: const Text("Bookseller",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              const Expanded(flex: 0,
+              Expanded(
+                flex: 0,
                 child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text("New Release",textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,decoration: TextDecoration.underline),),
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "New Release",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline),
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AllBook()),
+                            );
+                          },
+                          child: const Text(
+                            "View All",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline),
+                          )),
+                    ],
+                  ),
                 ),
               ),
-              Expanded(flex: 1,
+              Expanded(
+                flex: 1,
                 child: SizedBox(
                   height: 150,
                   child: PageView(
@@ -419,9 +561,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: const DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             image: NetworkImage(
-                              "https://images.unsplash.com/photo-1607355739828-0bf365440db5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1444&q=80",
+                              "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
                             ),
                           ),
                         ),
@@ -433,9 +575,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: const DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             image: NetworkImage(
-                              "https://images.pexels.com/photos/2583852/pexels-photo-2583852.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                              "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
                             ),
                           ),
                         ),
@@ -447,9 +589,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: const DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             image: NetworkImage(
-                              "https://images.unsplash.com/photo-1584810359583-96fc3448beaa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+                              "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
                             ),
                           ),
                         ),
@@ -458,13 +600,44 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                   ),
                 ),
               ),
-              const Expanded(flex: 0,
+              Expanded(
+                flex: 0,
                 child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text("Shop By Category",textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,decoration: TextDecoration.underline),),
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Shop By Category",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline),
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AllBook()),
+                            );
+                          },
+                          child: const Text(
+                            "View All",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline),
+                          )),
+                    ],
+                  ),
                 ),
               ),
-              Expanded(flex: 1,
+              Expanded(
+                flex: 1,
                 child: SizedBox(
                   height: 150,
                   child: PageView(
@@ -478,9 +651,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: const DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             image: NetworkImage(
-                              "https://images.unsplash.com/photo-1607355739828-0bf365440db5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1444&q=80",
+                              "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
                             ),
                           ),
                         ),
@@ -492,9 +665,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: const DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             image: NetworkImage(
-                              "https://images.pexels.com/photos/2583852/pexels-photo-2583852.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                              "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
                             ),
                           ),
                         ),
@@ -506,9 +679,9 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: const DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             image: NetworkImage(
-                              "https://images.unsplash.com/photo-1584810359583-96fc3448beaa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+                              "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
                             ),
                           ),
                         ),
@@ -522,53 +695,70 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
       );
     case 1:
       return Column(
-        children:  [
-          Container(width: double.infinity,height: 150, decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                _MyHomePageState.cardTopColour,
-                _MyHomePageState.cardBottomColour,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+        children: [
+          Container(
+            width: double.infinity,
+            height: 150,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  _MyHomePageState.cardTopColour,
+                  _MyHomePageState.cardBottomColour,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
             margin: const EdgeInsets.all(10),
-            child: InkWell
-              (
-              child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('E-Book',style: TextStyle(color: Colors.white,fontSize: 20,height: 1)),
-                  Text('Tap to download and read e-book',style: TextStyle(color: Colors.white,fontSize: 15)),
+            child: InkWell(
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('E-Book',
+                      style: TextStyle(
+                          color: Colors.white, fontSize: 20, height: 1)),
+                  Text('Tap to download and read e-book',
+                      style: TextStyle(color: Colors.white, fontSize: 15)),
                 ],
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ComingSoon()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const OpenPdf()));
               },
             ),
           ),
-          Container(width: double.infinity,height: 150, decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                _MyHomePageState.card1TopColour,
-                _MyHomePageState.card1BottomColour,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+          Container(
+            width: double.infinity,
+            height: 150,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  _MyHomePageState.card1TopColour,
+                  _MyHomePageState.card1BottomColour,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
             margin: const EdgeInsets.all(10),
             child: InkWell(
-              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text('Interactive E-Book',style: TextStyle(color: Colors.white,fontSize: 20,height: 1)),
-                  Text('Tap to download and read interactive e-book',style: TextStyle(color: Colors.white,fontSize: 15))
+                  Text('Interactive E-Book',
+                      style: TextStyle(
+                          color: Colors.white, fontSize: 20, height: 1)),
+                  Text('Tap to download and read interactive e-book',
+                      style: TextStyle(color: Colors.white, fontSize: 15))
                 ],
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ComingSoon()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ComingSoon()));
               },
             ),
           ),
@@ -579,17 +769,32 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
         children: [
           InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const DownloadAssetsDemo()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DownloadAssetsDemo()));
             },
             child: Container(
-              margin: const EdgeInsets.only(top: 10,bottom: 5),
-              child: ListTile(shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
+              margin: const EdgeInsets.only(top: 10, bottom: 5),
+              child: ListTile(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    side: BorderSide(width: 2, color: CustomColour.appTheme)),
+                tileColor: _MyHomePageState.notificationColour,
+                minVerticalPadding: 5,
                 // tileColor: CupertinoColors.systemGrey,
-                leading: Image.asset('assets/logo.png',width: 30,height: 30,),
+                leading: Image.asset(
+                  'assets/logo.png',
+                  width: 30,
+                  height: 30,
+                ),
                 // iconColor: Colors.grey,
-                title: const Text('Happy Holi 2023: Wishes, Messages and Quotes',
-                  style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                title: const Text(
+                  'Happy Holi 2023: Wishes, Messages and Quotes',
+                  style: TextStyle(
+                    decorationStyle: TextDecorationStyle.solid,
+                    color: Colors.black54,
+                    decorationThickness: 3,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     // decoration: TextDecoration.underline
@@ -597,17 +802,33 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
                 ),
                 subtitle: Column(
                   children: [
-                    Container(margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: const Text('Best wishes to you and your family for a Holi filled with sweet moments and memories to cherish for long. Happy Holi my dear',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
-                    Row(mainAxisAlignment: MainAxisAlignment.end,
+                    Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        child: const Text(
+                          'Best wishes to you and your family for a Holi filled with sweet moments and memories to cherish for long. Happy Holi my dear',
+                          style: TextStyle(color: Colors.black54),
+                          textAlign: TextAlign.justify,
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Image.asset('assets/icon.png',width: 20,height: 20,),
+                        Image.asset(
+                          'assets/icon.png',
+                          width: 20,
+                          height: 20,
+                        ),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text('1 june',textAlign: TextAlign.center,
-                            style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                          child: Text(
+                            '1 june',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              decorationStyle: TextDecorationStyle.solid,
+                              color: Colors.black54,
+                              decorationThickness: 3,
                               fontWeight: FontWeight.bold,
-                              fontSize: 12,),
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ],
@@ -617,14 +838,27 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               ),
             ),
           ),
-          Container(margin: const EdgeInsets.symmetric(vertical: 5),
-            child: ListTile(shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            child: ListTile(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(width: 2, color: CustomColour.appTheme)),
+              tileColor: _MyHomePageState.notificationColour,
+              minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
-              leading: Image.asset('assets/logo.png',width: 30,height: 30,),
+              leading: Image.asset(
+                'assets/logo.png',
+                width: 30,
+                height: 30,
+              ),
               // iconColor: Colors.grey,
-              title: const Text('Enhance your banner with captivating imagery',
-                style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+              title: const Text(
+                'Enhance your banner with captivating imagery',
+                style: TextStyle(
+                  decorationStyle: TextDecorationStyle.solid,
+                  color: Colors.black54,
+                  decorationThickness: 3,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   // decoration: TextDecoration.underline
@@ -632,52 +866,33 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               ),
               subtitle: Column(
                 children: [
-                  Container(margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: const Text('As the old saying goes, a picture is worth a thousand words. Save space on your design and communicate a powerful message with a strong photo. This example is a case in point of how a good photo choice can make all the difference. Upload your own photo or explore our library of stock photos.',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
-                  Row(mainAxisAlignment: MainAxisAlignment.end,
+                  Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      child: const Text(
+                        'As the old saying goes, a picture is worth a thousand words. Save space on your design and communicate a powerful message with a strong photo. This example is a case in point of how a good photo choice can make all the difference. Upload your own photo or explore our library of stock photos.',
+                        style: TextStyle(color: Colors.black54),
+                        textAlign: TextAlign.justify,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Image.asset('assets/logo.png',width: 20,height: 20,),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('28 may',textAlign: TextAlign.center,
-                          style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,),
-                        ),
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 20,
+                        height: 20,
                       ),
-                    ],
-                  )
-                ],
-
-              ),
-            ),
-          ),
-          Container(margin: const EdgeInsets.symmetric(vertical: 5),
-            child: ListTile(shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
-              // tileColor: CupertinoColors.systemGrey,
-              leading: Image.asset('assets/icon.png',width: 30,height: 30,),
-              // iconColor: Colors.grey,
-              title: const Text('Update APP ',
-                style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  // decoration: TextDecoration.underline
-                ),
-              ),
-              subtitle: Column(
-                children: [
-                  Container(margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: const Text('For better performance please update your app For better performance please update your app',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
-                  Row(mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Image.asset('assets/logo.png',width: 20,height: 20,),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('12 may',textAlign: TextAlign.center,
-                          style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                        child: Text(
+                          '28 may',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            decorationStyle: TextDecorationStyle.solid,
+                            color: Colors.black54,
+                            decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,),
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],
@@ -687,14 +902,26 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 10,bottom: 5),
-            child: ListTile(shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            child: ListTile(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(width: 2, color: CustomColour.appTheme)),
+              tileColor: _MyHomePageState.notificationColour,
+              minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
-              leading: Image.asset('assets/logo.png',width: 30,height: 30,),
+              leading: Image.asset(
+                'assets/icon.png',
+                width: 30,
+                height: 30,
+              ),
               // iconColor: Colors.grey,
-              title: const Text('Happy Holi 2023: Wishes, Messages and Quotes',
-                style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+              title: const Text(
+                'Update APP ',
+                style: TextStyle(
+                  decorationStyle: TextDecorationStyle.solid,
+                  color: Colors.black54,
+                  decorationThickness: 3,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   // decoration: TextDecoration.underline
@@ -702,17 +929,33 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               ),
               subtitle: Column(
                 children: [
-                  Container(margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: const Text('Best wishes to you and your family for a Holi filled with sweet moments and memories to cherish for long. Happy Holi my dear',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
-                  Row(mainAxisAlignment: MainAxisAlignment.end,
+                  Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      child: const Text(
+                        'For better performance please update your app For better performance please update your app',
+                        style: TextStyle(color: Colors.black54),
+                        textAlign: TextAlign.justify,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Image.asset('assets/icon.png',width: 20,height: 20,),
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 20,
+                        height: 20,
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('1 june',textAlign: TextAlign.center,
-                          style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                        child: Text(
+                          '12 may',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            decorationStyle: TextDecorationStyle.solid,
+                            color: Colors.black54,
+                            decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,),
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],
@@ -721,14 +964,27 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               ),
             ),
           ),
-          Container(margin: const EdgeInsets.symmetric(vertical: 5),
-            child: ListTile(shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
+          Container(
+            margin: const EdgeInsets.only(top: 10, bottom: 5),
+            child: ListTile(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(width: 2, color: CustomColour.appTheme)),
+              tileColor: _MyHomePageState.notificationColour,
+              minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
-              leading: Image.asset('assets/logo.png',width: 30,height: 30,),
+              leading: Image.asset(
+                'assets/logo.png',
+                width: 30,
+                height: 30,
+              ),
               // iconColor: Colors.grey,
-              title: const Text('Enhance your banner with captivating imagery',
-                style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+              title: const Text(
+                'Happy Holi 2023: Wishes, Messages and Quotes',
+                style: TextStyle(
+                  decorationStyle: TextDecorationStyle.solid,
+                  color: Colors.black54,
+                  decorationThickness: 3,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   // decoration: TextDecoration.underline
@@ -736,34 +992,62 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               ),
               subtitle: Column(
                 children: [
-                  Container(margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: const Text('As the old saying goes, a picture is worth a thousand words. Save space on your design and communicate a powerful message with a strong photo. This example is a case in point of how a good photo choice can make all the difference. Upload your own photo or explore our library of stock photos.',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
-                  Row(mainAxisAlignment: MainAxisAlignment.end,
+                  Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      child: const Text(
+                        'Best wishes to you and your family for a Holi filled with sweet moments and memories to cherish for long. Happy Holi my dear',
+                        style: TextStyle(color: Colors.black54),
+                        textAlign: TextAlign.justify,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Image.asset('assets/logo.png',width: 20,height: 20,),
+                      Image.asset(
+                        'assets/icon.png',
+                        width: 20,
+                        height: 20,
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('28 may',textAlign: TextAlign.center,
-                          style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                        child: Text(
+                          '1 june',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            decorationStyle: TextDecorationStyle.solid,
+                            color: Colors.black54,
+                            decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,),
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],
                   )
                 ],
-
               ),
             ),
           ),
-          Container(margin: const EdgeInsets.symmetric(vertical: 5),
-            child: ListTile(shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),side: BorderSide(width: 2,color: CustomColour.appTheme)),tileColor: _MyHomePageState.notificationColour,minVerticalPadding: 5,
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            child: ListTile(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(width: 2, color: CustomColour.appTheme)),
+              tileColor: _MyHomePageState.notificationColour,
+              minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
-              leading: Image.asset('assets/icon.png',width: 30,height: 30,),
+              leading: Image.asset(
+                'assets/logo.png',
+                width: 30,
+                height: 30,
+              ),
               // iconColor: Colors.grey,
-              title: const Text('Update APP ',
-                style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+              title: const Text(
+                'Enhance your banner with captivating imagery',
+                style: TextStyle(
+                  decorationStyle: TextDecorationStyle.solid,
+                  color: Colors.black54,
+                  decorationThickness: 3,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   // decoration: TextDecoration.underline
@@ -771,17 +1055,96 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               ),
               subtitle: Column(
                 children: [
-                  Container(margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: const Text('For better performance please update your app For better performance please update your app',style: TextStyle(color: Colors.black54),textAlign: TextAlign.justify,)),
-                  Row(mainAxisAlignment: MainAxisAlignment.end,
+                  Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      child: const Text(
+                        'As the old saying goes, a picture is worth a thousand words. Save space on your design and communicate a powerful message with a strong photo. This example is a case in point of how a good photo choice can make all the difference. Upload your own photo or explore our library of stock photos.',
+                        style: TextStyle(color: Colors.black54),
+                        textAlign: TextAlign.justify,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Image.asset('assets/logo.png',width: 20,height: 20,),
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 20,
+                        height: 20,
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('12 may',textAlign: TextAlign.center,
-                          style: TextStyle(decorationStyle: TextDecorationStyle.solid,color: Colors.black54,decorationThickness: 3,
+                        child: Text(
+                          '28 may',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            decorationStyle: TextDecorationStyle.solid,
+                            color: Colors.black54,
+                            decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            child: ListTile(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(width: 2, color: CustomColour.appTheme)),
+              tileColor: _MyHomePageState.notificationColour,
+              minVerticalPadding: 5,
+              // tileColor: CupertinoColors.systemGrey,
+              leading: Image.asset(
+                'assets/icon.png',
+                width: 30,
+                height: 30,
+              ),
+              // iconColor: Colors.grey,
+              title: const Text(
+                'Update APP ',
+                style: TextStyle(
+                  decorationStyle: TextDecorationStyle.solid,
+                  color: Colors.black54,
+                  decorationThickness: 3,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  // decoration: TextDecoration.underline
+                ),
+              ),
+              subtitle: Column(
+                children: [
+                  Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      child: const Text(
+                        'For better performance please update your app For better performance please update your app',
+                        style: TextStyle(color: Colors.black54),
+                        textAlign: TextAlign.justify,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 20,
+                        height: 20,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          '12 may',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            decorationStyle: TextDecorationStyle.solid,
+                            color: Colors.black54,
+                            decorationThickness: 3,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],
@@ -795,11 +1158,11 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
     case 3:
       return Column(
         children: [
-          Column(
+          const Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const <Widget>[
+                children: <Widget>[
                   CircleAvatar(
                     backgroundColor: CustomColour.appTheme,
                     minRadius: 65.0,
@@ -838,64 +1201,77 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
             minLeadingWidth: 0,
             leading: const Icon(Icons.account_circle),
             iconColor: CustomColour.appTheme,
-            title: const Text(' My Profile ',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text(' My Profile ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfile()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MyProfile()));
             },
           ),
-          const Divider(thickness: 1.2,height: 0),
+          const Divider(thickness: 1.2, height: 0),
           ListTile(
             minLeadingWidth: 0,
             leading: const Icon(Icons.house_sharp),
             iconColor: CustomColour.appTheme,
-            title: const Text(' My Address ',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text(' My Address ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedAddress()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SavedAddress()));
             },
           ),
-          const Divider(thickness: 1.2,height: 0),
+          const Divider(thickness: 1.2, height: 0),
           ListTile(
             minLeadingWidth: 0,
             leading: const Icon(Icons.check_box_rounded),
             iconColor: CustomColour.appTheme,
-            title: const Text(' My Order ',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text(' My Order ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyOrder()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MyOrder()));
             },
           ),
-          const Divider(thickness: 1.2,height: 0),
+          const Divider(thickness: 1.2, height: 0),
           ListTile(
             minLeadingWidth: 0,
             leading: const Icon(Icons.shopping_cart),
             iconColor: CustomColour.appTheme,
-            title: const Text(' My cart ',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text(' My cart ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
             onTap: () {
               // Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const Cart()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Cart()));
             },
           ),
-          const Divider(thickness: 1.2,height: 0),
+          const Divider(thickness: 1.2, height: 0),
           ListTile(
             minLeadingWidth: 0,
             leading: const Icon(Icons.favorite),
             iconColor: CustomColour.appTheme,
-            title: const Text(' Wishlist ',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text(' Wishlist ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
             onTap: () {
               // Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const WishList()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const WishList()));
             },
           ),
-          const Divider(thickness: 1.2,height: 0),
+          const Divider(thickness: 1.2, height: 0),
           ListTile(
             minLeadingWidth: 0,
             leading: const Icon(Icons.logout),
             iconColor: CustomColour.appTheme,
-            title: const Text('LogOut',style: TextStyle(fontWeight: FontWeight.bold)),
+            title: const Text('LogOut',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             textColor: Colors.black45,
             onTap: () {
               // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
@@ -906,11 +1282,11 @@ Widget conditionalWidget(int numberToCheck, BuildContext context)
               // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context){
               //   return const MyApp();
               // }));
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyApp()));
-
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MyApp()));
             },
           ),
-          const Divider(thickness: 1.2,height: 0),
+          const Divider(thickness: 1.2, height: 0),
         ],
       );
     default:

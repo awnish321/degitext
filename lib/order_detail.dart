@@ -24,7 +24,7 @@ class OrderDetail extends StatelessWidget {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('Order Detail'),
+          title: const Text('Order Detail',style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: SafeArea(

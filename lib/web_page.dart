@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewApp extends StatefulWidget {
+class WebViewApp extends StatefulWidget
+{
   const WebViewApp({super.key});
 
   @override
@@ -24,7 +26,9 @@ class _WebViewAppState extends State<WebViewApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter WebView'),
+        backgroundColor: CustomColour.appTheme,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text('Flutter WebView',style: TextStyle(color: Colors.white),),
       ),
       body: WebViewWidget(
         controller: controller,
