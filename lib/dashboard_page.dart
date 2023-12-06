@@ -3,6 +3,7 @@ import 'package:new_flutter_project/all_book.dart';
 import 'package:new_flutter_project/coming_soon_page.dart';
 import 'package:new_flutter_project/contact_us.dart';
 import 'package:new_flutter_project/download_zip_file.dart';
+import 'package:new_flutter_project/login_page.dart';
 import 'package:new_flutter_project/my_order.dart';
 import 'package:new_flutter_project/pdf_open.dart';
 import 'package:new_flutter_project/profile_page.dart';
@@ -81,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
           iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
             'RACHNA SAGAR PVT. LTD',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white,fontSize: 20),
           ),
           centerTitle: true,
           actions: <Widget>[
@@ -118,16 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   decoration: BoxDecoration(color: CustomColour.appTheme),
                   accountName: Text(
                     "Awnish Kumar",
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18,),
                   ),
                   accountEmail: Text("Awnish@gmail.com"),
-                  currentAccountPictureSize: Size.square(50),
+                  currentAccountPictureSize: Size.square(45),
                   currentAccountPicture: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: Text(
                       "A",
                       style: TextStyle(
-                          fontSize: 30.0, color: CustomColour.appTheme),
+                          fontSize: 25.0, color: CustomColour.appTheme),
                     ), //Text
                   ), //circleAvatar
                 ), //UserAccountDrawerHeader
@@ -215,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textColor: CustomColour.appTheme,
                 onTap: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) =>  MyApp()));
+                      MaterialPageRoute(builder: (context) =>  const LoginPage()));
                 },
               ),
             ],
@@ -621,7 +622,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const AllBook()),
+                                  builder: (context) => const ShopByCategory()),
                             );
                           },
                           child: const Text(
@@ -1169,7 +1170,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                     child: CircleAvatar(
                       radius: 60.0,
                       backgroundImage: NetworkImage(
-                          'https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4'),
+                          'https://www.rachnasagar.in/assets/img/noImage.png'),
                     ),
                   ),
                 ],
@@ -1282,8 +1283,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context){
               //   return const MyApp();
               // }));
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MyApp()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
             },
           ),
           const Divider(thickness: 1.2, height: 0),

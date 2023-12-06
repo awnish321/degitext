@@ -29,7 +29,7 @@ class _AllBookState extends State<AllBook> {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('RACHNA SAGAR PVT. LTD',style: TextStyle(color: Colors.white),),
+          title: const Text('RACHNA SAGAR PVT. LTD',style: TextStyle(color: Colors.white,fontSize: 20),),
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.white),
           actions: <Widget>[

@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:new_flutter_project/model/AllBookListModel.dart';
 import '../model/ClassModel.dart';
 import '../model/TestModel.dart';
-import '../model/UserModel.dart';
 import 'constants.dart';
 
 class ApiService {
@@ -12,11 +13,7 @@ class ApiService {
     'action': 'classDropdown',
   };
 
-  var headers = {
-    'rsplkey': 'rspl',
-    'Content-Type': 'application/json',
-    'utoken': '654b271e64c621679091c5a880faf6fb5e6087eb1b2dc'
-  };
+  Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
 
   // Future<List<UserModel>?> getUsers() async {
   //   try {
@@ -57,6 +54,32 @@ class ApiService {
       }
     } catch (e) {
       log(e.toString());
+    }
+    return null;
+  }
+
+  Future<AllBookListModel?> getAllBookList() async {
+  final registerData = jsonEncode({"action" : "allBooks"});
+    try{
+      Response response = await post(
+        Uri.parse('https://www.rachnasagar.in/rsws/api/booksList'),
+        headers: headers,
+        body: registerData,
+      );
+      if(response.statusCode == 200){
+        var data = jsonDecode(response.body.toString());
+        if(data['status']=="true")
+        {
+        AllBookListModel model = AllBookListModel.fromJson(response.body.toString());
+          return model;
+        }else{
+          print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+        }
+      }else {
+        print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc');
+      }
+    }catch(e){
+      print(e.toString());
     }
     return null;
   }

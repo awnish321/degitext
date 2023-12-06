@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:new_flutter_project/model/AllBookListModel.dart';
 import 'package:new_flutter_project/product_detail.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 
+import 'api/api_service.dart';
 import 'cart_page.dart';
 
 class ShopByCategory extends StatefulWidget {
@@ -13,12 +18,27 @@ class ShopByCategory extends StatefulWidget {
 
 class _ShopByCategoryState extends State<ShopByCategory> {
 
+  Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
+
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  AllBookListModel? _list ;
+
 
   int _selectedIndex = 0;
   String radioButtonItem = 'Student';
   int id = 1;
+
+  String boardDropDownValue = '';
+  var boardList = [
+    'Select board',
+    'C.B.S.E',
+    'I.C.S.E/I.S.C',
+    'G.C.E.R.T',
+    'C.U.E.T-U.G(N.T.A)',
+    'N.S.D.C',
+    'Educational Kit',
+  ];
 
   String classDropDownValue = '';
   var classList = [
@@ -58,10 +78,17 @@ class _ShopByCategoryState extends State<ShopByCategory> {
 
   @override
   void initState() {
+    boardDropDownValue =boardList[0];
     classDropDownValue = classList[0];
     booksTypeDropDownValue = bookList[0];
     subjectTypeDropDownValue = subjectList[0];
     super.initState();
+    // _callAllBookListApi("allBooks");
+    _getData;
+  }
+  void _getData() async {
+    _list = (await ApiService().getAllBookList())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
   @override
@@ -81,7 +108,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('RACHNA SAGAR PVT. LTD',style: TextStyle(color: Colors.white),),
+          title: const Text('RACHNA SAGAR PVT. LTD',style: TextStyle(color: Colors.white,fontSize: 20),),
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.white),
           actions: <Widget>[
@@ -100,62 +127,65 @@ class _ShopByCategoryState extends State<ShopByCategory> {
           ],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                width: double.infinity,
-                height: 50,
-                margin: const EdgeInsets.only(top: 3, left: 10, right: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xffc9c1c1),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+              // Container(
+              //     width: double.infinity,
+              //     margin: const EdgeInsets.all(10),
+              //     alignment: Alignment.center,
+              //     decoration: BoxDecoration(
+              //       color: CustomColour.appTheme.shade800,
+              //       border: Border.all(
+              //           color: CustomColour.appTheme.shade800, // Set border color
+              //           width: 3.0), // Set border width
+              //       borderRadius: const BorderRadius.all(
+              //           Radius.circular(10.0)), // Set rounded corner radius
+              //     ),
+              //     padding: const EdgeInsets.all(10),
+              //     child: const Text(
+              //       'CBSE',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     )
+              // ),
+              Container(margin: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        shadowColor: Colors.black,
+                        color: Colors.grey[200],
+                        child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
+                          isExpanded: true,
+                          value: boardDropDownValue,
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          items: boardList.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(
+                                items,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              boardDropDownValue = newValue!;
+                            });
+                          },
+                        ),
+                      ),
                     ),
-                    hintText: "Search for Items",
-                    prefixIcon: const Icon(Icons.search),
-                    prefixIconColor: Colors.black,
-                  ),
-                ),
-              ),
-              Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(10),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: CustomColour.appTheme.shade800,
-                    border: Border.all(
-                        color: CustomColour.appTheme.shade800, // Set border color
-                        width: 3.0), // Set border width
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(10.0)), // Set rounded corner radius
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: const Text(
-                    'CBSE',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[200],
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        DropdownButton(
+                    Expanded(
+                      child: Card(
+                        shadowColor: Colors.black,
+                        color: Colors.grey[200],
+                        child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
                           isExpanded: true,
                           value: classDropDownValue,
                           icon: const Icon(Icons.keyboard_arrow_down),
@@ -173,9 +203,9 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                             });
                           },
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
               Container(
@@ -738,6 +768,50 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ],
                 ),
               ),
+              Container(margin: const EdgeInsets.all(8),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Card(elevation: 2,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child:  _list == null
+                                    ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                                    : ListView.builder(
+                                  itemCount: _list!.booksData?.length,
+                                  itemBuilder: (context, index) {
+                                    return Card(
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(_list!.booksData![index].productTitle.toString()),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 20.0,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -745,5 +819,36 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     );
   }
 
+  //  _callAllBookListApi(action) async {
+  //   final registerData = jsonEncode({"action" : action});
+  //
+  //   try{
+  //     Response response = await post(
+  //       Uri.parse('https://www.rachnasagar.in/rsws/api/booksList'),
+  //       headers: headers,
+  //       body: registerData,
+  //     );
+  //     if(response.statusCode == 200){
+  //       var data = jsonDecode(response.body.toString());
+  //       if(data['status']=="true")
+  //       {
+  //         // ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(data['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'])));
+  //         print(data['booksData']);
+  //       }else{
+  //         {
+  //           ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(data['message'])));
+  //         }
+  //         print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+  //       }
+  //     }else {
+  //       print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc');
+  //     }
+  //   }catch(e){
+  //     print(e.toString());
+  //   }
+  // }
+
+
 }
+
 

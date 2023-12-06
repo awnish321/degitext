@@ -15,7 +15,12 @@ class SplashTwo extends State<SplashScreenTwo>  {
   }
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 3), () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const LoginPage())));
+    Timer(
+        const Duration(seconds: 3), () =>
+        Navigator.of(context).pushReplacement(_createNewRoute()),
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const LoginPage()))
+    );
+
     var assetsImage =  const AssetImage("assets/splashs.png"); //<- Creates an object that fetches an image.
     var image = Image(fit: BoxFit.fill,
       height: double.infinity,
@@ -25,18 +30,27 @@ class SplashTwo extends State<SplashScreenTwo>  {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        /* appBar: AppBar(
-          title: Text("MyApp"),
-          backgroundColor:
-              Colors.blue, //<- background color to combine with the picture :-)
-        ),*/
-        body: Container(
-          decoration:  const BoxDecoration(color: Colors.white),
-          child:  Center(
-            child: image,
-          ),
-        ), //<- place where the image appears
+        body: Center(
+          child: image
+        ),
       ),
     );
   }
+
+}
+
+Route _createNewRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 1.0);
+      const end = Offset(0.0, 0.0);
+      const curve = Curves.easeInOut;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
