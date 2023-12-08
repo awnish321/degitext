@@ -70,8 +70,10 @@ class ApiService {
         var data = jsonDecode(response.body.toString());
         if(data['status']=="true")
         {
-        AllBookListModel model = AllBookListModel.fromJson(response.body.toString());
-          return model;
+          print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+          // AllBookListModel model = AllBookListModel.fromJson(response.body.toString());
+        //   return model;
         }else{
           print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         }

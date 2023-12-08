@@ -1,12 +1,12 @@
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart%20';
 import 'package:new_flutter_project/model/AllBookListModel.dart';
 import 'package:new_flutter_project/product_detail.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
-
-import 'api/api_service.dart';
 import 'cart_page.dart';
 
 class ShopByCategory extends StatefulWidget {
@@ -18,13 +18,8 @@ class ShopByCategory extends StatefulWidget {
 
 class _ShopByCategoryState extends State<ShopByCategory> {
 
-  Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
-
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  AllBookListModel? _list ;
-
-
   int _selectedIndex = 0;
   String radioButtonItem = 'Student';
   int id = 1;
@@ -84,12 +79,27 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     subjectTypeDropDownValue = subjectList[0];
     super.initState();
     // _callAllBookListApi("allBooks");
-    _getData;
   }
-  void _getData() async {
-    _list = (await ApiService().getAllBookList())!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-  }
+
+  Future<AllBookListModel> getAllBookList () async
+  {
+    Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
+    final registerData = jsonEncode({'action' : 'allBooks'});
+     final response = await http.post(Uri.parse('https://www.rachnasagar.in/rsws/api/booksList'),
+        headers: headers,
+        body: registerData,
+      );
+      var data = response.body.toString();
+      if(response.statusCode == 200){
+        print(AllBookListModel.fromJson(data).booksData?.first.productTitle.toString());
+        print("AllBookListModel.fromJson(data).booksData?.first.productTitle.toString()");
+
+        return AllBookListModel.fromJson(data);
+      }else {
+        print("objectaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        return AllBookListModel.fromJson(data);
+      }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -370,8 +380,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                   ),
                                 ),
                                 Container(padding: const EdgeInsets.all(8),
-                                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                      children:const [
+                                  child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                      children:[
                                         Text(
                                           '\u{20B9} 360   ',
                                           maxLines: 3,
@@ -434,8 +444,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 540   ',
                                         maxLines: 3,
@@ -490,8 +500,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 450   ',
                                         maxLines: 3,
@@ -553,8 +563,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 425   ',
                                         maxLines: 3,
@@ -609,8 +619,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 360   ',
                                         maxLines: 3,
@@ -672,8 +682,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 540   ',
                                         maxLines: 3,
@@ -728,8 +738,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                                 ),
                               ),
                               Container(padding: const EdgeInsets.all(8),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:const [
+                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+                                    children:[
                                       Text(
                                         '\u{20B9} 450   ',
                                         maxLines: 3,
@@ -768,50 +778,29 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ],
                 ),
               ),
-              Container(margin: const EdgeInsets.all(8),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child:  _list == null
-                                    ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                                    : ListView.builder(
-                                  itemCount: _list!.booksData?.length,
-                                  itemBuilder: (context, index) {
-                                    return Card(
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(_list!.booksData![index].productTitle.toString()),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 20.0,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(margin: const EdgeInsets.all(8),
+              // child: Expanded(
+              //   child: FutureBuilder <AllBookListModel>(
+              //     future: getAllBookList(),
+              //       builder: (context , snapshot)
+              //       {
+              //         if(snapshot.hasData){
+              //           return ListView.builder(
+              //               itemCount: snapshot.data!.booksData!.length,
+              //               itemBuilder: (context,index)
+              //               {
+              //
+              //                 const Text("hello");
+              //
+              //               }
+              //           );
+              //         }else{
+              //         return const Text("loading",textAlign: TextAlign.center,);
+              //         }
+              //       },
+              //   ),
+              // ),
+              // ),
             ],
           ),
         ),
@@ -819,35 +808,30 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     );
   }
 
-  //  _callAllBookListApi(action) async {
-  //   final registerData = jsonEncode({"action" : action});
-  //
-  //   try{
-  //     Response response = await post(
-  //       Uri.parse('https://www.rachnasagar.in/rsws/api/booksList'),
-  //       headers: headers,
-  //       body: registerData,
-  //     );
-  //     if(response.statusCode == 200){
-  //       var data = jsonDecode(response.body.toString());
-  //       if(data['status']=="true")
-  //       {
-  //         // ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(data['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'])));
-  //         print(data['booksData']);
-  //       }else{
-  //         {
-  //           ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(data['message'])));
-  //         }
-  //         print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-  //       }
-  //     }else {
-  //       print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc');
-  //     }
-  //   }catch(e){
-  //     print(e.toString());
-  //   }
-  // }
-
+   _callAllBookListApi(action) async {
+    final registerData = jsonEncode({"action" : action});
+    Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
+          try{
+      Response response = await http.post(Uri.parse('https://www.rachnasagar.in/rsws/api/booksList'),
+        headers: headers,
+        body: registerData,
+      );
+      if(response.statusCode == 200){
+        var data = jsonDecode(response.body.toString());
+        if(data['status']=="true")
+        {
+          print(data['booksData'].toString());
+          print('booksData');
+        }else{
+          print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+        }
+      }else {
+        print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
 
 }
 
