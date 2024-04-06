@@ -495,8 +495,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ShopByCategory()),
+                                    builder: (context) => const ShopByCategory()),
                               );
                             },
                             child: const Text("Bookseller",

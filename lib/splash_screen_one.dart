@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/splash_screen_two.dart';
+import 'package:new_flutter_project/dashboard_page.dart';
 
 class SplashScreenOne extends StatefulWidget {
   const SplashScreenOne({super.key});
@@ -17,8 +17,23 @@ class SplashOne extends State<SplashScreenOne>  {
   @override
   Widget build(BuildContext context) {
     Timer( const Duration(seconds: 3), () =>
-        Navigator.of(context).pushReplacement(_createNewRoute()),
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const SplashScreenTwo()))
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const DashBoard())),
+        //     PageRouteBuilder(
+        //   pageBuilder: (context, animation, secondaryAnimation) =>  const SplashScreenTwo(),
+        //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        //     const begin = Offset(0.0, .5);
+        //     const end = Offset(0.0, 0.0);
+        //
+        //     const curve = Curves.easeInOut;
+        //
+        //     var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        //     return SlideTransition(
+        //       position: animation.drive(tween),
+        //       child: child,
+        //     );
+        //   },
+        // )),
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const SplashScreenTwo()));
     );
     var assetsImage =   const AssetImage("assets/splash.png"); //<- Creates an object that fetches an image.
     var image = Image(fit: BoxFit.fill,
@@ -46,20 +61,20 @@ class SplashOne extends State<SplashScreenOne>  {
   }
 }
 
-Route _createNewRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>  const SplashScreenTwo(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(0.0, .5);
-      const end = Offset(0.0, 0.0);
-
-      const curve = Curves.easeInOut;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-}
+// Route _createNewRoute() {
+//   return PageRouteBuilder(
+//     pageBuilder: (context, animation, secondaryAnimation) =>  const SplashScreenTwo(),
+//     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+//       const begin = Offset(0.0, .5);
+//       const end = Offset(0.0, 0.0);
+//
+//       const curve = Curves.easeInOut;
+//
+//       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+//       return SlideTransition(
+//         position: animation.drive(tween),
+//         child: child,
+//       );
+//     },
+//   );
+// }

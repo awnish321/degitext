@@ -1,27 +1,33 @@
 class AllBookListModel {
   AllBookListModel({
-      String? status, 
-      String? message, 
-      List<BooksData>? booksData,}){
+    String? status,
+    String? message,
+    List<BooksData>? booksData,
+  }) {
     _status = status;
     _message = message;
     _booksData = booksData;
-}
+  }
 
   AllBookListModel.fromJson(dynamic json) {
     _status = json['status'];
     _message = json['message'];
     if (json['booksData'] != null) {
       _booksData = [];
-      json['booksData'].forEach((v) {_booksData?.add(BooksData.fromJson(v));});
+      json['booksData'].forEach((v) {
+        _booksData?.add(BooksData.fromJson(v));
+      });
     }
   }
+
   String? _status;
   String? _message;
   List<BooksData>? _booksData;
 
   String? get status => _status;
+
   String? get message => _message;
+
   List<BooksData>? get booksData => _booksData;
 
   Map<String, dynamic> toJson() {
@@ -34,101 +40,117 @@ class AllBookListModel {
     return map;
   }
 }
+
 class BooksData {
   BooksData({
-      int? productId, 
-      String? category, 
-      int? bookMrp, 
-      double? bookPrice, 
-      int? bookPerDiscount, 
-      String? productTitle, 
-      String? isbn, 
-      String? mainImage, 
-      int? paperbookPublish, 
-      int? ebookPublish, 
-      int? iebookPublish, 
-      int? cdPublish, 
-      String? slug, 
-      int? categoryId,}){
+    String? productId,
+    String? category,
+    String? categoryId,
+    String? bookMrp,
+    String? bookPrice,
+    String? bookPerDiscount,
+    String? iebookPublish,
+    String? ebookPublish,
+    String? cdPublish,
+    String? paperbookPublish,
+    String? isbn,
+    String? productTitle,
+    String? imageUrl,
+    String? productUrl,
+  }) {
     _productId = productId;
     _category = category;
+    _categoryId = categoryId;
     _bookMrp = bookMrp;
     _bookPrice = bookPrice;
     _bookPerDiscount = bookPerDiscount;
-    _productTitle = productTitle;
-    _isbn = isbn;
-    _mainImage = mainImage;
-    _paperbookPublish = paperbookPublish;
-    _ebookPublish = ebookPublish;
     _iebookPublish = iebookPublish;
+    _ebookPublish = ebookPublish;
     _cdPublish = cdPublish;
-    _slug = slug;
-    _categoryId = categoryId;
-}
+    _paperbookPublish = paperbookPublish;
+    _isbn = isbn;
+    _productTitle = productTitle;
+    _imageUrl = imageUrl;
+    _productUrl = productUrl;
+  }
 
   BooksData.fromJson(dynamic json) {
     _productId = json['productId'];
     _category = json['category'];
+    _categoryId = json['categoryId'];
     _bookMrp = json['book_mrp'];
     _bookPrice = json['book_price'];
     _bookPerDiscount = json['book_perDiscount'];
-    _productTitle = json['product_title'];
-    _isbn = json['isbn'];
-    _mainImage = json['main_image'];
-    _paperbookPublish = json['paperbook_publish'];
-    _ebookPublish = json['ebook_publish'];
     _iebookPublish = json['iebook_publish'];
+    _ebookPublish = json['ebook_publish'];
     _cdPublish = json['cd_publish'];
-    _slug = json['slug'];
-    _categoryId = json['categoryId'];
+    _paperbookPublish = json['paperbook_publish'];
+    _isbn = json['isbn'];
+    _productTitle = json['product_title'];
+    _imageUrl = json['imageUrl'];
+    _productUrl = json['productUrl'];
   }
-  int? _productId;
-  String? _category;
-  int? _bookMrp;
-  double? _bookPrice;
-  int? _bookPerDiscount;
-  String? _productTitle;
-  String? _isbn;
-  String? _mainImage;
-  int? _paperbookPublish;
-  int? _ebookPublish;
-  int? _iebookPublish;
-  int? _cdPublish;
-  String? _slug;
-  int? _categoryId;
 
-  int? get productId => _productId;
+  String? _productId;
+  String? _category;
+  String? _categoryId;
+  String? _bookMrp;
+  String? _bookPrice;
+  String? _bookPerDiscount;
+  String? _iebookPublish;
+  String? _ebookPublish;
+  String? _cdPublish;
+  String? _paperbookPublish;
+  String? _isbn;
+  String? _productTitle;
+  String? _imageUrl;
+  String? _productUrl;
+
+  String? get productId => _productId;
+
   String? get category => _category;
-  int? get bookMrp => _bookMrp;
-  double? get bookPrice => _bookPrice;
-  int? get bookPerDiscount => _bookPerDiscount;
-  String? get productTitle => _productTitle;
+
+  String? get categoryId => _categoryId;
+
+  String? get bookMrp => _bookMrp;
+
+  String? get bookPrice => _bookPrice;
+
+  String? get bookPerDiscount => _bookPerDiscount;
+
+  String? get iebookPublish => _iebookPublish;
+
+  String? get ebookPublish => _ebookPublish;
+
+  String? get cdPublish => _cdPublish;
+
+  String? get paperbookPublish => _paperbookPublish;
+
   String? get isbn => _isbn;
-  String? get mainImage => _mainImage;
-  int? get paperbookPublish => _paperbookPublish;
-  int? get ebookPublish => _ebookPublish;
-  int? get iebookPublish => _iebookPublish;
-  int? get cdPublish => _cdPublish;
-  String? get slug => _slug;
-  int? get categoryId => _categoryId;
+
+  String? get productTitle => _productTitle;
+
+  String? get imageUrl => _imageUrl;
+
+  String? get productUrl => _productUrl;
+
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['productId'] = _productId;
     map['category'] = _category;
+    map['categoryId'] = _categoryId;
     map['book_mrp'] = _bookMrp;
     map['book_price'] = _bookPrice;
     map['book_perDiscount'] = _bookPerDiscount;
-    map['product_title'] = _productTitle;
-    map['isbn'] = _isbn;
-    map['main_image'] = _mainImage;
-    map['paperbook_publish'] = _paperbookPublish;
-    map['ebook_publish'] = _ebookPublish;
     map['iebook_publish'] = _iebookPublish;
+    map['ebook_publish'] = _ebookPublish;
     map['cd_publish'] = _cdPublish;
-    map['slug'] = _slug;
-    map['categoryId'] = _categoryId;
+    map['paperbook_publish'] = _paperbookPublish;
+    map['isbn'] = _isbn;
+    map['product_title'] = _productTitle;
+    map['imageUrl'] = _imageUrl;
+    map['productUrl'] = _productUrl;
     return map;
   }
-
 }

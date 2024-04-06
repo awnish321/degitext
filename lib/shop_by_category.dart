@@ -1,11 +1,8 @@
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart%20';
 import 'package:new_flutter_project/model/AllBookListModel.dart';
-import 'package:new_flutter_project/product_detail.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'cart_page.dart';
 
@@ -17,7 +14,6 @@ class ShopByCategory extends StatefulWidget {
 }
 
 class _ShopByCategoryState extends State<ShopByCategory> {
-
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   int _selectedIndex = 0;
@@ -65,50 +61,49 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     'Science',
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  Future<AllBookListModel> getProductsApi() async {
+    final registerData = jsonEncode({"action": 'allBooks'});
+    Map<String, String> headers = {
+      'rsplkey': 'rspl',
+      'Content-Type': 'application/json'
+    };
+    Response response = await http.post(
+      Uri.parse('https://www.rachnasagar.in/digitextapp/api/booksList'),
+      headers: headers,
+      body: registerData,
+    );
+    var data = jsonDecode(response.body.toString());
+    if (response.statusCode == 200) {
+
+      List<dynamic> getCategoryList(List<dynamic> data) {
+        List outputList = data.where((o) => o['category'] == 'CBSE').toList();
+        return outputList;
+      }
+      return AllBookListModel.fromJson(data);
+    } else {
+      return AllBookListModel.fromJson(data);
+    }
   }
 
   @override
   void initState() {
-    boardDropDownValue =boardList[0];
+    boardDropDownValue = boardList[0];
     classDropDownValue = classList[0];
     booksTypeDropDownValue = bookList[0];
     subjectTypeDropDownValue = subjectList[0];
     super.initState();
-    // _callAllBookListApi("allBooks");
   }
-
-  Future<AllBookListModel> getAllBookList () async
-  {
-    Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
-    final registerData = jsonEncode({'action' : 'allBooks'});
-     final response = await http.post(Uri.parse('https://www.rachnasagar.in/rsws/api/booksList'),
-        headers: headers,
-        body: registerData,
-      );
-      var data = response.body.toString();
-      if(response.statusCode == 200){
-        print(AllBookListModel.fromJson(data).booksData?.first.productTitle.toString());
-        print("AllBookListModel.fromJson(data).booksData?.first.productTitle.toString()");
-
-        return AllBookListModel.fromJson(data);
-      }else {
-        print("objectaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        return AllBookListModel.fromJson(data);
-      }
-    }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: CustomColour.appTheme),
-      darkTheme: ThemeData(brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
+      darkTheme: ThemeData(
+          brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(backgroundColor: CustomColour.appTheme,
+        appBar: AppBar(
+          backgroundColor: CustomColour.appTheme,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_sharp,
@@ -118,7 +113,10 @@ class _ShopByCategoryState extends State<ShopByCategory> {
               Navigator.of(context).pop(true);
             },
           ),
-          title: const Text('RACHNA SAGAR PVT. LTD',style: TextStyle(color: Colors.white,fontSize: 20),),
+          title: const Text(
+            'RACHNA SAGAR PVT. LTD',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.white),
           actions: <Widget>[
@@ -127,7 +125,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                 Icons.shopping_cart,
                 color: Colors.white,
               ),
-              onPressed: ()  {
+              onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Cart()),
@@ -136,703 +134,330 @@ class _ShopByCategoryState extends State<ShopByCategory> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(8),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // Container(
-              //     width: double.infinity,
-              //     margin: const EdgeInsets.all(10),
-              //     alignment: Alignment.center,
-              //     decoration: BoxDecoration(
-              //       color: CustomColour.appTheme.shade800,
-              //       border: Border.all(
-              //           color: CustomColour.appTheme.shade800, // Set border color
-              //           width: 3.0), // Set border width
-              //       borderRadius: const BorderRadius.all(
-              //           Radius.circular(10.0)), // Set rounded corner radius
-              //     ),
-              //     padding: const EdgeInsets.all(10),
-              //     child: const Text(
-              //       'CBSE',
-              //       style: TextStyle(
-              //         color: Colors.white,
-              //         fontSize: 18,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     )
-              // ),
-              Container(margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Card(
-                        shadowColor: Colors.black,
-                        color: Colors.grey[200],
-                        child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
-                          isExpanded: true,
-                          value: boardDropDownValue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: boardList.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              boardDropDownValue = newValue!;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Card(
-                        shadowColor: Colors.black,
-                        color: Colors.grey[200],
-                        child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
-                          isExpanded: true,
-                          value: classDropDownValue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: classList.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              classDropDownValue = newValue!;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal:  8),
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[200],
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        DropdownButton(
-                          isExpanded: true,
-                          value: booksTypeDropDownValue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: bookList.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              booksTypeDropDownValue = newValue!;
-                            });
-                          },
-                        ),
-                      ],
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(left:5,right: 5, bottom: 10),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: CustomColour.appTheme.shade800,
+                    border: Border.all(
+                        color: CustomColour.appTheme.shade800, // Set border color
+                        width: 3.0), // Set border width
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(10.0)), // Set rounded corner radius
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: InkWell(
+                    child:  const Text(
+                      'CBSE',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ShopByCategory()),
+                      );
+                    },
+                  )
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      shadowColor: Colors.black,
+                      color: Colors.grey[200],
+                      child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
+                        isExpanded: true,
+                        value: boardDropDownValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: boardList.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            boardDropDownValue = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Card(
+                      shadowColor: Colors.black,
+                      color: Colors.grey[200],
+                      child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
+                        isExpanded: true,
+                        value: classDropDownValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: classList.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            classDropDownValue = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Card(
+                elevation: 1,
+                shadowColor: Colors.black,
+                color: Colors.grey[200],
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      DropdownButton(
+                        isExpanded: true,
+                        value: booksTypeDropDownValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: bookList.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            booksTypeDropDownValue = newValue!;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal:  8),
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[200],
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        DropdownButton(
-                          isExpanded: true,
-                          value: subjectTypeDropDownValue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: subjectList.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(
-                                items,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              subjectTypeDropDownValue = newValue!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+              Card(
+                elevation: 1,
+                shadowColor: Colors.black,
+                color: Colors.grey[200],
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      DropdownButton(
+                        isExpanded: true,
+                        value: subjectTypeDropDownValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: subjectList.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            subjectTypeDropDownValue = newValue!;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Container(margin: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: InkWell(onTap: ()
-                      {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  ProductDetail()),
-                        );
-                      },
-                        child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                          child: Card(elevation: 2,
+              Expanded(
+                child: FutureBuilder<AllBookListModel>(
+                  future: getProductsApi(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return GridView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.booksData!.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 2,
                             child: Column(
                               children: [
-                                Image.asset("assets/books.png"),
-                                const Padding(
-                                  padding: EdgeInsets.all(5.0),
+                                Container(
+                                  height: MediaQuery.of(context).size.height * .25,
+                                  width: MediaQuery.of(context).size.width * .45,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                      ),
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(snapshot
+                                            .data!.booksData![index].imageUrl!
+                                            .toString()),
+                                      )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5, top: 5, right: 5, bottom: 0),
                                   child: Text(
-                                    'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
+                                    snapshot
+                                        .data!.booksData![index].productTitle
+                                        .toString(),
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(letterSpacing: 0.5,
+                                    style: const TextStyle(
+                                      letterSpacing: 0.5,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                    ),textAlign: TextAlign.center,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                Container(padding: const EdgeInsets.all(8),
-                                  child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                      children:[
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 2, top: 5, right: 2, bottom: 0),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
                                         Text(
-                                          '\u{20B9} 425   ',
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(letterSpacing: 0.5,
+                                          '\u{20B9} ${snapshot.data!.booksData![index].bookPrice}  ',
+                                          style: const TextStyle(
+                                            letterSpacing: 0.5,
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                          ),textAlign: TextAlign.center,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
                                         Text(
-                                          '\u{20B9} 500',
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
+                                          '\u{20B9}${snapshot.data!.booksData![index].bookMrp}',
+                                          style: const TextStyle(
+                                            letterSpacing: 0.5,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            decorationColor: Colors.red,
                                             color: Colors.red,
                                             fontWeight: FontWeight.bold,
-                                          ),textAlign: TextAlign.center,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
                                         Text(
-                                          ' (15%)',
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(letterSpacing: 0.5,
+                                          ' (${snapshot.data!.booksData![index].bookPerDiscount}%)',
+                                          style: const TextStyle(
+                                            letterSpacing: 0.5,
                                             color: Colors.black54,
                                             fontWeight: FontWeight.bold,
-                                          ),textAlign: TextAlign.center,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                      ]
-                                  ),
-                                )
+                                      ]),
+                                ),
+                                // Icon(snapshot.data!.booksData![index].imageUrl! == false ? Icons.favorite : Icons.favorite_outline)
                               ],
                             ),
-                          ),
+                          );
+                        },
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1,
+                          crossAxisSpacing: 0.0,
+                          mainAxisSpacing: 5,
+                          mainAxisExtent: 320,
                         ),
-                      ),
-                    ),
-                    Expanded(
-                        child: InkWell(onTap: ()
-                      {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProductDetail()),
-                        );
-                      },
-                        child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                          child: Card(elevation: 2,
-                            child: Column(
-                              children: [
-                                Image.asset("assets/books.png"),
-                                const Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Text(
-                                    'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(letterSpacing: 0.5,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Container(padding: const EdgeInsets.all(8),
-                                  child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                      children:[
-                                        Text(
-                                          '\u{20B9} 360   ',
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(letterSpacing: 0.5,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          '\u{20B9} 400',
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.bold,
-                                          ),textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          ' (10%)',
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(letterSpacing: 0.5,
-                                            color: Colors.black54,
-                                            fontWeight: FontWeight.bold,
-                                          ),textAlign: TextAlign.center,
-                                        ),
-                                      ]
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                      );
+                    } else {
+                      return bodyProgress;
+                    }
+                  },
                 ),
               ),
-              Container(margin: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:[
-                                      Text(
-                                        '\u{20B9} 540   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 600',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:[
-                                      Text(
-                                        '\u{20B9} 450   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(margin: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:[
-                                      Text(
-                                        '\u{20B9} 425   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (15%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:[
-                                      Text(
-                                        '\u{20B9} 360   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 400',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(margin: const EdgeInsets.all(8),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:[
-                                      Text(
-                                        '\u{20B9} 540   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 600',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Card(elevation: 2,
-                          child: Column(
-                            children: [
-                              Image.asset("assets/books.png"),
-                              const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Text(
-                                  'Together with cbse class-10 mathematics basic question bank study material exam 2023-24',
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(padding: const EdgeInsets.all(8),
-                                child: const Row(mainAxisAlignment: MainAxisAlignment.center,
-                                    children:[
-                                      Text(
-                                        '\u{20B9} 450   ',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '\u{20B9} 500',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,decoration: TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        ' (10%)',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(letterSpacing: 0.5,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold,
-                                        ),textAlign: TextAlign.center,
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Container(margin: const EdgeInsets.all(8),
-              // child: Expanded(
-              //   child: FutureBuilder <AllBookListModel>(
-              //     future: getAllBookList(),
-              //       builder: (context , snapshot)
-              //       {
-              //         if(snapshot.hasData){
-              //           return ListView.builder(
-              //               itemCount: snapshot.data!.booksData!.length,
-              //               itemBuilder: (context,index)
-              //               {
-              //
-              //                 const Text("hello");
-              //
-              //               }
-              //           );
-              //         }else{
-              //         return const Text("loading",textAlign: TextAlign.center,);
-              //         }
-              //       },
-              //   ),
-              // ),
-              // ),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-   _callAllBookListApi(action) async {
-    final registerData = jsonEncode({"action" : action});
-    Map<String,String> headers = {'rsplkey': 'rspl', 'Content-Type': 'application/json'};
-          try{
-      Response response = await http.post(Uri.parse('https://www.rachnasagar.in/rsws/api/booksList'),
-        headers: headers,
-        body: registerData,
-      );
-      if(response.statusCode == 200){
-        var data = jsonDecode(response.body.toString());
-        if(data['status']=="true")
-        {
-          print(data['booksData'].toString());
-          print('booksData');
-        }else{
-          print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-        }
-      }else {
-        print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc');
-      }
-    }catch(e){
-      print(e.toString());
-    }
+var bodyProgress = Stack(
+  children: <Widget>[
+    Container(
+      alignment: AlignmentDirectional.center,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Container(
+        decoration:  BoxDecoration(
+            // color: CustomColour.appTheme.shade100,
+            borderRadius:  BorderRadius.circular(10.0)
+        ),
+        width: double.maxFinite,
+        height: double.maxFinite,
+        alignment: AlignmentDirectional.center,
+        child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+             const Center(
+              child:  SizedBox(
+                height: 50.0,
+                width: 50.0,
+                child:  CircularProgressIndicator(
+                  value: null,
+                  strokeWidth: 5.0,color: CustomColour.appTheme,
+                ),
+              ),
+            ),
+             Container(
+              margin: const EdgeInsets.only(top: 25.0),
+              child:  const Center(
+                child:  Text(
+                  "loading.. wait...",
+                  style:  TextStyle(
+                      color: Colors.white
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ],
+);
+
+_callAllBookListApi(action) async {
+  final registerData = jsonEncode({"action": 'allBooks'});
+  Map<String, String> headers = {
+    'rsplkey': 'rspl',
+    'Content-Type': 'application/json'
+  };
+  Response response = await http.post(
+    Uri.parse('https://www.rachnasagar.in/digitextapp/api/booksList'),
+    headers: headers,
+    body: registerData,
+  );
+  var data = jsonDecode(response.body.toString());
+  if (response.statusCode == 200) {
+    return AllBookListModel.fromJson(data);
+  } else {
+    return AllBookListModel.fromJson(data);
   }
-
 }
 
 
