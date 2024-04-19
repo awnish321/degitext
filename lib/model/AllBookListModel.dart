@@ -134,7 +134,6 @@ class BooksData {
 
   String? get productUrl => _productUrl;
 
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['productId'] = _productId;
@@ -153,4 +152,7 @@ class BooksData {
     map['productUrl'] = _productUrl;
     return map;
   }
+
+
 }
+

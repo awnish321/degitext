@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart%20';
 import 'package:new_flutter_project/model/AllBookListModel.dart';
+import 'package:new_flutter_project/model/products_model.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'cart_page.dart';
 
@@ -61,6 +63,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     'Science',
   ];
 
+  get outputList => null;
+
   Future<AllBookListModel> getProductsApi() async {
     final registerData = jsonEncode({"action": 'allBooks'});
     Map<String, String> headers = {
@@ -74,14 +78,18 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     );
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
-
-      List<dynamic> getCategoryList(List<dynamic> data) {
-        List outputList = data.where((o) => o['category'] == 'CBSE').toList();
-        return outputList;
+      AllBookListModel model = AllBookListModel.fromJson(data);
+      AllBookListModel filteredData = AllBookListModel.fromJson(data);
+      filteredData.booksData?.clear();
+      for(int i=0; i<model.booksData!.length; i++){
+        if("350" == model.booksData?[i].bookMrp){
+          filteredData.booksData?.add(model.booksData?[i] as BooksData);
+        }
       }
-      return AllBookListModel.fromJson(data);
+      return filteredData;
     } else {
-      return AllBookListModel.fromJson(data);
+      AllBookListModel model = AllBookListModel.fromJson(data);
+      return model;
     }
   }
 
@@ -138,36 +146,36 @@ class _ShopByCategoryState extends State<ShopByCategory> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(left:5,right: 5, bottom: 10),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: CustomColour.appTheme.shade800,
-                    border: Border.all(
-                        color: CustomColour.appTheme.shade800, // Set border color
-                        width: 3.0), // Set border width
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(10.0)), // Set rounded corner radius
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: InkWell(
-                    child:  const Text(
-                      'CBSE',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ShopByCategory()),
-                      );
-                    },
-                  )
-              ),
+              // Container(
+              //     width: double.infinity,
+              //     margin: const EdgeInsets.only(left:5,right: 5, bottom: 10),
+              //     alignment: Alignment.center,
+              //     decoration: BoxDecoration(
+              //       color: CustomColour.appTheme.shade800,
+              //       border: Border.all(
+              //           color: CustomColour.appTheme.shade800, // Set border color
+              //           width: 3.0), // Set border width
+              //       borderRadius: const BorderRadius.all(
+              //           Radius.circular(10.0)), // Set rounded corner radius
+              //     ),
+              //     padding: const EdgeInsets.all(10),
+              //     child: InkWell(
+              //       child:  const Text(
+              //         'CBSE',
+              //         style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: 18,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //       onTap: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(builder: (context) => const ShopByCategory()),
+              //         );
+              //       },
+              //     )
+              // ),
               Row(
                 children: [
                   Expanded(
@@ -460,4 +468,7 @@ _callAllBookListApi(action) async {
   }
 }
 
+void searchUser(String enteredData){
+
+    }
 
