@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart%20';
 import 'package:new_flutter_project/model/AllBookListModel.dart';
-import 'package:new_flutter_project/model/products_model.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'cart_page.dart';
 
@@ -24,7 +22,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
 
   String boardDropDownValue = '';
   var boardList = [
-    'Select board',
+    'Select Board',
     'C.B.S.E',
     'I.C.S.E/I.S.C',
     'G.C.E.R.T',
@@ -35,7 +33,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
 
   String classDropDownValue = '';
   var classList = [
-    'Select class',
+    'Select Class',
     'Class 1',
     'Class 2',
     'Class 3',
@@ -55,7 +53,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
 
   String subjectTypeDropDownValue = '';
   var subjectList = [
-    'Select subject',
+    'Select Subject',
     'Hindi',
     'English',
     'Math',
@@ -80,12 +78,12 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     if (response.statusCode == 200) {
       AllBookListModel model = AllBookListModel.fromJson(data);
       AllBookListModel filteredData = AllBookListModel.fromJson(data);
-      filteredData.booksData?.clear();
-      for(int i=0; i<model.booksData!.length; i++){
-        if("350" == model.booksData?[i].bookMrp){
-          filteredData.booksData?.add(model.booksData?[i] as BooksData);
-        }
-      }
+      // filteredData.booksData?.clear();
+      // for(int i=0; i<model.booksData!.length; i++){
+      //   if("350" == model.booksData?[i].bookMrp){
+      //     filteredData.booksData?.add(model.booksData?[i] as BooksData);
+      //   }
+      // }
       return filteredData;
     } else {
       AllBookListModel model = AllBookListModel.fromJson(data);
@@ -449,26 +447,4 @@ var bodyProgress = Stack(
   ],
 );
 
-_callAllBookListApi(action) async {
-  final registerData = jsonEncode({"action": 'allBooks'});
-  Map<String, String> headers = {
-    'rsplkey': 'rspl',
-    'Content-Type': 'application/json'
-  };
-  Response response = await http.post(
-    Uri.parse('https://www.rachnasagar.in/digitextapp/api/booksList'),
-    headers: headers,
-    body: registerData,
-  );
-  var data = jsonDecode(response.body.toString());
-  if (response.statusCode == 200) {
-    return AllBookListModel.fromJson(data);
-  } else {
-    return AllBookListModel.fromJson(data);
-  }
-}
-
-void searchUser(String enteredData){
-
-    }
 
