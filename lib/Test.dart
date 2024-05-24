@@ -772,29 +772,6 @@ Widget build(BuildContext context) {
                 ],
               ),
             ),
-            Container(margin: const EdgeInsets.all(8),
-            child: Expanded(
-              child: FutureBuilder <AllBookListModel>(
-                future: getAllBookList(),
-                  builder: (context , snapshot)
-                  {
-                    if(snapshot.hasData){
-                      return ListView.builder(
-                          itemCount: snapshot.data!.booksData!.length,
-                          itemBuilder: (context,index)
-                          {
-                            print("objectaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                            const Text("hello");
-                            return null;
-                          }
-                      );
-                    }else{
-                    return const Text("loading",textAlign: TextAlign.center,);
-                    }
-                  },
-              ),
-            ),
-            ),
           ],
         ),
       ),

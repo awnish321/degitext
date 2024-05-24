@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:new_flutter_project/Test.dart';
 import 'package:new_flutter_project/all_book.dart';
 import 'package:new_flutter_project/coming_soon_page.dart';
 import 'package:new_flutter_project/contact_us.dart';
+import 'package:new_flutter_project/demo.dart';
+import 'package:new_flutter_project/demo1.dart';
 import 'package:new_flutter_project/download_zip_file.dart';
 import 'package:new_flutter_project/login_page.dart';
 import 'package:new_flutter_project/my_order.dart';
@@ -466,7 +469,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const ShopByCategory()),
+                                        const Demo1()),
                               );
                             },
                             child: const Text("Teacher/Schools",
@@ -495,7 +498,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ShopByCategory()),
+                                    builder: (context) => const Demo()),
                               );
                             },
                             child: const Text("Bookseller",

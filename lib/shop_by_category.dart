@@ -61,6 +61,10 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     'Science',
   ];
 
+  late AllBookListModel _myData;
+
+  AllBookListModel get myData => _myData;
+
   get outputList => null;
 
   Future<AllBookListModel> getProductsApi() async {
@@ -78,13 +82,15 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     if (response.statusCode == 200) {
       AllBookListModel model = AllBookListModel.fromJson(data);
       AllBookListModel filteredData = AllBookListModel.fromJson(data);
+      final data1 = AllBookListModel.fromJson(jsonDecode(response.body));
+      _myData = data1;
       // filteredData.booksData?.clear();
       // for(int i=0; i<model.booksData!.length; i++){
       //   if("350" == model.booksData?[i].bookMrp){
       //     filteredData.booksData?.add(model.booksData?[i] as BooksData);
       //   }
       // }
-      return filteredData;
+      return _myData;
     } else {
       AllBookListModel model = AllBookListModel.fromJson(data);
       return model;
@@ -187,6 +193,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                         items: boardList.map((String items) {
                           return DropdownMenuItem(
                             value: items,
+                            // onTap:()=> _filterBoard(items),
                             child: Text(
                               items,
                             ),
@@ -399,6 +406,41 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     );
   }
 }
+
+
+// _filterBoard(String boardType) {
+//   setState(() {
+//     switch (boardType) {
+//       case 'C.B.S.E':
+//       filteredData.booksData?.clear();
+//       for(int i=0; i<model.booksData!.length; i++){
+//         if("C.B.S.E" == model.booksData?[i].bookMrp){
+//           filteredData.booksData?.add(model.booksData?[i] as BooksData);
+//         }
+//       }
+//         ;
+//         break;
+//       case 'I.C.S.E/I.S.C':
+//         cellText = new Text('red');
+//         break;
+//       case 'G.C.E.R.T':
+//         cellText = new Text('green');
+//         break;
+//       case 'C.U.E.T-U.G(N.T.A)':
+//         cellText = new Text('yellow');
+//         break;
+//       case 'N.S.D.C':
+//         cellText = new Text('orange');
+//         break;
+//         case 'Educational Kit':
+//         cellText = new Text('orange');
+//         break;
+//       default:
+//         cellText = new Text('brown');
+//         break;
+//     }
+//   });
+// }
 
 var bodyProgress = Stack(
   children: <Widget>[
