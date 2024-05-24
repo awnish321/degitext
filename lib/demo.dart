@@ -5,8 +5,6 @@ import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'cart_page.dart';
 import 'package:new_flutter_project/api/api_service.dart';
 
-import 'detail_page.dart';
-
 class Demo extends StatefulWidget {
   const Demo({Key? key}) : super(key: key);
 
@@ -87,22 +85,11 @@ class _DemoState extends State<Demo> {
                   future: futureBookList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<AllBookListModel>? booksData = snapshot.data?.booksData!.cast<AllBookListModel>();
                       return GridView.builder(
                         shrinkWrap: true,
                         itemCount: snapshot.data?.booksData?.length,
                         itemBuilder: (context, index) {
-                          final book = booksData?[index];
-                          return GestureDetector(
-                              onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailPage(book: book),
-                              ),
-                            );
-                          },
-                          child:Card(
+                          return Card(
                             elevation: 2,
                             child: Column(
                               children: [
@@ -179,7 +166,6 @@ class _DemoState extends State<Demo> {
                                 // Icon(snapshot.data!.booksData![index].imageUrl! == false ? Icons.favorite : Icons.favorite_outline)
                               ],
                             ),
-                          )
                           );
                         },
                         gridDelegate:
