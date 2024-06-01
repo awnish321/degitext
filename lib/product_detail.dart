@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:new_flutter_project/model/AllBookListModel.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'package:new_flutter_project/wishlist_page.dart';
 
 import 'cart_page.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({super.key});
+
+  final BooksData? book;
+  const ProductDetail({super.key, required this.book});
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
@@ -15,7 +18,6 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
 
   int _radioSelected = 1;
-
   late String radioVal = "Paper Book";
 
   @override
@@ -84,27 +86,20 @@ class _ProductDetailState extends State<ProductDetail> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("assets/books.png", height: 210),
+                    Image.network(widget.book!.imageUrl.toString(), height: 240),
                   ],
                 ),
                 Container(
                     alignment: Alignment.topRight,
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    ))
+                    child: Icon(widget.book?.imageUrl == false ? Icons. favorite_outline: Icons.favorite ,color: Colors.red,)
+                )
               ]),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                'Together With CBSE Class 11 Mathematics Question Bank/Study Material Exam 2023-24 (Based on the latest Syllabus)',
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(widget.book!.productTitle.toString(),
+                style: const TextStyle(
                   letterSpacing: 0.5,
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,
@@ -112,51 +107,50 @@ class _ProductDetailState extends State<ProductDetail> {
                 textAlign: TextAlign.justify,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
-                TextSpan(
-                  text: 'Price :  ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  // default text style
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '\u{20B9} 360   ',
-                      style: TextStyle(
-                      letterSpacing: 0.5,
-                      color: Colors.black54,
-                    ),
-                    ),
-                    TextSpan(
-                      text: '\u{20B9} 400',style: TextStyle(
-                      letterSpacing: 0.5,
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.red,
-                    ),
-                    ),
-                    TextSpan(
-                      text: ' (10%)',style: TextStyle(
-                      letterSpacing: 0.5,
-                      color: Colors.black54,
-                    ),
-                    )
-                      ],
-                )
+                  TextSpan(
+                    text: 'Price : ',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    // default text style
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '\u{20B9} ${widget.book?.bookPrice}  ',
+                        style: const TextStyle(
+                          letterSpacing: 0.5,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      TextSpan(
+                        text: '\u{20B9} ${widget.book?.bookMrp}',style: const TextStyle(
+                        letterSpacing: 0.5,
+                        decoration: TextDecoration.lineThrough,
+                        color: Colors.red,
+                      ),
+                      ),
+                      TextSpan(
+                        text: ' (${widget.book?.bookPerDiscount}%)',style: const TextStyle(
+                        letterSpacing: 0.5,
+                        color: Colors.black54,
+                      ),
+                      )
+                    ],
+                  )
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(15),
+            Padding(
+              padding: const EdgeInsets.all(15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Description :',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  text: 'Description : ',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
-                      text:
-                          'Together with CBSE Question Bank Class 11 Mathematics Exam for session 2023-24 has been prepared as per the CBSE latest syllabus for Academic Session 2023-24.'
-                          ' Chapter wise Question Bank provide in depth knowledge of concept based questions and their weightage to prepare for CBSE Mathematics Exam.',
-                      style: TextStyle(
+                      text:widget.book?.productTitle,
+                      style: const TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
                       ),
@@ -165,18 +159,18 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),textAlign: TextAlign.justify,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Publisher :',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  text: 'Board : ',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                          ' Rachna Sagar',
-                      style: TextStyle(
+                      widget.book!.category.toString(),
+                      style: const TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
                       ),
@@ -185,18 +179,18 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),textAlign: TextAlign.justify,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Binding  :',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  text: 'Class : ',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                          ' Paperback',
-                      style: TextStyle(
+                      widget.book!.className.toString(),
+                      style: const TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
                       ),
@@ -205,38 +199,18 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),textAlign: TextAlign.justify,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Author   :',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  text: 'Subject : ',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                          ' Rajesh K. Dewan',
-                      style: TextStyle(
-                        letterSpacing: 0.5,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),textAlign: TextAlign.justify,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
-              child: Text.rich(
-                TextSpan(
-                  text: 'Language   :',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  // default text style
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          ' English',
-                      style: TextStyle(
+                      widget.book!.subjectName.toString(),
+                      style: const TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
                       ),
@@ -249,13 +223,13 @@ class _ProductDetailState extends State<ProductDetail> {
               padding: EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'ISBN  :',
+                  text: 'Publisher : ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                          ' 9789356189744',
+                      'Rachna Sagar',
                       style: TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -269,12 +243,71 @@ class _ProductDetailState extends State<ProductDetail> {
               padding: EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Weight  :',
+                  text: 'Author : ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
-                      text: ' 0.8 KG',
+                      text:
+                      'Rajesh K. Dewan',
+                      style: TextStyle(
+                        letterSpacing: 0.5,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),textAlign: TextAlign.justify,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+              child: Text.rich(
+                TextSpan(
+                  text: 'Language : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  // default text style
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                      'English',
+                      style: TextStyle(
+                        letterSpacing: 0.5,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),textAlign: TextAlign.justify,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
+              child: Text.rich(
+                TextSpan(
+                  text: 'ISBN : ',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  // default text style
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: widget.book?.isbn,
+                      style: const TextStyle(
+                        letterSpacing: 0.5,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),textAlign: TextAlign.justify,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+              child: Text.rich(
+                TextSpan(
+                  text: 'Weight : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  // default text style
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '0.8 KG',
                       style: TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -289,7 +322,7 @@ class _ProductDetailState extends State<ProductDetail> {
               child: Row(
                 children: [
                   const Text(
-                    'Review :  ',
+                    'Review : ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   RatingBarIndicator(
@@ -302,9 +335,6 @@ class _ProductDetailState extends State<ProductDetail> {
                       )),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 10,
             ),
           ],
         ),

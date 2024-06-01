@@ -286,12 +286,12 @@ Widget build(BuildContext context) {
                 children: [
                   Expanded(
                     child: InkWell(onTap: ()
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>  const ProductDetail()),
-                      );
-                    },
+                     {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) =>  const ProductDetail()),
+                    //   );
+                     },
                       child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
                         child: Card(elevation: 2,
                           child: Column(
@@ -351,10 +351,10 @@ Widget build(BuildContext context) {
                   Expanded(
                       child: InkWell(onTap: ()
                     {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ProductDetail()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => const ProductDetail()),
+                      // );
                     },
                       child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
                         child: Card(elevation: 2,

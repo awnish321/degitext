@@ -56,6 +56,8 @@ class BooksData {
     String? isbn,
     String? productTitle,
     String? imageUrl,
+    String? className,
+    String? subjectName,
     String? productUrl,
   }) {
     _productId = productId;
@@ -71,6 +73,8 @@ class BooksData {
     _isbn = isbn;
     _productTitle = productTitle;
     _imageUrl = imageUrl;
+    _className = className;
+    _subjectName = subjectName;
     _productUrl = productUrl;
   }
 
@@ -88,6 +92,8 @@ class BooksData {
     _isbn = json['isbn'];
     _productTitle = json['product_title'];
     _imageUrl = json['imageUrl'];
+    _className = json['className'];
+    _subjectName = json['subjectName'];
     _productUrl = json['productUrl'];
   }
 
@@ -104,6 +110,8 @@ class BooksData {
   String? _isbn;
   String? _productTitle;
   String? _imageUrl;
+  String? _className;
+  String? _subjectName;
   String? _productUrl;
 
   String? get productId => _productId;
@@ -132,6 +140,10 @@ class BooksData {
 
   String? get imageUrl => _imageUrl;
 
+  String? get className => _className;
+
+  String? get subjectName => _subjectName;
+
   String? get productUrl => _productUrl;
 
   Map<String, dynamic> toJson() {
@@ -149,6 +161,8 @@ class BooksData {
     map['isbn'] = _isbn;
     map['product_title'] = _productTitle;
     map['imageUrl'] = _imageUrl;
+    map['className'] = _className;
+    map['subjectName'] = _subjectName;
     map['productUrl'] = _productUrl;
     return map;
   }

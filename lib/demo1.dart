@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:new_flutter_project/model/AllBookListModel.dart';
 import 'package:new_flutter_project/detail_page.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'cart_page.dart';
@@ -105,7 +104,6 @@ class _DemoState extends State<Demo1> {
                             elevation: 2,
                             child: Column(
                               children: [
-
                                 Container(
                                   height: MediaQuery.of(context).size.height * .25,
                                   width: MediaQuery.of(context).size.width * .45,

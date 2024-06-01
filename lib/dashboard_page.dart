@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/Test.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart%20';
 import 'package:new_flutter_project/all_book.dart';
+import 'package:new_flutter_project/bookseller_list.dart';
 import 'package:new_flutter_project/coming_soon_page.dart';
 import 'package:new_flutter_project/contact_us.dart';
 import 'package:new_flutter_project/demo.dart';
@@ -13,38 +17,18 @@ import 'package:new_flutter_project/profile_page.dart';
 import 'package:new_flutter_project/saved_address_page.dart';
 import 'package:new_flutter_project/shop_by_category.dart';
 import 'package:new_flutter_project/wishlist_page.dart';
-
 import 'cart_page.dart';
-import 'main.dart';
 import 'utility/CustomColour.dart';
 
-class DashBoard extends StatelessWidget {
-  const DashBoard({super.key});
+class DashBoard extends StatefulWidget {
+  const DashBoard({super.key,});
 
+  @override
+  State<DashBoard> createState() => _DashBoardState();
   static const themeColour = Color(0xFFEA6865);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(backgroundColor: CustomColour.appTheme),
-      darkTheme: ThemeData(
-          brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
-    );
-  }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-  });
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _DashBoardState extends State<DashBoard> {
   static const cardTopColour = Color(0xFFEF5932);
   static const cardBottomColour = Color(0xFFF68802);
   static const card1TopColour = Color(0xFFE13EA0);
@@ -228,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedIconTheme:
-              const IconThemeData(color: CustomColour.appTheme, size: 40),
+          const IconThemeData(color: CustomColour.appTheme, size: 40),
           selectedItemColor: CustomColour.appTheme,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
           unselectedItemColor: Colors.black54,
@@ -274,6 +258,25 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
   final pageController2 = PageController();
   double currentPage = 0;
 
+  // void dataSearch(String value) async {
+  //   List<BooksData>? data = [];
+  //   if (value.isEmpty) {
+  //     setState(() {
+  //       originalData1 = searchData1;
+  //     });
+  //     return;
+  //   }
+  //   originalData1 = searchData1;
+  //   for (var i = 0; i < originalData1!.length; i++) {
+  //     if(originalData1![i].productTitle!.toLowerCase().contains(value.toLowerCase())){
+  //       data.add(originalData1![i]);
+  //     }
+  //   }
+  //   setState(() {
+  //     originalData1 = data;
+  //   });
+  // }
+
   switch (numberToCheck) {
     case 0:
       return SizedBox(
@@ -282,27 +285,37 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Expanded(
-                flex: 0,
-                child: Container(
-                  width: double.infinity,
-                  height: 55,
-                  margin: const EdgeInsets.only(bottom: 10, top: 3),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xffc9c1c1),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Search for Items",
-                      prefixIcon: const Icon(Icons.search),
-                      prefixIconColor: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   flex: 0,
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: 55,
+              //     margin: const EdgeInsets.only(bottom: 10, top: 3),
+              //     child: TextField(
+              //         onChanged:(value) {
+              //         if (value.isNotEmpty) {
+              //         _showContainer = true;
+              //         _showToast(_showContainer.toString());
+              //         }else
+              //           {
+              //         _showContainer = false;
+              //         _showToast(_showContainer.toString());
+              //         }
+              //         },
+              //       decoration: InputDecoration(
+              //         filled: true,
+              //         fillColor: const Color(0xffc9c1c1),
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide: BorderSide.none,
+              //         ),
+              //         hintText: "Search for Items",
+              //         prefixIcon: const Icon(Icons.search),
+              //         prefixIconColor: Colors.black,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 flex: 1,
                 child: SizedBox(
@@ -390,8 +403,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                    3,
-                    (index) {
+                    3, (index) {
                       return Container(
                         margin: const EdgeInsets.only(right: 5),
                         alignment: Alignment.centerLeft,
@@ -399,9 +411,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                         width: 9,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: currentPage == index
-                              ? DashBoard.themeColour
-                              : Colors.black26,
+                          color: currentPage == index ? DashBoard.themeColour : Colors.black26,
                         ),
                       );
                     },
@@ -439,7 +449,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const ShopByCategory()),
+                                    const ShopByCategory()),
                               );
                             },
                             child: const Text("Student/Parent",
@@ -469,7 +479,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const Demo1()),
+                                    const Demo1()),
                               );
                             },
                             child: const Text("Teacher/Schools",
@@ -498,7 +508,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Demo()),
+                                    builder: (context) => const BookSellerList()),
                               );
                             },
                             child: const Text("Bookseller",
@@ -705,8 +715,8 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  _MyHomePageState.cardTopColour,
-                  _MyHomePageState.cardBottomColour,
+                  _DashBoardState.cardTopColour,
+                  _DashBoardState.cardBottomColour,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -737,8 +747,8 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  _MyHomePageState.card1TopColour,
-                  _MyHomePageState.card1BottomColour,
+                  _DashBoardState.card1TopColour,
+                  _DashBoardState.card1BottomColour,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -783,7 +793,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     side: BorderSide(width: 2, color: CustomColour.appTheme)),
-                tileColor: _MyHomePageState.notificationColour,
+                tileColor: _DashBoardState.notificationColour,
                 minVerticalPadding: 5,
                 // tileColor: CupertinoColors.systemGrey,
                 leading: Image.asset(
@@ -847,7 +857,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   side: BorderSide(width: 2, color: CustomColour.appTheme)),
-              tileColor: _MyHomePageState.notificationColour,
+              tileColor: _DashBoardState.notificationColour,
               minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
               leading: Image.asset(
@@ -910,7 +920,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   side: BorderSide(width: 2, color: CustomColour.appTheme)),
-              tileColor: _MyHomePageState.notificationColour,
+              tileColor: _DashBoardState.notificationColour,
               minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
               leading: Image.asset(
@@ -973,7 +983,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   side: BorderSide(width: 2, color: CustomColour.appTheme)),
-              tileColor: _MyHomePageState.notificationColour,
+              tileColor: _DashBoardState.notificationColour,
               minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
               leading: Image.asset(
@@ -1036,7 +1046,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   side: BorderSide(width: 2, color: CustomColour.appTheme)),
-              tileColor: _MyHomePageState.notificationColour,
+              tileColor: _DashBoardState.notificationColour,
               minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
               leading: Image.asset(
@@ -1099,7 +1109,7 @@ Widget conditionalWidget(int numberToCheck, BuildContext context) {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   side: BorderSide(width: 2, color: CustomColour.appTheme)),
-              tileColor: _MyHomePageState.notificationColour,
+              tileColor: _DashBoardState.notificationColour,
               minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
               leading: Image.asset(

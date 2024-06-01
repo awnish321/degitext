@@ -17,7 +17,7 @@ class SplashOne extends State<SplashScreenOne>  {
   @override
   Widget build(BuildContext context) {
     Timer( const Duration(seconds: 3), () =>
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const DashBoard())),
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoard())),
         //     PageRouteBuilder(
         //   pageBuilder: (context, animation, secondaryAnimation) =>  const SplashScreenTwo(),
         //   transitionsBuilder: (context, animation, secondaryAnimation, child) {

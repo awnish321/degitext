@@ -6,10 +6,18 @@ import 'package:url_launcher/url_launcher.dart';
 import 'cart_page.dart';
 import 'model/Book.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final Book book;
 
   const DetailPage({super.key, required this.book});
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  int _radioSelected = 1;
+  late String radioVal = "Paper Book";
 
   @override
   Widget build(BuildContext context) {
@@ -50,27 +58,64 @@ class DetailPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: <Widget>[
-            Container(
+              Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                border: Border.all(color: CustomColour.appTheme),
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.black12, //add it here
+              ),
+              margin: const EdgeInsets.all(5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const Text('Paper Book'),
+                  Radio(
+                    value: 1,
+                    groupValue: _radioSelected,
+                    activeColor: CustomColour.appTheme,
+                    onChanged: (value) {
+                      setState(() {
+                        _radioSelected = value!;
+                        radioVal = 'Paper Book';
+                      });
+                    },
+                  ),
+                  const Text('E Book'),
+                  Radio(
+                    value: 2,
+                    groupValue: _radioSelected,
+                    activeColor: CustomColour.appTheme,
+                    onChanged: (value) {
+                      setState(() {
+                        _radioSelected = value!;
+                        radioVal = 'E Book';
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+              Container(
               padding: const EdgeInsets.all(15),
               child: Stack(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  Image.network(book.imageUrl, height: 230),
+                  Image.network(widget.book.imageUrl, height: 240),
                   ],
                 ),
                 Container(
                     alignment: Alignment.topRight,
-                    child: Icon(book.imageUrl == false ? Icons. favorite_outline: Icons.favorite ,color: Colors.red,)
+                    child: Icon(widget.book.imageUrl == false ? Icons. favorite_outline: Icons.favorite ,color: Colors.red,)
                 )
               ]),
             ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 15),
               Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(book.productTitle,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+              child: Text(widget.book.productTitle,
                 style: const TextStyle(
                   letterSpacing: 0.5,
                   color: Colors.black54,
@@ -79,31 +124,31 @@ class DetailPage extends StatelessWidget {
                 textAlign: TextAlign.justify,
               ),
             ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
               Padding(
               padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                   TextSpan(
-                    text: 'Price :  ',
+                    text: 'Price : ',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                     // default text style
                     children: <TextSpan>[
                       TextSpan(
-                        text: '\u{20B9} ${book.bookPrice}   ',
+                        text: '\u{20B9} ${widget.book.bookPrice}  ',
                         style: const TextStyle(
                           letterSpacing: 0.5,
                           color: Colors.black54,
                         ),
                       ),
                       TextSpan(
-                        text: '\u{20B9} ${book.bookMrp}',style: const TextStyle(
+                        text: '\u{20B9} ${widget.book.bookMrp}',style: const TextStyle(
                         letterSpacing: 0.5,
                         decoration: TextDecoration.lineThrough,
                         color: Colors.red,
                       ),
                       ),
                       TextSpan(
-                        text: ' (${book.bookPerDiscount}%)',style: const TextStyle(
+                        text: ' (${widget.book.bookPerDiscount}%)',style: const TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
                       ),
@@ -116,12 +161,12 @@ class DetailPage extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Description :',
+                  text: 'Description : ',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
-                      text:book.productTitle,
+                      text:widget.book.productTitle,
                       style: const TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -132,16 +177,16 @@ class DetailPage extends StatelessWidget {
               ),
             ),
               const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.only(left: 15,right: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Publisher :',
+                  text: 'Board : ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                      ' Rachna Sagar',
+                      'C.B.S.E',
                       style: TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -155,13 +200,33 @@ class DetailPage extends StatelessWidget {
               padding: EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Author   :',
+                  text: 'Class : ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                      ' Rajesh K. Dewan',
+                      '8',
+                      style: TextStyle(
+                        letterSpacing: 0.5,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),textAlign: TextAlign.justify,
+              ),
+            ),
+              const Padding(
+                padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+              child: Text.rich(
+                TextSpan(
+                  text: 'Subject : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  // default text style
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                      'Social Science',
                       style: TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -175,13 +240,53 @@ class DetailPage extends StatelessWidget {
               padding: EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Language   :',
+                  text: 'Publisher : ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                      ' English',
+                      'Rachna Sagar',
+                      style: TextStyle(
+                        letterSpacing: 0.5,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),textAlign: TextAlign.justify,
+              ),
+            ),
+              const Padding(
+              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+              child: Text.rich(
+                TextSpan(
+                  text: 'Author : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  // default text style
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                      'Rajesh K. Dewan',
+                      style: TextStyle(
+                        letterSpacing: 0.5,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),textAlign: TextAlign.justify,
+              ),
+            ),
+              const Padding(
+              padding: EdgeInsets.only(left: 15,right: 15,top: 15),
+              child: Text.rich(
+                TextSpan(
+                  text: 'Language : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  // default text style
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                      'English',
                       style: TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -195,12 +300,12 @@ class DetailPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'ISBN  :',
+                  text: 'ISBN : ',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
-                      text: book.isbn,
+                      text: widget.book.isbn,
                       style: const TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -214,12 +319,12 @@ class DetailPage extends StatelessWidget {
               padding: EdgeInsets.only(left: 15,right: 15,top: 15),
               child: Text.rich(
                 TextSpan(
-                  text: 'Weight  :',
+                  text: 'Weight : ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                   // default text style
                   children: <TextSpan>[
                     TextSpan(
-                      text: ' 0.8 KG',
+                      text: '0.8 KG',
                       style: TextStyle(
                         letterSpacing: 0.5,
                         color: Colors.black54,
@@ -234,7 +339,7 @@ class DetailPage extends StatelessWidget {
               child: Row(
                 children: [
                   const Text(
-                    'Review :  ',
+                    'Review : ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   RatingBarIndicator(

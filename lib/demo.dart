@@ -17,7 +17,7 @@ class _DemoState extends State<Demo> {
   TextEditingController passwordController = TextEditingController();
   late Future<AllBookListModel> futureBookList;
   final ApiService apiService = ApiService();
-
+  List<BooksData>? booksData;
 
   @override
   void initState() {
@@ -25,16 +25,16 @@ class _DemoState extends State<Demo> {
     super.initState();
   }
 
-  void _showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.black,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  }
+  // void _showToast(String message) {
+  //   Fluttertoast.showToast(
+  //     msg: message,
+  //     toastLength: Toast.LENGTH_SHORT,
+  //     gravity: ToastGravity.BOTTOM,
+  //     backgroundColor: Colors.black,
+  //     textColor: Colors.white,
+  //     fontSize: 16.0,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +85,12 @@ class _DemoState extends State<Demo> {
                   future: futureBookList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      booksData=snapshot.data?.booksData;
                       return GridView.builder(
                         shrinkWrap: true,
                         itemCount: snapshot.data?.booksData?.length,
                         itemBuilder: (context, index) {
+                          final book = booksData?[index];
                           return Card(
                             elevation: 2,
                             child: Column(
@@ -103,10 +105,9 @@ class _DemoState extends State<Demo> {
                                       ),
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
-                                        image: NetworkImage(snapshot.data!.booksData![index].imageUrl!
+                                        image: NetworkImage(booksData![index].imageUrl!
                                             .toString()),
                                       )),
-
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
@@ -189,7 +190,6 @@ class _DemoState extends State<Demo> {
       ),
     );
   }
-
 }
 
 var bodyProgress = Stack(

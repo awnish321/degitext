@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 
 class WishList extends StatefulWidget {
@@ -17,38 +18,12 @@ class _MyFavorite extends State<WishList> {
   String radioButtonItem = 'Student';
   int id = 1;
 
-  String classDropDownValue = '';
-  var classList = [
-    'Select class',
-    'Class 1',
-    'Class 2',
-    'Class 3',
-    'Class 4',
-    'Class 5',
-  ];
-
-  String booksTypeDropDownValue = '';
-  var bookList = [
-    'Types of Books',
-    'Textbook',
-    'Workbook',
-    'Workbook cum practice material',
-    'worksheets',
-    'Trm',
-  ];
-
-  String subjectTypeDropDownValue = '';
-  var subjectList = [
-    'Select subject',
-    'Hindi',
-    'English',
-    'Math',
-    'S.S.T',
-    'Science',
-  ];
   List<Item> products = [
     Item(
-        name: 'Apple', unit: 'Kg', price: 20, image: 'assets/logo.png'),
+        name: 'Apple',
+        unit: 'Kg',
+        price: 20,
+        image: 'assets/logo.png'),
     Item(
         name: 'Mango',
         unit: 'Doz',
@@ -69,13 +44,21 @@ class _MyFavorite extends State<WishList> {
         unit: 'Kg',
         price: 25,
         image: 'assets/images/watermelon.png'),
-    Item(name: 'Kiwi', unit: 'Pc', price: 40, image: 'assets/images/kiwi.png'),
+    Item(
+        name: 'Kiwi',
+        unit: 'Pc',
+        price: 40,
+        image: 'assets/images/kiwi.png'),
     Item(
         name: 'Orange',
         unit: 'Doz',
         price: 15,
         image: 'assets/images/orange.png'),
-    Item(name: 'Peach', unit: 'Pc', price: 8, image: 'assets/images/peach.png'),
+    Item(
+        name: 'Peach',
+        unit: 'Pc',
+        price: 8,
+        image: 'assets/images/peach.png'),
     Item(
         name: 'Strawberry',
         unit: 'Box',
@@ -90,9 +73,6 @@ class _MyFavorite extends State<WishList> {
 
   @override
   void initState() {
-    classDropDownValue = classList[0];
-    booksTypeDropDownValue = bookList[0];
-    subjectTypeDropDownValue = subjectList[0];
     super.initState();
   }
 
@@ -190,8 +170,9 @@ class _MyFavorite extends State<WishList> {
                         ),
                       ),
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(primary: CustomColour.appTheme.shade700,shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                          style: ElevatedButton.styleFrom(primary: CustomColour.appTheme.shade700, shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
                           onPressed: () {
+                            _showToast('Product Added to Cart successfully');
                           },
                           child: const Text('Add to Cart',style: TextStyle(color: Colors.white),)
                       ),
@@ -203,6 +184,17 @@ class _MyFavorite extends State<WishList> {
       ),
     );
   }
+}
+
+void _showToast(String message) {
+  Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.black,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
 }
 
 class Item {

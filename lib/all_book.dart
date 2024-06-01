@@ -78,10 +78,10 @@ class _AllBookState extends State<AllBook> {
                     Expanded(
                       child: InkWell(onTap: ()
                       {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  ProductDetail()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) =>  ProductDetail()),
+                        // );
                       },
                         child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
                           child: Card(elevation: 2,
@@ -142,10 +142,10 @@ class _AllBookState extends State<AllBook> {
                     Expanded(
                       child: InkWell(onTap: ()
                       {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProductDetail()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => ProductDetail()),
+                        // );
                       },
                         child: Container(margin: const EdgeInsets.symmetric(horizontal: 3),
                           child: Card(elevation: 2,

@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
         if(data['status']=="true")
         {
           print(data['status']);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashBoard()),);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashBoard()),);
         }else{
           {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Username or password is wrong")));
@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashBoard()),);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashBoard()),);
                     },
                   )
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/billing_page.dart';
+import 'package:new_flutter_project/payment_page.dart';
 import 'package:new_flutter_project/saved_address_page.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 
@@ -369,12 +370,13 @@ class _BillingPageState extends State<BillingPage> {
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Checkout'),
-            duration: Duration(seconds: 2),
-          ),
-        );
+          Navigator.push(context,MaterialPageRoute(builder: (context) => const PaymentPage()));
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('Checkout'),
+        //     duration: Duration(seconds: 2),
+        //   ),
+        // );
         },
         child: Container(
           color: CustomColour.appTheme,

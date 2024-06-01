@@ -96,7 +96,7 @@ class _HomeState extends State<Home> {
     if (
         email.isNotEmpty )
     {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const DashBoard()),
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoard()),
       );
     } else {
       showErrorDialog(context);
