@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/model/AllBookListModel.dart';
 import 'package:new_flutter_project/product_detail.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'api/api_service.dart';
 import 'cart_page.dart';
+import 'dashboard_page.dart';
 
 class BookSellerList extends StatefulWidget {
   const BookSellerList({super.key});
@@ -19,7 +22,6 @@ class _BookSellerListState extends State<BookSellerList> {
   List<BooksData>? booksData;
   List<BooksData>? originalBooksData;
   List<BooksData>? filteredData;
-  static const themeColour = Color(0xFFEA6865);
 
   String stateDropDownValue = '';
   var stateList = [
@@ -43,6 +45,7 @@ class _BookSellerListState extends State<BookSellerList> {
     'Anantapur',
   ];
 
+
   late Future<AllBookListModel> futureBookList;
   final ApiService apiService = ApiService();
 
@@ -56,7 +59,8 @@ class _BookSellerListState extends State<BookSellerList> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return
+      MaterialApp(
       theme: ThemeData(primarySwatch: CustomColour.appTheme),
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: CustomColour.appTheme),
@@ -395,5 +399,3 @@ var bodyProgress = Stack(
     ),
   ],
 );
-
-

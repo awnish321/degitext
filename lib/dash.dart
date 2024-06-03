@@ -1,32 +1,31 @@
 import 'dart:async';
-import 'dart:convert';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/all_book.dart';
-import 'package:new_flutter_project/bookseller_list.dart';
-import 'package:new_flutter_project/coming_soon_page.dart';
-import 'package:new_flutter_project/contact_us.dart';
-import 'package:new_flutter_project/demo1.dart';
-import 'package:new_flutter_project/download_zip_file.dart';
-import 'package:new_flutter_project/login_page.dart';
-import 'package:new_flutter_project/my_order.dart';
 import 'package:new_flutter_project/pdf_open.dart';
 import 'package:new_flutter_project/profile_page.dart';
 import 'package:new_flutter_project/saved_address_page.dart';
 import 'package:new_flutter_project/shop_by_category.dart';
+import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'package:new_flutter_project/wishlist_page.dart';
+import 'all_book.dart';
+import 'bookseller_list.dart';
 import 'cart_page.dart';
-import 'utility/CustomColour.dart';
+import 'coming_soon_page.dart';
+import 'contact_us.dart';
+import 'demo1.dart';
+import 'download_zip_file.dart';
+import 'login_page.dart';
+import 'my_order.dart';
 
-class DashBoard extends StatefulWidget {
-  const DashBoard({super.key,});
+class Dash extends StatefulWidget {
+  const Dash({super.key,});
 
   @override
-  State<DashBoard> createState() => _DashBoardState();
+  State<Dash> createState() => _DashState();
   static const themeColour = Color(0xFFEA6865);
 }
 
-class _DashBoardState extends State<DashBoard> {
+class _DashState extends State<Dash> {
   static const cardTopColour = Color(0xFFEF5932);
   static const cardBottomColour = Color(0xFFF68802);
   static const card1TopColour = Color(0xFFE13EA0);
@@ -430,7 +429,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 9,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: currentPage == selectedIndex ? DashBoard.themeColour : Colors.black26,
+                      color: currentPage == selectedIndex ? Dash.themeColour : Colors.black26,
                     ),
                   );
                 },
@@ -740,8 +739,8 @@ class EbookScreen extends StatelessWidget {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                _DashBoardState.cardTopColour,
-                _DashBoardState.cardBottomColour,
+                _DashState.cardTopColour,
+                _DashState.cardBottomColour,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -772,8 +771,8 @@ class EbookScreen extends StatelessWidget {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                _DashBoardState.card1TopColour,
-                _DashBoardState.card1BottomColour,
+                _DashState.card1TopColour,
+                _DashState.card1BottomColour,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -824,7 +823,7 @@ class NotificationScreen extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   side: BorderSide(width: 2, color: CustomColour.appTheme)),
-              tileColor: _DashBoardState.notificationColour,
+              tileColor: _DashState.notificationColour,
               minVerticalPadding: 5,
               // tileColor: CupertinoColors.systemGrey,
               leading: Image.asset(
@@ -888,7 +887,7 @@ class NotificationScreen extends StatelessWidget {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 side: BorderSide(width: 2, color: CustomColour.appTheme)),
-            tileColor: _DashBoardState.notificationColour,
+            tileColor: _DashState.notificationColour,
             minVerticalPadding: 5,
             // tileColor: CupertinoColors.systemGrey,
             leading: Image.asset(
@@ -951,7 +950,7 @@ class NotificationScreen extends StatelessWidget {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 side: BorderSide(width: 2, color: CustomColour.appTheme)),
-            tileColor: _DashBoardState.notificationColour,
+            tileColor: _DashState.notificationColour,
             minVerticalPadding: 5,
             // tileColor: CupertinoColors.systemGrey,
             leading: Image.asset(
@@ -1014,7 +1013,7 @@ class NotificationScreen extends StatelessWidget {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 side: BorderSide(width: 2, color: CustomColour.appTheme)),
-            tileColor: _DashBoardState.notificationColour,
+            tileColor: _DashState.notificationColour,
             minVerticalPadding: 5,
             // tileColor: CupertinoColors.systemGrey,
             leading: Image.asset(
@@ -1077,7 +1076,7 @@ class NotificationScreen extends StatelessWidget {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 side: BorderSide(width: 2, color: CustomColour.appTheme)),
-            tileColor: _DashBoardState.notificationColour,
+            tileColor: _DashState.notificationColour,
             minVerticalPadding: 5,
             // tileColor: CupertinoColors.systemGrey,
             leading: Image.asset(
@@ -1140,7 +1139,7 @@ class NotificationScreen extends StatelessWidget {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 side: BorderSide(width: 2, color: CustomColour.appTheme)),
-            tileColor: _DashBoardState.notificationColour,
+            tileColor: _DashState.notificationColour,
             minVerticalPadding: 5,
             // tileColor: CupertinoColors.systemGrey,
             leading: Image.asset(

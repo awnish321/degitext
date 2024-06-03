@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:new_flutter_project/dash.dart';
 import 'package:new_flutter_project/dashboard_page.dart';
 
 class SplashScreenOne extends StatefulWidget {
@@ -17,7 +18,7 @@ class SplashOne extends State<SplashScreenOne>  {
   @override
   Widget build(BuildContext context) {
     Timer( const Duration(seconds: 3), () =>
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoard())),
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const DashBoard())),
         //     PageRouteBuilder(
         //   pageBuilder: (context, animation, secondaryAnimation) =>  const SplashScreenTwo(),
         //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
