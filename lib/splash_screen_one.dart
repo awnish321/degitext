@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/dash.dart';
 import 'package:new_flutter_project/dashboard_page.dart';
 
 class SplashScreenOne extends StatefulWidget {
