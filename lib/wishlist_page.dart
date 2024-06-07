@@ -10,7 +10,7 @@ class WishList extends StatefulWidget {
 }
 
 class _MyFavorite extends State<WishList> {
-  static const notificationColour = Color(0xFFD7D7D7);
+  static const notificationColour = Color(0xFFF8F8F8);
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:new_flutter_project/model/AllBookListModel.dart';
+import 'package:new_flutter_project/model/AllProductListModel.dart';
 import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'cart_page.dart';
 import 'package:new_flutter_project/api/api_service.dart';
@@ -15,13 +16,13 @@ class Demo extends StatefulWidget {
 class _DemoState extends State<Demo> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  late Future<AllBookListModel> futureBookList;
+  late Future<AllProductListModel> futureProductList;
   final ApiService apiService = ApiService();
-  List<BooksData>? booksData;
+  List<ProductsData>? productList;
 
   @override
   void initState() {
-    futureBookList = apiService.fetchBookList("booksList");
+    futureProductList = apiService.fetchProductList("allProducts");
     super.initState();
   }
 
@@ -81,16 +82,16 @@ class _DemoState extends State<Demo> {
           child: Column(
             children: [
               Expanded(
-                child: FutureBuilder<AllBookListModel>(
-                  future: futureBookList,
+                child: FutureBuilder<AllProductListModel>(
+                  future: futureProductList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      booksData=snapshot.data?.booksData;
+                      productList=snapshot.data?.productsData;
                       return GridView.builder(
                         shrinkWrap: true,
-                        itemCount: snapshot.data?.booksData?.length,
+                        itemCount: snapshot.data?.productsData?.length,
                         itemBuilder: (context, index) {
-                          final book = booksData?[index];
+                          final book = productList?[index];
                           return Card(
                             elevation: 2,
                             child: Column(
@@ -105,7 +106,7 @@ class _DemoState extends State<Demo> {
                                       ),
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
-                                        image: NetworkImage(booksData![index].imageUrl!
+                                        image: NetworkImage(productList![index].imageUrl!
                                             .toString()),
                                       )),
                                 ),
@@ -113,7 +114,7 @@ class _DemoState extends State<Demo> {
                                   padding: const EdgeInsets.only(
                                       left: 5, top: 5, right: 5, bottom: 0),
                                   child: Text(
-                                    snapshot.data!.booksData![index].productTitle
+                                    snapshot.data!.productsData![index].productTitle
                                         .toString(),
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
@@ -133,7 +134,7 @@ class _DemoState extends State<Demo> {
                                       MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          '\u{20B9} ${snapshot.data!.booksData![index].bookPrice}  ',
+                                          '\u{20B9} ${snapshot.data!.productsData![index].bookPrice}  ',
                                           style: const TextStyle(
                                             letterSpacing: 0.5,
                                             color: Colors.black,
@@ -142,7 +143,7 @@ class _DemoState extends State<Demo> {
                                           textAlign: TextAlign.center,
                                         ),
                                         Text(
-                                          '\u{20B9}${snapshot.data!.booksData![index].bookMrp}',
+                                          '\u{20B9}${snapshot.data!.productsData![index].bookMrp}',
                                           style: const TextStyle(
                                             letterSpacing: 0.5,
                                             decoration:
@@ -154,7 +155,7 @@ class _DemoState extends State<Demo> {
                                           textAlign: TextAlign.center,
                                         ),
                                         Text(
-                                          ' (${snapshot.data!.booksData![index].bookPerDiscount}%)',
+                                          ' (${snapshot.data!.productsData![index].bookPerDiscount}%)',
                                           style: const TextStyle(
                                             letterSpacing: 0.5,
                                             color: Colors.black54,

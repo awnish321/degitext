@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_flutter_project/dashboard_page.dart';
+import 'package:new_flutter_project/login_page.dart';
 
 class SplashScreenOne extends StatefulWidget {
   const SplashScreenOne({super.key});
@@ -17,7 +18,7 @@ class SplashOne extends State<SplashScreenOne>  {
   @override
   Widget build(BuildContext context) {
     Timer( const Duration(seconds: 3), () =>
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const DashBoard())),
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const LoginPage())),
         //     PageRouteBuilder(
         //   pageBuilder: (context, animation, secondaryAnimation) =>  const SplashScreenTwo(),
         //   transitionsBuilder: (context, animation, secondaryAnimation, child) {

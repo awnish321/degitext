@@ -7,6 +7,7 @@ import 'package:new_flutter_project/utility/CustomColour.dart';
 import 'api/api_service.dart';
 import 'cart_page.dart';
 import 'dashboard_page.dart';
+import 'model/BookstoreLocaterModel.dart';
 
 class BookSellerList extends StatefulWidget {
   const BookSellerList({super.key});
@@ -19,43 +20,55 @@ class _BookSellerListState extends State<BookSellerList> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   int id = 1;
-  List<BooksData>? booksData;
-  List<BooksData>? originalBooksData;
-  List<BooksData>? filteredData;
+  List<ShopList>? shopList;
+  List<ShopList>? originalShopList;
+  List<ShopList>? filteredShopList;
+  var filteredData = [];
 
   String stateDropDownValue = '';
   var stateList = [
     'Select State',
-    'Andra Pradesh',
+    'Andhra Pradesh',
     'Assam',
     'Bihar',
     'chhattisgarh',
     'Delhi',
     'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jammu & Kashmir',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhaya Pradesh',
+    'Maharashtra',
+    'Meghalaya',
+    'Orissa',
+    'Port Blair',
+    'Punjab',
+    'Rajasthan',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
   ];
 
   String districtDropDownValue = '';
-  var districtList = [
-    'Select District',
-    'Vijayawada',
-    'visakhapatnam',
-    'Rajahmundry',
-    'Kakinada',
-    'Tirupati',
-    'Anantapur',
-  ];
+  var districtList = [];
 
-
-  late Future<AllBookListModel> futureBookList;
+  late Future<BookShopModel> futureShopList;
   final ApiService apiService = ApiService();
 
   @override
   void initState() {
     stateDropDownValue = stateList[0];
-    districtDropDownValue = districtList[0];
-    futureBookList = apiService.fetchBookList("booksList");
+    futureShopList = apiService.fetchBookSellerList("bookstoreLocator");
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -148,36 +161,16 @@ class _BookSellerListState extends State<BookSellerList> {
                           return DropdownMenuItem(
                             value: items,
                             onTap:()=> setState(() {
-                              if (items=="C.B.S.E"){
-                                booksData = originalBooksData;
-                              }else if (items =="I.C.S.E/I.S.C"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 2.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="G.C.E.R.T"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 9.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="C.U.E.T-U.G(N.T.A)"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 6.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="N.S.D.C"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 11.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="State Boards"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 3.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Educational Kit"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 5.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Select Board"){
-                                booksData = originalBooksData;
+                              // dataSearch(items);
+                              if (items =="Select State"){
+                                shopList = originalShopList;
+                              }else{
+                                filteredShopList?.clear();
+                                filteredShopList = originalShopList?.where((i) => i.shopState==items).toList();
+                                shopList=filteredShopList;
                               }
-                            }),
+                            }
+                            ),
                             child: Text(
                               items,
                             ),
@@ -191,104 +184,104 @@ class _BookSellerListState extends State<BookSellerList> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Card(
-                      shadowColor: Colors.black,
-                      color: Colors.grey[200],
-                      child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
-                        isExpanded: true,
-                        value: districtDropDownValue,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: districtList.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            onTap:()=> setState(() {
-                              if (items=="Pre School (LKG)"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == "Pre School (LKG)").toList();
-                                booksData = filteredData;
-                              }else if (items=="Pre Primary (UKG)"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == "Pre Primary (UKG)").toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 1"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 1.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 2"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 2.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 3"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 3.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 4"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 4.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 5"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 5.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 6"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 6.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 7"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 7.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 8"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 8.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 9"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 9.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 10"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 10.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 11"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 11.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Class 12"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 12.toString()).toList();
-                                booksData = filteredData;
-                              }else if (items =="Select Class"){
-                                booksData = originalBooksData;
-                              }
-                            }),
-                            child: Text(
-                              items,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            districtDropDownValue = newValue!;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Card(
+                  //     shadowColor: Colors.black,
+                  //     color: Colors.grey[200],
+                  //     child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
+                  //       isExpanded: true,
+                  //       value: districtDropDownValue,
+                  //       icon: const Icon(Icons.keyboard_arrow_down),
+                  //       items: districtList.map((String items) {
+                  //         return DropdownMenuItem(
+                  //           value: items,
+                  //           // onTap:()=> setState(() {
+                  //           //   if (items=="Pre School (LKG)"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == "Pre School (LKG)").toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items=="Pre Primary (UKG)"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == "Pre Primary (UKG)").toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 1"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 1.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 2"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 2.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 3"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 3.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 4"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 4.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 5"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 5.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 6"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 6.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 7"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 7.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 8"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 8.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 9"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 9.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 10"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 10.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 11"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 11.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Class 12"){
+                  //           //     filteredData?.clear();
+                  //           //     filteredData = originalShopList?.where((i) => i.className == 12.toString()).toList();
+                  //           //     shopList = filteredData;
+                  //           //   }else if (items =="Select Class"){
+                  //           //     shopList = originalShopList;
+                  //           //   }
+                  //           // }),
+                  //           child: Text(
+                  //             items,
+                  //           ),
+                  //         );
+                  //       }).toList(),
+                  //       onChanged: (String? newValue) {
+                  //         setState(() {
+                  //           districtDropDownValue = newValue!;
+                  //         });
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox (height: 10,),
               Expanded(
-                child: FutureBuilder<AllBookListModel>(
-                  future: futureBookList,
+                child: FutureBuilder<BookShopModel>(
+                  future: futureShopList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      originalBooksData=snapshot.data?.booksData;
-                      booksData??=snapshot.data?.booksData;
+                      originalShopList=snapshot.data?.shopList;
+                      shopList??=snapshot.data?.shopList;
                       return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: booksData!.length,
+                        itemCount: shopList!.length,
                         itemBuilder: (context, index) {
                           return Card(
                             elevation: 2,
@@ -298,7 +291,7 @@ class _BookSellerListState extends State<BookSellerList> {
                                   visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                                   leading: const Icon(Icons.home),
                                   iconColor: CustomColour.appTheme,
-                                  title: Text('Shop name  : ${booksData![index].subjectName.toString()}',
+                                  title: Text('Shop name  : ${shopList![index].shopName.toString()}',
                                       style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                                   textColor: Colors.black,
                                 ),
@@ -306,7 +299,7 @@ class _BookSellerListState extends State<BookSellerList> {
                                   visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                                   leading: const Icon(Icons.phone),
                                   iconColor: CustomColour.appTheme,
-                                  title: Text('Contact number  : ${booksData![index].isbn.toString()}',
+                                  title: Text('Contact number  : ${shopList![index].shopMobile.toString()}',
                                       style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                                   textColor: Colors.black,
                                 ),
@@ -314,7 +307,7 @@ class _BookSellerListState extends State<BookSellerList> {
                                   visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                                   leading: const Icon(Icons.email),
                                   iconColor: CustomColour.appTheme,
-                                  title: Text('Email id  : ${booksData![index].subjectName.toString()}',
+                                  title: Text('Email id  : ${shopList![index].shopEmailId.toString()}',
                                       style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                                   textColor: Colors.black,
                                 ),
@@ -322,7 +315,7 @@ class _BookSellerListState extends State<BookSellerList> {
                                   visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                                   leading: const Icon(Icons.pin),
                                   iconColor: CustomColour.appTheme,
-                                  title: Text('Pincode  : ${booksData![index].productId.toString()}',
+                                  title: Text('Pincode  : ${shopList![index].shopPincode.toString()}',
                                       style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                                   textColor: Colors.black,
                                 ),
@@ -330,7 +323,7 @@ class _BookSellerListState extends State<BookSellerList> {
                                   visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                                   leading: const Icon(Icons.location_on),
                                   iconColor: CustomColour.appTheme,
-                                  title: Text('Address  : ${booksData![index].productTitle.toString()}',
+                                  title: Text('Address  : ${shopList![index].shopAddress.toString()}',
                                       style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                                   textColor: Colors.black,
                                 ),

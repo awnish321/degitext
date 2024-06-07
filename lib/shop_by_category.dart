@@ -20,7 +20,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
   int id = 1;
   List<BooksData>? booksData;
   List<BooksData>? originalBooksData;
-  List<BooksData>? filteredData;
+  List<BooksData>? filteredData = [];
+  List<BooksData>? tempData;
 
   String boardDropDownValue = '';
   var boardList = [
@@ -69,6 +70,11 @@ class _ShopByCategoryState extends State<ShopByCategory> {
     'Hindi',
     'English',
     'Mathematics',
+    'Social Science',
+    'Social Studies',
+    'Social Studies',
+    'Social Studies',
+    'Social Studies',
     'Social Studies',
     'Geography',
     'Sanskrit',
@@ -83,7 +89,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
   void initState() {
     boardDropDownValue = boardList[0];
     classDropDownValue = classList[0];
-    booksTypeDropDownValue = bookList[0];
+    // booksTypeDropDownValue = bookList[0];
     subjectTypeDropDownValue = subjectList[0];
     futureBookList = apiService.fetchBookList("booksList");
     super.initState();
@@ -178,33 +184,60 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                             value: items,
                             onTap:()=> setState(() {
                               if (items=="C.B.S.E"){
-                                booksData = originalBooksData;
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                filteredData?.clear();
+                                filteredData = originalBooksData?.where((i) => i.categoryId == 1.toString()).toList();
+                                booksData = filteredData;
                               }else if (items =="I.C.S.E/I.S.C"){
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
                                 filteredData = originalBooksData?.where((i) => i.categoryId == 2.toString()).toList();
                                 booksData = filteredData;
                               }else if (items =="G.C.E.R.T"){
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
                                 filteredData = originalBooksData?.where((i) => i.categoryId == 9.toString()).toList();
                                 booksData = filteredData;
                               }else if (items =="C.U.E.T-U.G(N.T.A)"){
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
                                 filteredData = originalBooksData?.where((i) => i.categoryId == 6.toString()).toList();
                                 booksData = filteredData;
                               }else if (items =="N.S.D.C"){
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
                                 filteredData = originalBooksData?.where((i) => i.categoryId == 11.toString()).toList();
                                 booksData = filteredData;
                               }else if (items =="State Boards"){
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
                                 filteredData = originalBooksData?.where((i) => i.categoryId == 3.toString()).toList();
                                 booksData = filteredData;
                               }else if (items =="Educational Kit"){
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
                                 filteredData = originalBooksData?.where((i) => i.categoryId == 5.toString()).toList();
                                 booksData = filteredData;
                               }else if (items =="Select Board"){
+                                classDropDownValue = classList[0];
+                                booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
                                 booksData = originalBooksData;
+                                filteredData=originalBooksData;
                               }
                             }),
                             child: Text(
@@ -233,63 +266,94 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                             value: items,
                             onTap:()=> setState(() {
                               if (items=="Pre School (LKG)"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == "Pre School (LKG)").toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == "Pre School (LKG)").toList();
+                                booksData = tempData;
                               }else if (items=="Pre Primary (UKG)"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == "Pre Primary (UKG)").toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == "Pre Primary (UKG)").toList();
+                                booksData = tempData;
                               }else if (items =="Class 1"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 1.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 1.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 2"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 2.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 2.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 3"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 3.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 3.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 4"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 4.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 4.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 5"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 5.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 5.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 6"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 6.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 6.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 7"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 7.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 7.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 8"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 8.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 8.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 9"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 9.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 9.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 10"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 10.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 10.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 11"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 11.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 11.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Class 12"){
-                                filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.className == 12.toString()).toList();
-                                booksData = filteredData;
+                                // booksTypeDropDownValue = bookList[0];
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                tempData = filteredData?.where((i) => i.className == 12.toString()).toList();
+                                booksData = tempData;
                               }else if (items =="Select Class"){
-                                booksData = originalBooksData;
+                                subjectTypeDropDownValue = subjectList[0];
+                                tempData?.clear();
+                                booksData = filteredData;
+                                // booksData = originalBooksData;
                               }
                             }),
                             child: Text(
@@ -307,37 +371,37 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ),
                 ],
               ),
-              Card(
-                elevation: 1,
-                shadowColor: Colors.black,
-                color: Colors.grey[200],
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      DropdownButton(
-                        isExpanded: true,
-                        value: booksTypeDropDownValue,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: bookList.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(
-                              items,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            booksTypeDropDownValue = newValue!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Card(
+              //   elevation: 1,
+              //   shadowColor: Colors.black,
+              //   color: Colors.grey[200],
+              //   child: Container(
+              //     margin: const EdgeInsets.symmetric(horizontal: 10),
+              //     child: Column(
+              //       crossAxisAlignment: CrossAxisAlignment.stretch,
+              //       children: [
+              //         DropdownButton(
+              //           isExpanded: true,
+              //           value: booksTypeDropDownValue,
+              //           icon: const Icon(Icons.keyboard_arrow_down),
+              //           items: bookList.map((String items) {
+              //             return DropdownMenuItem(
+              //               value: items,
+              //               child: Text(
+              //                 items,
+              //               ),
+              //             );
+              //           }).toList(),
+              //           onChanged: (String? newValue) {
+              //             setState(() {
+              //               booksTypeDropDownValue = newValue!;
+              //             });
+              //           },
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Card(
                 elevation: 1,
                 shadowColor: Colors.black,
@@ -356,7 +420,7 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                             value: items,
                             onTap:()=> setState(() {
                               if (items =="Select Subject"){
-                              booksData = originalBooksData;
+                                booksData = originalBooksData;
                               }else{
                                 filteredData?.clear();
                                 filteredData = originalBooksData?.where((i) => i.subjectName==items).toList();
@@ -383,8 +447,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   future: futureBookList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                        originalBooksData=snapshot.data?.booksData;
-                        booksData??=snapshot.data?.booksData;
+                      originalBooksData=snapshot.data?.booksData;
+                      booksData??=snapshot.data?.booksData;
                       return GridView.builder(
                         shrinkWrap: true,
                         itemCount: booksData!.length,
@@ -507,7 +571,7 @@ var bodyProgress = Stack(
       ),
       child: Container(
         decoration:  BoxDecoration(
-            // color: CustomColour.appTheme.shade100,
+          // color: CustomColour.appTheme.shade100,
             borderRadius:  BorderRadius.circular(10.0)
         ),
         width: double.maxFinite,
@@ -517,7 +581,7 @@ var bodyProgress = Stack(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             const Center(
+            const Center(
               child:  SizedBox(
                 height: 50.0,
                 width: 50.0,
@@ -527,7 +591,7 @@ var bodyProgress = Stack(
                 ),
               ),
             ),
-             Container(
+            Container(
               margin: const EdgeInsets.only(top: 25.0),
               child:  const Center(
                 child:  Text(

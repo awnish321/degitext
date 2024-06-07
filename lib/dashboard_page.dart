@@ -16,7 +16,13 @@ import 'package:new_flutter_project/saved_address_page.dart';
 import 'package:new_flutter_project/shop_by_category.dart';
 import 'package:new_flutter_project/wishlist_page.dart';
 import 'cart_page.dart';
+import 'demo.dart';
+import 'model/Book.dart';
 import 'utility/CustomColour.dart';
+import 'model/AllBookListModel.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart%20';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key,});
@@ -31,7 +37,7 @@ class _DashBoardState extends State<DashBoard> {
   static const cardBottomColour = Color(0xFFF68802);
   static const card1TopColour = Color(0xFFE13EA0);
   static const card1BottomColour = Color(0xFFD8133A);
-  static const notificationColour = Color(0xFFECE9E9);
+  static const notificationColour = Color(0xFFF8F8F8);
   late int _currentIndex = 0;
   final List<Widget> _screens = [
     const HomeScreen(),
@@ -43,15 +49,17 @@ class _DashBoardState extends State<DashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return
+        WillPopScope(
       onWillPop: () async {
         if (_selectedIndex == 0) {
+          setState(() {
+            _selectedIndex = 0;
+          });
           return true;
+        }else{
+          return false;
         }
-        setState(() {
-          _selectedIndex = 0;
-        });
-        return false;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -244,7 +252,6 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 
 }
-
 class _HomeScreenState extends State<HomeScreen> {
 
   int selectedIndex = 0;
@@ -260,9 +267,13 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp',
     'https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp',
   ];
+  List<Book> originalData=[];
+  List<Book> searchData=[];
+  final bool isLoading = true; // Change this to see the different results
 
   @override
   void initState() {
+    fetchBooksData();
     timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
       if (currentPage < 2) {
         currentPage++;
@@ -283,12 +294,69 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     });
     super.initState();
-
   }
+
   @override
   void dispose() {
     super.dispose();
     timer.cancel();
+  }
+
+  Future<List<Book>> fetchBooksData() async {
+    final registerData = jsonEncode({"action": 'allBooks'});
+    Map<String, String> headers = {
+      'rsplkey': 'rspl',
+      'Content-Type': 'application/json'
+    };
+    Response response = await http.post(
+      Uri.parse('https://www.rachnasagar.in/digitextapp/api/booksList'),
+      headers: headers,
+      body: registerData,
+    );
+    if (response.statusCode == 200) {
+      originalData= parseBooks(response.body);
+      return parseBooks(response.body);
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+  void dataSearch(String value) async {
+    List<Book>? data = [];
+    if (value.isEmpty) {
+      setState(() {
+        originalData = searchData;
+      });
+      return;
+    }
+    originalData = searchData;
+    for (var i = 0; i < originalData.length; i++) {
+      if(originalData[i].productTitle.toLowerCase().contains(value.toLowerCase())){
+        data.add(originalData[i]);
+      }
+    }
+    setState(() {
+      originalData = data;
+    });
+  }
+
+  void searchProduct(String query) {
+
+    if(query.isNotEmpty){
+      searchData.clear();
+      for (var i = 0; i < originalData.length; i++) {
+        if(originalData[i].productTitle.toLowerCase().contains(query.toLowerCase())){
+          searchData.add(originalData[i]);
+        }
+      setState(() {
+        searchData;
+      });
+      }
+    }else{
+      setState(() {
+        searchData.clear();
+      });
+    }
   }
 
   @override
@@ -298,434 +366,386 @@ class _HomeScreenState extends State<HomeScreen> {
     double width = MediaQuery.of(context).size.width;
     return SizedBox(
         width: width,
-        height: height,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            SizedBox (height: 200,
-                child: PageView(
-                  controller: pageController,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          image: NetworkImage(images[0]),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          image: NetworkImage(images[1]),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          image: NetworkImage(images[2]),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-            // Expanded(
-            //   flex: 1,
-            //   child: SizedBox(
-            //     height: 150,
-            //     child: PageView(
-            //       controller: pageController,
-            //       scrollDirection: Axis.horizontal,
-            //       children: [
-            //         InkWell(
-            //           child: Container(
-            //             margin: const EdgeInsets.symmetric(horizontal: 2),
-            //             width: double.infinity,
-            //             height: 150,
-            //             decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(15),
-            //               image: const DecorationImage(
-            //                 fit: BoxFit.fill,
-            //                 image: NetworkImage(
-            //                   "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //           onTap: () {
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(
-            //                   builder: (context) => const ShopByCategory()),
-            //             );
-            //           },
+            // Column(
+            //   children: [
+            //     TextField(
+            //       decoration: InputDecoration(
+            //         filled: true,
+            //         fillColor: const Color(0xffc9c1c1),
+            //         border: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(10),
+            //           borderSide: BorderSide.none,
             //         ),
-            //         InkWell(
-            //           child: Container(
-            //             margin: const EdgeInsets.symmetric(horizontal: 2),
-            //             width: double.infinity,
-            //             height: 150,
-            //             decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(15),
-            //               image: const DecorationImage(
-            //                 fit: BoxFit.fill,
-            //                 image: NetworkImage(
-            //                   "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //           onTap: () {
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(
-            //                   builder: (context) => const ShopByCategory()),
-            //             );
-            //           },
-            //         ),
-            //         InkWell(
-            //           child: Container(
-            //             margin: const EdgeInsets.symmetric(horizontal: 2),
-            //             width: double.infinity,
-            //             height: 150,
-            //             decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(15),
-            //               image: const DecorationImage(
-            //                 fit: BoxFit.fill,
-            //                 image: NetworkImage(
-            //                   "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //           onTap: () {
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(
-            //                   builder: (context) => const ShopByCategory()),
-            //             );
-            //           },
-            //         ),
-            //       ],
+            //         hintText: "Search for Items",
+            //         prefixIcon: const Icon(Icons.search),
+            //         prefixIconColor: Colors.black,
+            //       ),
+            //       onChanged: (string) {
+            //         searchProduct(string);
+            //
+            //         // searchData.clear();
+            //         //   setState(() {
+            //         //     for (var i = 0; i < originalData.length; i++) {
+            //         //       if(originalData[i].productTitle.toLowerCase().contains(string.toLowerCase())){
+            //         //         searchData.add(originalData[i]);
+            //         //       }
+            //         //     }
+            //         //     // searchData = originalData.where((u) => (u.productTitle.toLowerCase().contains(string.toLowerCase(),)),).toList();
+            //         // });
+            //       },
             //     ),
-            //   ),
+            //   ],
             // ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  3, (selectedIndex) {
-                  return Container(
-                    margin: const EdgeInsets.only(right: 5),
-                    alignment: Alignment.centerLeft,
-                    height: 9,
-                    width: 9,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: currentPage == selectedIndex ? DashBoard.themeColour : Colors.black26,
+            Column(
+              children: [
+                SizedBox (height: 170,
+                    child: PageView(
+                      controller: pageController,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: NetworkImage(images[0]),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: NetworkImage(images[1]),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: NetworkImage(images[2]),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      3, (selectedIndex) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        alignment: Alignment.centerLeft,
+                        height: 9,
+                        width: 9,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: currentPage == selectedIndex ? DashBoard.themeColour : Colors.black26,
+                        ),
+                      );
+                    },
                     ),
-                  );
-                },
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                height: 150,
-                width: double.infinity,
-                color: Colors.black,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(15),
-                margin: const EdgeInsets.symmetric(horizontal: 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 2),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.white,
+                Expanded(
+                  flex: 0,
+                  child: Container(
+                    height: 180,
+                    width: double.infinity,
+                    color: Colors.black,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(15),
+                    margin: const EdgeInsets.symmetric(horizontal: 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 2),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                              ),
+                            ),
+                            width: double.infinity,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      const ShopByCategory()),
+                                );
+                              },
+                              child: const Text("Student/Parent",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
                           ),
                         ),
-                        width: double.infinity,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                  const ShopByCategory()),
-                            );
-                          },
-                          child: const Text("Student/Parent",
-                              style: TextStyle(
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 2),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(
                                 color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 2),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.white,
+                              ),
+                            ),
+                            width: double.infinity,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      const Demo1()),
+                                );
+                              },
+                              child: const Text("Teacher/Schools",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
                           ),
                         ),
-                        width: double.infinity,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                  const Demo1()),
-                            );
-                          },
-                          child: const Text("Teacher/Schools",
-                              style: TextStyle(
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 2),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(
                                 color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 2),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.white,
+                              ),
+                            ),
+                            width: double.infinity,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const BookSellerList()),
+                                );
+                              },
+                              child: const Text("Bookseller",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
                           ),
                         ),
-                        width: double.infinity,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const BookSellerList()),
-                            );
-                          },
-                          child: const Text("Bookseller",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "New Release",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline),
-                    ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AllBook()),
-                          );
-                        },
-                        child: const Text(
-                          "View All",
+                Expanded(
+                  flex: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "New Release",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline),
-                        )),
-                  ],
+                        ),
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Demo()),
+                              );
+                            },
+                            child: const Text(
+                              "View All",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline),
+                            )),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: SizedBox(
-                height: 150,
-                child: PageView(
-                  controller: pageController1,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
+                Expanded(
+                  flex: 0,
+                  child: SizedBox(
+                    height: 150,
+                    child: PageView(
+                      controller: pageController1,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Shop By Category",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline),
-                    ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ShopByCategory()),
-                          );
-                        },
-                        child: const Text(
-                          "View All",
+                Expanded(
+                  flex: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Shop By Category",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline),
-                        )),
-                  ],
+                        ),
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ShopByCategory()),
+                              );
+                            },
+                            child: const Text(
+                              "View All",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline),
+                            )),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: SizedBox(
-                height: 150,
-                child: PageView(
-                  controller: pageController2,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
+                Expanded(
+                  flex: 0,
+                  child: SizedBox(
+                    height: 150,
+                    child: PageView(
+                      controller: pageController2,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                "https://www.rachnasagar.in/assets/banners/649eacffc9e27Updated-ICSE-2023-24-Banner-22.06.2023-Final.webp",
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                "https://www.rachnasagar.in/assets/banners/634e33a7a654ffree-shipping.jpg",
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                "https://www.rachnasagar.in/assets/banners/655ddc700cb50CBSE%20QB+PYQ+EAD%20Website%20Banner.webp",
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         )
     );
   }
+
 }
 class EbookScreen extends StatelessWidget {
   const EbookScreen({super.key});

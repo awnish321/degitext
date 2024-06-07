@@ -14,7 +14,7 @@ class BillingPage extends StatefulWidget {
 }
 
 class _BillingPageState extends State<BillingPage> {
-  static const notificationColour = Color(0xFFD7D7D7);
+  static const notificationColour = Color(0xFFF8F8F8);
 
   @override
   void initState() {

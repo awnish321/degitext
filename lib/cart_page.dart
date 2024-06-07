@@ -14,7 +14,7 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   get deleteQuantity => null;
   get addQuantity => null;
-  static const notificationColour = Color(0xFFD7D7D7);
+  static const notificationColour = Color(0xFFF8F8F8);
 
   @override
   void initState() {
