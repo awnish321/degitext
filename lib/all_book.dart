@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/product_detail.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/product_detail.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 import 'cart_page.dart';
 
 class AllBook extends StatefulWidget {

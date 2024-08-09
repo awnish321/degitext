@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/model/AllBookListModel.dart';
-import 'package:new_flutter_project/product_detail.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/model/AllBookListModel.dart';
+import 'package:digi_text/product_detail.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 import 'api/api_service.dart';
 import 'cart_page.dart';
 
@@ -22,6 +22,8 @@ class _ShopByCategoryState extends State<ShopByCategory> {
   List<BooksData>? originalBooksData;
   List<BooksData>? filteredData = [];
   List<BooksData>? tempData;
+  List<BooksData>? tempData1 =[];
+  List<BooksData>? tempData2;
 
   String boardDropDownValue = '';
   var boardList = [
@@ -175,69 +177,86 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                     child: Card(
                       shadowColor: Colors.black,
                       color: Colors.grey[200],
-                      child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         isExpanded: true,
                         value: boardDropDownValue,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         items: boardList.map((String items) {
                           return DropdownMenuItem(
                             value: items,
-                            onTap:()=> setState(() {
-                              if (items=="C.B.S.E"){
+                            onTap: () => setState(() {
+                              if (items == "C.B.S.E") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 1.toString()).toList();
+                                filteredData = originalBooksData
+                                    ?.where((i) => i.categoryId == 1.toString())
+                                    .toList();
                                 booksData = filteredData;
-                              }else if (items =="I.C.S.E/I.S.C"){
+                              } else if (items == "I.C.S.E/I.S.C") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 2.toString()).toList();
+                                filteredData = originalBooksData
+                                    ?.where((i) => i.categoryId == 2.toString())
+                                    .toList();
                                 booksData = filteredData;
-                              }else if (items =="G.C.E.R.T"){
+                              } else if (items == "G.C.E.R.T") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 9.toString()).toList();
+                                filteredData = originalBooksData
+                                    ?.where((i) => i.categoryId == 9.toString())
+                                    .toList();
                                 booksData = filteredData;
-                              }else if (items =="C.U.E.T-U.G(N.T.A)"){
+                              } else if (items == "C.U.E.T-U.G(N.T.A)") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 6.toString()).toList();
+                                filteredData = originalBooksData
+                                    ?.where((i) => i.categoryId == 6.toString())
+                                    .toList();
                                 booksData = filteredData;
-                              }else if (items =="N.S.D.C"){
+                              } else if (items == "N.S.D.C") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 11.toString()).toList();
+                                filteredData = originalBooksData
+                                    ?.where(
+                                        (i) => i.categoryId == 11.toString())
+                                    .toList();
                                 booksData = filteredData;
-                              }else if (items =="State Boards"){
+                              } else if (items == "State Boards") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 3.toString()).toList();
+                                filteredData = originalBooksData
+                                    ?.where((i) => i.categoryId == 3.toString())
+                                    .toList();
                                 booksData = filteredData;
-                              }else if (items =="Educational Kit"){
+                              } else if (items == "Educational Kit") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.categoryId == 5.toString()).toList();
+                                filteredData = originalBooksData
+                                    ?.where((i) => i.categoryId == 5.toString())
+                                    .toList();
                                 booksData = filteredData;
-                              }else if (items =="Select Board"){
+                              } else if (items == "Select Board") {
                                 classDropDownValue = classList[0];
                                 booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 booksData = originalBooksData;
-                                filteredData=originalBooksData;
+                                filteredData = originalBooksData;
+                                tempData1=originalBooksData;
                               }
                             }),
                             child: Text(
@@ -257,99 +276,130 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                     child: Card(
                       shadowColor: Colors.black,
                       color: Colors.grey[200],
-                      child: DropdownButton(padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         isExpanded: true,
                         value: classDropDownValue,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         items: classList.map((String items) {
                           return DropdownMenuItem(
                             value: items,
-                            onTap:()=> setState(() {
-                              if (items=="Pre School (LKG)"){
+                            onTap: () => setState(() {
+                              if (items == "Pre School (LKG)") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == "Pre School (LKG)").toList();
+                                tempData = filteredData
+                                    ?.where((i) =>
+                                        i.className == "Pre School (LKG)")
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items=="Pre Primary (UKG)"){
+                              } else if (items == "Pre Primary (UKG)") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == "Pre Primary (UKG)").toList();
+                                tempData = filteredData
+                                    ?.where((i) =>
+                                        i.className == "Pre Primary (UKG)")
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 1"){
+                              } else if (items == "Class 1") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 1.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 1.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 2"){
+                              } else if (items == "Class 2") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 2.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 2.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 3"){
+                              } else if (items == "Class 3") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 3.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 3.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 4"){
+                              } else if (items == "Class 4") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 4.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 4.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 5"){
+                              } else if (items == "Class 5") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 5.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 5.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 6"){
+                              } else if (items == "Class 6") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 6.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 6.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 7"){
+                              } else if (items == "Class 7") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 7.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 7.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 8"){
+                              } else if (items == "Class 8") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 8.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 8.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 9"){
+                              } else if (items == "Class 9") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 9.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 9.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 10"){
+                              } else if (items == "Class 10") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 10.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 10.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 11"){
+                              } else if (items == "Class 11") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 11.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 11.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Class 12"){
+                              } else if (items == "Class 12") {
                                 // booksTypeDropDownValue = bookList[0];
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
-                                tempData = filteredData?.where((i) => i.className == 12.toString()).toList();
+                                tempData = filteredData
+                                    ?.where((i) => i.className == 12.toString())
+                                    .toList();
                                 booksData = tempData;
-                              }else if (items =="Select Class"){
+                              } else if (items == "Select Class") {
                                 subjectTypeDropDownValue = subjectList[0];
                                 tempData?.clear();
                                 booksData = filteredData;
@@ -371,37 +421,6 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   ),
                 ],
               ),
-              // Card(
-              //   elevation: 1,
-              //   shadowColor: Colors.black,
-              //   color: Colors.grey[200],
-              //   child: Container(
-              //     margin: const EdgeInsets.symmetric(horizontal: 10),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.stretch,
-              //       children: [
-              //         DropdownButton(
-              //           isExpanded: true,
-              //           value: booksTypeDropDownValue,
-              //           icon: const Icon(Icons.keyboard_arrow_down),
-              //           items: bookList.map((String items) {
-              //             return DropdownMenuItem(
-              //               value: items,
-              //               child: Text(
-              //                 items,
-              //               ),
-              //             );
-              //           }).toList(),
-              //           onChanged: (String? newValue) {
-              //             setState(() {
-              //               booksTypeDropDownValue = newValue!;
-              //             });
-              //           },
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               Card(
                 elevation: 1,
                 shadowColor: Colors.black,
@@ -418,13 +437,15 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                         items: subjectList.map((String items) {
                           return DropdownMenuItem(
                             value: items,
-                            onTap:()=> setState(() {
-                              if (items =="Select Subject"){
+                            onTap: () => setState(() {
+                              if (items == "Select Subject") {
                                 booksData = originalBooksData;
-                              }else{
+                              } else {
                                 filteredData?.clear();
-                                filteredData = originalBooksData?.where((i) => i.subjectName==items).toList();
-                                booksData=filteredData;
+                                filteredData = originalBooksData
+                                    ?.where((i) => i.subjectName == items)
+                                    .toList();
+                                booksData = filteredData;
                               }
                             }),
                             child: Text(
@@ -447,107 +468,122 @@ class _ShopByCategoryState extends State<ShopByCategory> {
                   future: futureBookList,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      originalBooksData=snapshot.data?.booksData;
-                      booksData??=snapshot.data?.booksData;
-                      return GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: booksData!.length,
-                        itemBuilder: (context, index) {
-                          final book = booksData?[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductDetail(book: book),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              elevation: 2,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: MediaQuery.of(context).size.height * .25,
-                                    width: MediaQuery.of(context).size.width * .45,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                        ),
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(booksData![index].imageUrl!.toString()),)),
+                      originalBooksData = snapshot.data?.booksData;
+                      booksData ??= snapshot.data?.booksData;
+                      if (booksData!.isNotEmpty) {
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: booksData!.length,
+                          itemBuilder: (context, index) {
+                            final book = booksData?[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductDetail(book: book),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 5, top: 5, right: 5, bottom: 0),
-                                    child: Text(
-                                      booksData![index].productTitle
-                                          .toString(),
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        letterSpacing: 0.5,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign.center,
+                                );
+                              },
+                              child: Card(
+                                elevation: 2,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .25,
+                                      width: MediaQuery.of(context).size.width *
+                                          .45,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                            width: 1,
+                                          ),
+                                          image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: NetworkImage(
+                                                booksData![index]
+                                                    .imageUrl!
+                                                    .toString()),
+                                          )),
                                     ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 2, top: 5, right: 2, bottom: 0),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '\u{20B9} ${booksData![index].bookPrice}  ',
-                                            style: const TextStyle(
-                                              letterSpacing: 0.5,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 5, top: 5, right: 5, bottom: 0),
+                                      child: Text(
+                                        booksData![index]
+                                            .productTitle
+                                            .toString(),
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          letterSpacing: 0.5,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 2, top: 5, right: 2, bottom: 0),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '\u{20B9} ${booksData![index].bookPrice}  ',
+                                              style: const TextStyle(
+                                                letterSpacing: 0.5,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Text(
-                                            '\u{20B9}${booksData![index].bookMrp}',
-                                            style: const TextStyle(
-                                              letterSpacing: 0.5,
-                                              decoration:
-                                              TextDecoration.lineThrough,
-                                              decorationColor: Colors.red,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
+                                            Text(
+                                              '\u{20B9}${booksData![index].bookMrp}',
+                                              style: const TextStyle(
+                                                letterSpacing: 0.5,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                                decorationColor: Colors.red,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Text(
-                                            ' (${booksData![index].bookPerDiscount}%)',
-                                            style: const TextStyle(
-                                              letterSpacing: 0.5,
-                                              color: Colors.black54,
-                                              fontWeight: FontWeight.bold,
+                                            Text(
+                                              ' (${booksData![index].bookPerDiscount}%)',
+                                              style: const TextStyle(
+                                                letterSpacing: 0.5,
+                                                color: Colors.black54,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ]),
-                                  ),
-                                  // Icon(snapshot.data!.booksData![index].imageUrl! == false ? Icons.favorite : Icons.favorite_outline)
-                                ],
+                                          ]),
+                                    ),
+                                    // Icon(snapshot.data!.booksData![index].imageUrl! == false ? Icons.favorite : Icons.favorite_outline)
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1,
-                          crossAxisSpacing: 0.0,
-                          mainAxisSpacing: 5,
-                          mainAxisExtent: 320,
-                        ),
-                      );
+                            );
+                          },
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 0.0,
+                            mainAxisSpacing: 5,
+                            mainAxisExtent: 320,
+                          ),
+                        );
+                      } else {
+                        return bodyEmpty;
+                      }
                     } else {
                       return bodyProgress;
                     }
@@ -570,35 +606,33 @@ var bodyProgress = Stack(
         color: Colors.white,
       ),
       child: Container(
-        decoration:  BoxDecoration(
-          // color: CustomColour.appTheme.shade100,
-            borderRadius:  BorderRadius.circular(10.0)
-        ),
+        decoration: BoxDecoration(
+            // color: CustomColour.appTheme.shade100,
+            borderRadius: BorderRadius.circular(10.0)),
         width: double.maxFinite,
         height: double.maxFinite,
         alignment: AlignmentDirectional.center,
-        child:  Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Center(
-              child:  SizedBox(
+              child: SizedBox(
                 height: 50.0,
                 width: 50.0,
-                child:  CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   value: null,
-                  strokeWidth: 5.0,color: CustomColour.appTheme,
+                  strokeWidth: 5.0,
+                  color: CustomColour.appTheme,
                 ),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 25.0),
-              child:  const Center(
-                child:  Text(
+              child: const Center(
+                child: Text(
                   "loading.. wait...",
-                  style:  TextStyle(
-                      color: Colors.white
-                  ),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -609,4 +643,19 @@ var bodyProgress = Stack(
   ],
 );
 
-
+var bodyEmpty = Stack(
+  children: <Widget>[
+    Container(
+      alignment: AlignmentDirectional.center,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      width: double.maxFinite,
+      height: double.maxFinite,
+      child: const Text(
+    "No book available on that particular section",
+    style: TextStyle(color: Colors.black),
+    ),
+    )
+  ],
+);

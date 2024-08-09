@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:new_flutter_project/model/AllBookListModel.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
-import 'package:new_flutter_project/wishlist_page.dart';
+import 'package:digi_text/model/AllBookListModel.dart';
+import 'package:digi_text/utility/CustomColour.dart';
+import 'package:digi_text/wishlist_page.dart';
 
 import 'cart_page.dart';
 

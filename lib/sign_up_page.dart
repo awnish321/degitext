@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:new_flutter_project/login_page.dart';
-import 'package:new_flutter_project/main.dart';
+import 'package:digi_text/login_page.dart';
+import 'package:digi_text/main.dart';
 import 'utility/CustomColour.dart';
 import 'dashboard_page.dart';
 

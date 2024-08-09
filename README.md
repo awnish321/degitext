@@ -1,4 +1,4 @@
-# new_flutter_project
+# digi_text
 
 A new Flutter project.
 

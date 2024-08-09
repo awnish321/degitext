@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 
 class ComingSoon extends StatelessWidget {
   const ComingSoon({super.key});

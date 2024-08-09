@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 
 class WishList extends StatefulWidget {
   const WishList({Key? key}) : super(key: key);
@@ -170,7 +170,7 @@ class _MyFavorite extends State<WishList> {
                         ),
                       ),
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(primary: CustomColour.appTheme.shade700, shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                          style: ElevatedButton.styleFrom(backgroundColor: CustomColour.appTheme.shade700, shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
                           onPressed: () {
                             _showToast('Product Added to Cart successfully');
                           },

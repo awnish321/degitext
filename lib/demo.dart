@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:new_flutter_project/model/AllBookListModel.dart';
-import 'package:new_flutter_project/model/AllProductListModel.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/model/AllBookListModel.dart';
+import 'package:digi_text/model/AllProductListModel.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 import 'cart_page.dart';
-import 'package:new_flutter_project/api/api_service.dart';
+import 'package:digi_text/api/api_service.dart';
 
 class Demo extends StatefulWidget {
   const Demo({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/billing_page.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/billing_page.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 
 class Cart extends StatefulWidget {
   const Cart({

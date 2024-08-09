@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:new_flutter_project/bookseller_list.dart';
-import 'package:new_flutter_project/model/AllBookListModel.dart';
-import 'package:new_flutter_project/model/AllProductListModel.dart';
-import 'package:new_flutter_project/model/BookstoreLocaterModel.dart';
+import 'package:digi_text/bookseller_list.dart';
+import 'package:digi_text/model/AllBookListModel.dart';
+import 'package:digi_text/model/AllProductListModel.dart';
+import 'package:digi_text/model/BookstoreLocaterModel.dart';
 
 import '../model/Book.dart';
 
 class ApiService {
 
-  final String baseUrl = 'https://www.rachnasagar.in/digitextapp/api';
-  final String baseUrl1 = 'https://www.rachnasagar.in/digitextapp/api/flutter';
+  final String baseUrl = 'https://www.rachnasagar.in/digitextapp_webservices/api';
+  final String baseUrl1 = 'https://www.rachnasagar.in/digitextapp_webservices/api/flutter';
 
   Future<AllBookListModel> fetchBookList(String endPoint) async {
     final registerData = jsonEncode({"action": 'allBooks'});
@@ -105,6 +105,5 @@ class ApiService {
       throw Exception('Failed to load post');
     }
   }
-
 
 }

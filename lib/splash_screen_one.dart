@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/dashboard_page.dart';
-import 'package:new_flutter_project/login_page.dart';
+import 'package:digi_text/dashboard_page.dart';
+import 'package:digi_text/login_page.dart';
 
 class SplashScreenOne extends StatefulWidget {
   const SplashScreenOne({super.key});

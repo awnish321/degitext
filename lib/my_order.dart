@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/order_detail.dart';
-import 'package:new_flutter_project/profile_page.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/order_detail.dart';
+import 'package:digi_text/profile_page.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 
 class MyOrder extends StatefulWidget {
   const MyOrder({

@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart%20';
-import 'package:new_flutter_project/model/AllBookListModel.dart';
-import 'package:new_flutter_project/product_detail.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/model/AllBookListModel.dart';
+import 'package:digi_text/product_detail.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 import 'cart_page.dart';
 
 class Test extends StatefulWidget {

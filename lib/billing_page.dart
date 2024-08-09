@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/billing_page.dart';
-import 'package:new_flutter_project/payment_page.dart';
-import 'package:new_flutter_project/saved_address_page.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/billing_page.dart';
+import 'package:digi_text/payment_page.dart';
+import 'package:digi_text/saved_address_page.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 
 class BillingPage extends StatefulWidget {
   const BillingPage({

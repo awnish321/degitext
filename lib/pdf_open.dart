@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final Uri _url = Uri.parse('https://www.rachnasagar.in/assets/pdf/ebook.pdf');

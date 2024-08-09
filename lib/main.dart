@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_flutter_project/splash_screen_one.dart';
+import 'package:digi_text/splash_screen_one.dart';
 
 void main() {
   runApp(const MyApp());

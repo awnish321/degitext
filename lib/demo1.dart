@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:new_flutter_project/detail_page.dart';
-import 'package:new_flutter_project/utility/CustomColour.dart';
+import 'package:digi_text/detail_page.dart';
+import 'package:digi_text/utility/CustomColour.dart';
 import 'cart_page.dart';
 import 'model/Book.dart';
-import 'package:new_flutter_project/api/api_service.dart';
+import 'package:digi_text/api/api_service.dart';
 
 class Demo1 extends StatefulWidget {
   const Demo1({Key? key}) : super(key: key);
@@ -100,7 +100,7 @@ class _DemoState extends State<Demo1> {
                               ),
                             );
                           },
-                              child: Card(
+                             child: Card(
                             elevation: 2,
                             child: Column(
                               children: [
